@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "start_shield_backend": {
+      "main": "src/start_shield_backend/main.mo",
+      "type": "motoko"
+    },
+    "start_shield_frontend": {
+      "dependencies": [
+        "start_shield_backend"
+      ],
+      "source": [
+        "src/start_shield_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "start_shield_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
