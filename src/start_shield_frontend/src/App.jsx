@@ -1,21 +1,23 @@
-import { useState } from 'react';
-import { project_name_backend } from 'declarations/project_name_backend';
+import React from 'react';
+// import { useState } from 'react';
+// import { start_shield_backend } from 'declarations/start_shield_backend';
+import Footer from './components/Footer';
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  // const [greeting, setGreeting] = useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    project_name_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   const name = event.target.elements.name.value;
+  //   start_shield_backend.greet(name).then((greeting) => {
+  //     setGreeting(greeting);
+  //   });
+  //   return false;
+  // }
 
   return (
     <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
+      {/* <img src="/logo2.svg" alt="DFINITY logo" />
       <br />
       <br />
       <form action="#" onSubmit={handleSubmit}>
@@ -23,7 +25,8 @@ function App() {
         <input id="name" alt="Name" type="text" />
         <button type="submit">Click Me!</button>
       </form>
-      <section id="greeting">{greeting}</section>
+      <section id="greeting">{greeting}</section> */}
+      <Footer />
     </main>
   );
 }
