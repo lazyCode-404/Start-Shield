@@ -1,6 +1,8 @@
 import React from 'react';
 // import { useState } from 'react';
 // import { start_shield_backend } from 'declarations/start_shield_backend';
+import NavBar from './components/NavBar';
+import Hero from './components/Hero';
 import Footer from './components/Footer';
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
         <button type="submit">Click Me!</button>
       </form>
       <section id="greeting">{greeting}</section> */}
+      <NavBar />
+      <Hero />
       <Footer />
     </main>
   );
