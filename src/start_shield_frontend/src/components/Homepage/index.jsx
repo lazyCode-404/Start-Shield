@@ -1,12 +1,12 @@
 import React from 'react';
 import './homepage.css';
 // import NavBar from './NavBar';
-import NavBar from '../NavBar';
+// import NavBar from '../NavBar';
 
 function Homepage() {
     return (
         <div>
-            <NavBar />
+            {/* <NavBar /> */}
             <section id="overview">
                 <h1>Welcome to StartShield</h1>
                 <p>StartShield provides decentralized insurance solutions for the modern world.</p>

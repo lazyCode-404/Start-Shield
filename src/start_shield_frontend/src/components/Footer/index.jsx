@@ -2,16 +2,36 @@
 import './style.css'; // Assuming you have some CSS for styling
 import { FaPhone, FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa';
 import React, { useState } from 'react';
+// import { newsletter_project_backe } from 'declarations/start_shield_backend';
 
 
 function Footer() {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here
-    console.log('Email submitted:', email);
+    try {
+      const response = await fetch('http://localhost:8000/api/v2/canister/a3shf-5eaaa-aaaaa-qaafa-cai/call', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          method_name: 'subscribe',
+          arg: JSON.stringify({ email }),
+        }),
+      });
+      if (response.ok) {
+        alert('Subscribed successfully!');
+      } else {
+        alert('Subscription failed.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred.');
+    }
   };
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -22,13 +42,15 @@ function Footer() {
               <div className="contact-item">
                 <h3> Phone </h3>
                 <ul>
-                  <li> <a href="tel:+123 456 7890">Call <span className="highlight">Zambia</span>: +260 123 456 7890</a></li>
+                  <li> <a href="tel:+260955859611">Call <span className="highlight">Zambia</span>: +260 955 859 611</a></li>
                   <li> <a href="tel:+123 456 7890">Call <span className="highlight">Lusaka</span>: +211 123 456 7890</a></li>
                 </ul>
               </div>
               <div className="contact-item">
                 <h3>Email</h3>
-                <a href="https://mail.yahoo.com">contact@example.com</a>
+                <a href="motleyibest@gmail.com">motleyibest@gmail.com</a>
+                <br />
+                <a href="info@mibt-uc.com">info@mibt-uc.com</a>
               </div>
               <div className="contact-item">
                 <h3>Address</h3>
@@ -53,7 +75,7 @@ function Footer() {
                 <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
                   <FaLinkedin />
                 </a>
-                <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.facebook.com/profile.php?id=61564428061043" target="_blank" rel="noopener noreferrer">
                   <FaFacebook />
                 </a>
               </div>
@@ -84,7 +106,7 @@ function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <button type="submit">Subscribe</button>
+                <button className="small-button" type="submit">Subscribe</button>
               </form>
             </div>
           </div>
@@ -93,6 +115,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
