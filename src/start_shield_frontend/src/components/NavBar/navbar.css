@@ -1,0 +1,92 @@
+
+   .navbar {
+    background-color: #020202;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    padding: 15px 20px;
+  }
+  
+  .container {
+    display: flex;
+   
+     justify-content: space-between; 
+    align-items: center;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+  }
+  .logo-container {
+    margin-bottom: 10px;
+  }
+  .logo {
+    height: 60px;
+    margin-right: 10px;
+  }
+  
+  .nav-links {
+    display: flex;
+   align-items: center;
+   margin-left: 20px;
+      /* flex-direction:column; */
+  }
+  
+  .nav-links ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+        /* flex-direction: column; */
+  }
+  
+  .nav-links li {
+    margin-left: 50px; 
+    /* margin-bottom: 10px; */
+  }
+  
+  .nav-item {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .nav-item a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav-item a:hover {
+    color: #00bcd4;
+  }
+  
+  .nav-item a.active {
+    color: #00a859;
+  }
+  
+  .sign-up-button {
+    margin-left: 50px;
+    padding: 10px 20px;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  
+  .sign-up-button:hover {
+    background-color: #0097a7;
+  }
+  
+  /* Media query for screens 600px or less */
+/* @media screen and (max-width: 600px) {
+  .container {
+    flex-wrap: wrap;
+  }
+
+  .nav-links li {
+    flex-basis: 50%;
+  }
+} */
+
