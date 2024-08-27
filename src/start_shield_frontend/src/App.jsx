@@ -17,26 +17,26 @@ import LegalCompliance from './components/LegalCompliance/LegalCompliance';
 function App() {
   return (
     <>
-    <Router>
-      <div>
-      <NavBar />
-      <Hero />
-      <Wrapper>
-      <Routes>
-      <Route path="/" element={<Homepage />} />
-              <Route path="/insuranceSolutions" element={<InsuranceSolutions />} />
+      <Router>
+        <div>
+          <NavBar />
+          {/* <Hero /> */}
+          <Wrapper>
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/insuranceSolution" element={<InsuranceSolutions />} />
               <Route path="/tokenizationAndStaking" element={<TokenizationAndStaking />} />
               <Route path="/governancePortal" element={<GovernancePortal />} />
               <Route path="/educationalResources" element={<EducationalResources />} />
               <Route path="/blogNews" element={<BlogNews />} />
               <Route path="/userDashboard" element={<UserDashboard />} />
               <Route path="/aboutUs" element={<AboutUs />} />
-              <Route path="/legalCompliance" element={<LegalCompliance />} />
-      </Routes>
-      </Wrapper>
-      <Footer />
-      </div>
-    </Router>
+              <Route path="/legalAndCompliance" element={<LegalCompliance />} />
+            </Routes>
+          </Wrapper>
+          <Footer />
+        </div>
+      </Router>
     </>
   );
 }
