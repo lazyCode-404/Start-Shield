@@ -5,7 +5,7 @@ import './homepage.css';
 
 function Homepage() {
     return (
-        <div>
+        <div calssName="titles">
             {/* <NavBar /> */}
             <section id="overview">
                 <h1>Welcome to StartShield</h1>
