@@ -1,92 +1,137 @@
 
-   .navbar {
-    background-color: #020202;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    padding: 15px 20px;
-  }
-  
-  .container {
-    display: flex;
-   
-     justify-content: space-between; 
-    align-items: center;
-    /* max-width: 1200px; */
-    margin: 0 auto;
-  }
-  .logo-container {
-    margin-bottom: 10px;
-  }
-  .logo {
-    height: 60px;
-    margin-right: 10px;
-  }
-  
-  .nav-links {
-    display: flex;
-   align-items: center;
-   margin-left: 20px;
-      /* flex-direction:column; */
-  }
-  
+.navbar {
+  background-color: #020202;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: 15px 20px;
+  z-index: 1000;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  height: 60px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin-left: 40px;
+}
+
+.nav-item {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: white;
+}
+
+.nav-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+  color: #00bcd4;
+}
+
+.nav-item a.active {
+  color: #00a859;
+}
+
+.sign-up-button {
+  margin-left: 50px;
+  padding: 10px 20px;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.sign-up-button:hover {
+  background-color: #0097a7;
+}
+text-design {
+  text-decoration: none;
+  color:#00bcd4;
+}
+/* Media queries pentru ecrane mai mici */
+@media screen and (max-width: 768px) {
   .nav-links ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-        /* flex-direction: column; */
+    flex-direction: column;
+    width: 100%;
   }
-  
+
   .nav-links li {
-    margin-left: 40px; 
-    /* margin-bottom: 10px; */
+    margin-left: 0;
+    text-align: center;
+    padding: 10px 0;
   }
-  
-  .nav-item {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: white;
-  }
-  
-  .nav-item a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .nav-item a:hover {
-    color: #00bcd4;
-  }
-  
-  .nav-item a.active {
-    color: #00a859;
-  }
-  
+
   .sign-up-button {
-    margin-left: 50px;
-    padding: 10px 20px;
-    background-color: #00bcd4;
-    color: white;
-    border: none;
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .menu-icon {
+    display: block;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
+    font-size: 1.8rem;
+    color: white;
   }
-  
-  .sign-up-button:hover {
-    background-color: #0097a7;
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #020202;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 999;
   }
-  
-  /* Media query for screens 600px or less */
-/* @media screen and (max-width: 600px) {
-  .container {
-    flex-wrap: wrap;
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links ul {
+    flex-direction: column;
+    width: 100%;
   }
 
   .nav-links li {
-    flex-basis: 50%;
+    margin-left: 0;
+    text-align: center;
+    padding: 10px 0;
   }
-} */
 
+  .sign-up-button {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
