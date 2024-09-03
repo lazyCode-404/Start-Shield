@@ -7,13 +7,15 @@ import Hero from './components/Hero'
 // import TokenizationStaking from './components/TokenizationAndStaking';
 import Homepage from './components/Homepage/index';
 import InsuranceSolutions from './components/InsuranceSolutions/InsuranceSolutions';
-import TokenizationAndStaking from './components/TokenizationAndStaking/TokenizationAndStaking';
+import TokenizationAndStaking from './components/TokenizationAndStaking/index';
 import GovernancePortal from './components/GovernancePortal/GovernancePortal';
 import EducationalResources from './components/EducationalResources/EducationalResources';
 import BlogNews from './components/BlogNews/BlogNews';
 import UserDashboard from './components/UserDashboard/UserDashboard';
 import AboutUs from './components/AboutUs/AboutUs';
 import LegalCompliance from './components/LegalCompliance/LegalCompliance';
+import CreateAccount from './components/CreateAccount';
+import SignIn from './components/SignIn';
 function App() {
   return (
     <>
@@ -32,6 +34,8 @@ function App() {
               <Route path="/userDashboard" element={<UserDashboard />} />
               <Route path="/aboutUs" element={<AboutUs />} />
               <Route path="/legalAndCompliance" element={<LegalCompliance />} />
+              <Route path='/createAccountSignUp' element={<CreateAccount />} />
+              <Route path='/createAccountSignIn' element={<SignIn />} />
             </Routes>
           </Wrapper>
           <Footer />

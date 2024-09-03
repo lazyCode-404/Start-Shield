@@ -89,5 +89,13 @@ p {
     align-items: center;
     justify-content: center;
   }
-
+  .create-blur {
+    border-image: fill 0 linear-gradient(#0001, #000);
+  }
+.create-background {
+  backdrop-filter: blur(15px);
+  border: 2px solid #ffffff20;
+  box-shadow: 10px 10px 20px #111, -10px -10px 20px #ddd;
+  border-radius: 12px;
+}
 

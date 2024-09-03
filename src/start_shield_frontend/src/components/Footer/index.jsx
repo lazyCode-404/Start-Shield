@@ -2,7 +2,7 @@
 import './style.css'; // Assuming you have some CSS for styling
 import { FaPhone, FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa';
 import React, { useState } from 'react';
-// import { newsletter_project_backe } from 'declarations/start_shield_backend';
+import { start_shield_backend } from 'declarations/start_shield_backend';
 
 
 function Footer() {

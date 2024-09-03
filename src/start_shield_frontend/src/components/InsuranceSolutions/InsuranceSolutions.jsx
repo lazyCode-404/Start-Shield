@@ -5,7 +5,8 @@ import img1 from '../../../public/assets/images/start-shield-black-logo.jpg'
 import { FaHome, FaCarCrash, FaBusinessTime, FaHandPointDown} from "react-icons/fa";
 import Hero from '../Hero/index';
 import herro from '../../../public/assets/images/h2.jpeg';
-// import Navbar from './navbar.jsx'
+
+
 
 
 
@@ -17,15 +18,15 @@ function InsuranceSolution() {
     };
     return (
         <div>
-            <div >
+            <div  >
                 <Hero backgroundImage={herro}  >
-                    <Row className="hero-details" sx={12} >
+                    <Row className="hero-details create-blur" sx={12}>
                         <Col sm={4}>
-                            <h1 style={{ color: 'red' }}><strong>StartShield</strong>
+                            <h1 style={{ color: 'wgite' }} ><strong className="create-background">StartShield</strong>
                             </h1>
                         </Col>
                         <Col  sm={6}>
-                            <h2 style={{ color: 'black'}}> A Comprehensive Blockchain-Based Insurance Solution for Startups and MSMEs
+                            <h2 style={{ color: 'white'}} className="create-background"> A Comprehensive Blockchain-Based Insurance Solution for Startups and MSMEs
                             </h2>
                         </Col>
                     </Row>
@@ -53,7 +54,7 @@ function InsuranceSolution() {
                             </Row>
                             <Row>
                             <Col md={4}>
-                                <h2 onClick={toggleDetails} style={{ cursor: "pointer" }}>
+                                <h2 onClick={toggleDetails} style={{ cursor: "pointer" }} className="create-background">
                                  General Liability Insurance 
                                 </h2>
                                 {showDetails && (
@@ -65,7 +66,7 @@ function InsuranceSolution() {
                                 )}
                             </Col>
                             <Col md={4}>
-                                <h2 onClick={toggleDetails} style={{ cursor: "pointer" }}>
+                                <h2 onClick={toggleDetails} style={{ cursor: "pointer" }} className="create-background">
                                     Commercial Property Insurance
                                 </h2>
                                 {showDetails && (
@@ -77,7 +78,7 @@ function InsuranceSolution() {
                                 )}
                             </Col>
                             <Col md={4}>
-                                <h2 onClick={toggleDetails} style={{ cursor: "pointer" }}>
+                                <h2 onClick={toggleDetails} style={{ cursor: "pointer" }} className="create-background">
                                     Business Interruption Insurance
                                 </h2>
                                 {showDetails && (
@@ -268,7 +269,7 @@ function InsuranceSolution() {
                             <Row>
                                 <Col xs={12}>
                                     <div>
-                                        <h2 onClick={toggleDetails} style={{ cursor: "pointer" }}>
+                                        <h2 onClick={toggleDetails} style={{ cursor: "pointer" }} className="create-background">
                                             Policy Management
                                         </h2>
                                         {showDetails && (
