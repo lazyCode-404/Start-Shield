@@ -1,0 +1,56 @@
+/* SignIn.css */
+
+.sign-in-form {
+    display: flex;
+    background: white;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #548cfd 0%, #fc6f04 100%);
+    box-shadow: 10px 10px 20px #0e1013, -10px -10px 40px #383e4b;
+    padding: 0.3rem;
+    gap: 3rem;
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .sign-in-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .sign-in-form input {
+    border-radius: 0.8rem 0 0 0.8rem;
+    background: #23272F;
+    box-shadow: inset 5px 5px 10px #0e1013, inset -5px -5px 10px #383e4b, 0px 0px 100px rgba(255, 212, 59, 0), 0px 0px 50px rgba(red, green, blue, alpha) ;
+    width: 100%;
+    flex-basis: 1rem;
+    padding: 1rem;
+    border: none;
+    border: 1px solid transparent;
+    color: white;
+    transition: all 0.2s ease-in-out;
+  }
+  .sign-in-form input:focus {
+    border: 1px solid #FFD43B;
+    outline:none;
+    box-shadow: inset 5px 5px 10px #0e1013, inset -5px -5px 10px #383e4b, 0px 0px 100px rgba(255, 212, 59, 0), 0px 0px 50px rgba(red, green, blue, alpha) ;
+  }
+  
+  .sign-in-form button {
+    flex-basis:25%;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(255, 212, 59)0% rgba(255, 102, 0) 100%);
+    box-shadow: 0px 0px 1px rgba(255, 212, 59, 0.5) 0px 0px 1px rgba(255, 102, 0, 0.5);
+    font-weight: 900;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    color: #23272F;
+    border: none;
+    width: 100%;
+    border-radius: 1rem ;
+    transition: all 0.2s ease-in-out;
+ 
+    /* cursor: pointer; */
+  }
+  

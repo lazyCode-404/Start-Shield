@@ -1,0 +1,31 @@
+/* STSHInfo.css */
+
+.stsh-info-container {
+    background-color: #ebebeb;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stsh-section {
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    color: #0b0b0b;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  p {
+    color: #030303;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
