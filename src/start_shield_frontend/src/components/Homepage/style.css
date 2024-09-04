@@ -1,0 +1,68 @@
+
+/*logo column styled*/
+.first-col {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Stilizează logo-ul */
+.logo {
+  width: 100px; /* Ajustează dimensiunea logo-ului */
+  border-radius: 50%; /* Creează un cadru circular */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adaugă o umbră ușoară */
+  transition: transform 0.3s ease; /* Adaugă o animație la hover */
+}
+
+.logo:hover {
+  transform: scale(1.1); /* Mărește logo-ul la hover */
+}
+
+
+.top-title { 
+  text-align: center;
+  font-weight: 700;
+  padding: 20px;
+  color:#ff6f00;
+ 
+}
+/* .titles 
+{background-color: #00a859} */
+/* style.css */
+.first-col {
+  background-color: #00bcd4;
+}
+/* Circular frame for images */
+img.circular-frame {
+  border-radius: 50%;
+}
+
+/* Circular frame for feature and benefit sections */
+.feature-circle,
+.benefit-circle {
+  border-radius: 50%;
+  border: 2px solid #007bff; /* You can adjust the color */
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 300px; /* Adjust as needed */
+  text-align: center;
+}
+
+/* Additional styling for the benefit section */
+.benefit-circle {
+  background-color: #f9f9f9; /* Light gray background */
+}
+
+.overview {
+  border-image: fill 0 linear-gradient(#0001, #000);
+}
+col { text-align: center;}
+.overview p {
+  color:#ff6f00;
+  text-align: justify;
+   margin:100px 40px 1px 10px ;
+   /* text-decoration:wavy; */
+   /* text-shadow: #ff6f00; */
+}
+/* 
+
