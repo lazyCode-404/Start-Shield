@@ -111,7 +111,9 @@ function Footer() {
             </div>
           </div>
         </div>
-        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        {/* <p> 2024 Your Company. All rights reserved.</p> */}
+        <p>&copy; © 2024 StartShield. All rights reserved.</p>
+        
       </div>
     </footer>
   );
