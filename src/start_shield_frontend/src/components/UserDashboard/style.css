@@ -1,0 +1,13 @@
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.card {
+  margin: 20px;
+}
+
+button {
+  margin-top: 10px;
+}

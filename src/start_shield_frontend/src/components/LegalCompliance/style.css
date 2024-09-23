@@ -1,0 +1,28 @@
+/* styles.css */
+
+/* Stilizare pentru titlu */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Stilizare pentru lista de buletine */
+  .list-group {
+    list-style: none; /* Ascundem marcatorul implicit */
+    padding-left: 0;
+  }
+  
+  .list-group-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Stilizare pentru hover (opțional) */
+  .list-group-item:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+  }
+  
