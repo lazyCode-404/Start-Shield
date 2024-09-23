@@ -1,6 +1,6 @@
 // import React from 'react';
 import './style.css'; // Assuming you have some CSS for styling
-import { FaPhone, FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa';
+import { FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa';
 import React, { useState } from 'react';
 import { start_shield_backend } from 'declarations/start_shield_backend';
 
@@ -111,9 +111,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        {/* <p> 2024 Your Company. All rights reserved.</p> */}
-        <p>&copy; © 2024 StartShield. All rights reserved.</p>
-        
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
       </div>
     </footer>
   );

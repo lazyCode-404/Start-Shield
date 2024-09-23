@@ -1,0 +1,143 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Styling for the main container */
+  .CheckPriceInsurance {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+  }
+  
+  /* General heading styling */
+  h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #444;
+  }
+  
+  /* Container for the two sections */
+  .section-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1200px;
+    gap: 20px;
+  }
+  
+  /* Styling for each section */
+  .section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    min-width: 300px;
+  }
+  
+  /* Styling for dropdowns */
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+  }
+  
+  /* Paragraph styling for company information */
+  p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Input fields in the form */
+  input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  /* Submit button styling */
+  button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive design: stack sections on small screens */
+  @media (max-width: 768px) {
+    .section-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .section {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+
+  select, input {
+    margin: 10px 0;
+    padding: 5px;
+    width: 200px;
+  }
+  
+  form {
+    margin-top: 10px;
+  }
+  
+  .saved-policies {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .policy-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 30%;
+    background-color: #f9f9f9;
+  }
+  input[type="text"],
+input[type="number"],
+select {
+  margin: 5px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+  

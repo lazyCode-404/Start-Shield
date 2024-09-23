@@ -14,7 +14,6 @@ function NavBar() {
     setIsOpen(!isOpen);
   };
   const handleSignOut = async () => {
-    // Call backend API for sign-out (you'll need to implement this)
     try {
       const response = await fetch('/api/sign-out', {
         method: 'POST',
@@ -23,7 +22,10 @@ function NavBar() {
 
       if (response.ok) {
         console.log('Sign-out successful!');
-        // Redirect to home page or other actions
+        // Update the state to indicate the user is logged out
+        setIsLoggedIn(false);
+        // Optionally, you can redirect to the home page or login page
+        window.location.href = '/'; // Redirect to home page after sign-out
       } else {
         console.error('Error signing out.');
       }

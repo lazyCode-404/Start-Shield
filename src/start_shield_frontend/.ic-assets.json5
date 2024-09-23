@@ -1,0 +1,7 @@
+[
+  {
+    "match": "**/*", // Match all assets
+    "security_policy": "standard" // Use standard security headers
+    "disable_security_policy_warning": true
+  }
+]

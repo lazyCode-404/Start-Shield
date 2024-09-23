@@ -1,0 +1,16 @@
+.subtitle {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    font-weight: 700;
+    /* box-shadow: 5px 5px 10px #111, -5px -5px 10px #ddd; */
+    border-radius: 6px;
+    font-size: x-large;
+
+}
+.name-partners {
+    text-align: center;
+}
+.card-personal-style {
+    box-shadow: 5px 5px 10px #111, -5px -5px 10px #ddd;
+}

@@ -1,0 +1,27 @@
+{
+    "smallCompanies": {
+      "transport": {
+        "description": "Transport companies deal with logistics and cargo handling.",
+        "insuranceRate": 5
+      },
+      "agriculture": {
+        "description": "Agriculture companies focus on farming and food production.",
+        "insuranceRate": 4
+      },
+      "minimarket": {
+        "description": "Minimarkets sell a variety of everyday items.",
+        "insuranceRate": 3
+      }
+    },
+    "mediumCompanies": {
+      "production": {
+        "description": "Production companies manufacture goods at scale.",
+        "insuranceRate": 6
+      },
+      "retail": {
+        "description": "Retail companies sell products to the public.",
+        "insuranceRate": 4
+      }
+    }
+  }
+  

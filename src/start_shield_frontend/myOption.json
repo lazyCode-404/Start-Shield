@@ -1,0 +1,27 @@
+{
+    "users": {
+      "JohnDoe": [
+        {
+          "companyType": "transport",
+          "value": 5000,
+          "insuranceRate": 5,
+          "paymentType": "annual"
+        },
+        {
+          "companyType": "agriculture",
+          "value": 4000,
+          "insuranceRate": 4,
+          "paymentType": "monthly"
+        }
+      ],
+      "JaneSmith": [
+        {
+          "companyType": "production",
+          "value": 6000,
+          "insuranceRate": 6,
+          "paymentType": "annual"
+        }
+      ]
+    }
+  }
+  

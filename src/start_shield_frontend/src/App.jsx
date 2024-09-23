@@ -6,7 +6,7 @@ import Wrapper from './components/Wrapper';
 import Hero from './components/Hero'
 // import TokenizationStaking from './components/TokenizationAndStaking';
 import Homepage from './components/Homepage/index';
-import InsuranceSolutions from './components/InsuranceSolutions/InsuranceSolutions';
+import InsuranceSolutions from './components/InsuranceSolutions/index';
 import TokenizationAndStaking from './components/TokenizationAndStaking/index';
 import GovernancePortal from './components/GovernancePortal/GovernancePortal';
 import EducationalResources from './components/EducationalResources/EducationalResources';
@@ -18,6 +18,7 @@ import LegalCompliance from './components/LegalCompliance/LegalCompliance';
 import CreateAccount from './components/CreateAccount';
 import SignIn from './components/SignIn';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import CheckPriceInsurance from './components/CheckPriceInsurance/index.jsx';
 function App() {
   return (
     <>
@@ -39,6 +40,7 @@ function App() {
               <Route path="/legalCompliance" element={<LegalCompliance />} />
               <Route path='/createAccountSignUp' element={<CreateAccount />} />
               <Route path='/createAccountSignIn' element={<SignIn />} />
+              <Route path='/checkPriceInsuranc' element={<CheckPriceInsurance />} />
             </Routes>
           </Wrapper>
           <Footer />
@@ -51,20 +53,3 @@ function App() {
 export default App;
 
 
-{/* 
-// import React from 'react';
-// import NavBar from './components/NavBar';
-// import Hero from './components/Hero';
-// import Footer from './components/Footer';
-
-// function App() {
-//   return (
-//     <main>
-//       <NavBar />
-//       <Hero />
-//       <Footer />
-//     </main>
-//   );
-// }
-
-// export default App; */}
