@@ -1,4 +1,53 @@
 {
+  "policies": [
+    {
+      "id": "BOP12345",
+      "industry": "Retail",
+      "revenue": "500000",
+      "employees": 10,
+      "coverage": "General Liability",
+      "active": true,
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31"
+    },
+    {
+      "id": "POL54321",
+      "coverage": "Premium Coverage",
+      "active": false,
+      "startDate": "2023-05-01",
+      "endDate": "2024-04-30"
+    }
+  ],
+  "claims": [
+    {
+      "id": "CLM54321",
+      "policyId": "BOP12345",
+      "description": "Property damage due to storm",
+      "status": "Pending"
+    }
+  ],
+  "companies": [
+    {
+      "companyName": "ABC Transport",
+      "registrationNumber": "123456789",
+      "email": "abc@transport.com",
+      "phone": "123456789",
+      "address": {
+        "country": "USA",
+        "state": "California",
+        "city": "San Francisco",
+        "street": "Main St",
+        "number": "123",
+        "postalCode": "94105"
+      },
+      "insuranceType": "transport",
+      "insuredValue": 50000,
+      "policyValue": 1200,
+      "paymentOption": "annual",
+      "premium": true,
+      "gps": "37.7749° N, 122.4194° W"
+    }
+  ],
     "smallCompanies": {
       "transport": {
         "description": "Transport companies deal with logistics and cargo handling.",

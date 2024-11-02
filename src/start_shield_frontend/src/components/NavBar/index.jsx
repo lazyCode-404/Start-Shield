@@ -1,5 +1,3 @@
-
-// export default NavBar;
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -13,6 +11,7 @@ function NavBar() {
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
   const handleSignOut = async () => {
     try {
       const response = await fetch('/api/sign-out', {
@@ -22,9 +21,7 @@ function NavBar() {
 
       if (response.ok) {
         console.log('Sign-out successful!');
-        // Update the state to indicate the user is logged out
-        setIsLoggedIn(false);
-        // Optionally, you can redirect to the home page or login page
+        setIsLoggedIn(false); // Update the state to indicate the user is logged out
         window.location.href = '/'; // Redirect to home page after sign-out
       } else {
         console.error('Error signing out.');
@@ -33,7 +30,6 @@ function NavBar() {
       console.error('Network error:', error);
     }
   };
-
 
   return (
     <nav className="navbar">
@@ -55,127 +51,130 @@ function NavBar() {
           </Col>
           <Col sm={11} className={`nav-links ${isOpen ? 'active' : ''}`}>
             <ul>
-              <li>
-                <a className="text-design" href="#">
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to="/"
+                  activeClassName="active"
+                  className="nav-link"
+                >
                   Homepage
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink
                   to="/insuranceSolution"
-                  activeClassName="nav-link active"
+                  activeClassName="active"
                   className="nav-link"
                 >
                   Insurance Solutions
                 </NavLink>
               </li>
-              {/* Add other NavLink components for remaining links */}
               <li className="nav-item">
                 <NavLink
                   to="/tokenizationAndStaking"
-                  activeClassName="nav-link active"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 Tokenization and Staking
+                  Tokenization and Staking
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink
                   to="/governancePortal"
-                  activeClassName="nav-link active"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 Governance Portal
+                  Governance Portal
                 </NavLink>
               </li>
-              {/* ... */}
               <li className="nav-item">
                 <NavLink
                   to="/educationalResources"
-                  activeClassName="nav-link active"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 Educational Resources
+                  Educational Resources
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink
-                  to="/blogAndNews"
-                  activeClassName="nav-link active"
+                  to="/blogNews"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 Blog and News
+                  Blog and News
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink
                   to="/userDashboard"
-                  activeClassName="nav-link active"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 User Dashboard
+                  User Dashboard
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink
                   to="/adminDashboard"
-                  activeClassName="nav-link active"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 Admin Dashboard
+                  Admin Dashboard
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink
                   to="/aboutUs"
-                  activeClassName="nav-link active"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 About Us
+                  About Us
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink
-                  to="/legalAndCompliance"
-                  activeClassName="nav-link active"
+                  to="/legalCompliance"
+                  activeClassName="active"
                   className="nav-link"
                 >
-                 Legal and Compliance
+                  Legal and Compliance
                 </NavLink>
               </li>
             </ul>
-          <Col sm={2}>
-            <ul>
-              {isLoggedIn ? (
-                <li className="nav-item">
-                  <button onClick={handleSignOut} className="sign-out-button">
-                    Sign Out
-                  </button>
-                </li>
-              ) : (
-                <>
+            <Col sm={2}>
+              <ul>
+                {isLoggedIn ? (
                   <li className="nav-item">
-                    <NavLink
-                      to="/createAccountSignUp"
-                      activeClassName="nav-link active"
-                      className="nav-link"
-                    >
-                      <button className="sign-up-button">Join</button>
-                    </NavLink>
+                    <button onClick={handleSignOut} className="sign-out-button">
+                      Sign Out
+                    </button>
                   </li>
-                  <li className="nav-item">
-                    <NavLink
-                      to="/createAccountSignIn"
-                      activeClassName="nav-link active"
-                      className="nav-link"
-                    >
-                      <button className="sign-in-button">Login</button>
-                    </NavLink>
-                  </li>
-                </>
-              )}
-            </ul>
-          </Col>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <NavLink
+                        to="/createAccountSignUp"
+                        activeClassName="active"
+                        className="nav-link"
+                      >
+                        <button className="sign-up-button">Join</button>
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink
+                        to="/createAccountSignIn"
+                        activeClassName="active"
+                        className="nav-link"
+                      >
+                        <button className="sign-in-button">Login</button>
+                      </NavLink>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </Col>
           </Col>
         </Row>
       </Container>
@@ -183,4 +182,153 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+ export default NavBar;
+// return (
+//   <nav className="navbar">
+//     <Container>
+//       <Row className="align-items-center">
+//         <Col xs={6} sm={1}>
+//           <a href="#">
+//             <img
+//               className="logo"
+//               src="/assets/images/start-shield-black-logo.jpg"
+//               alt="StartShield Logo"
+//             />
+//           </a>
+//         </Col>
+//         <Col xs={6} className="text-right d-sm-none">
+//           <div className="menu-icon" onClick={toggleNavbar}>
+//             {isOpen ? <FaTimes /> : <FaBars />}
+//           </div>
+//         </Col>
+//         <Col sm={11} className={`nav-links ${isOpen ? 'active' : ''}`}>
+//           <ul>
+//             <li>
+//               <a className="text-design" href="#">
+//                 Homepage
+//               </a>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/insuranceSolution"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                 Insurance Solutions
+//               </NavLink>
+//             </li>
+//             {/* Add other NavLink components for remaining links */}
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/tokenizationAndStaking"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                Tokenization and Staking
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/governancePortal"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                Governance Portal
+//               </NavLink>
+//             </li>
+//             {/* ... */}
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/educationalResources"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                Educational Resources
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/blogAndNews"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                Blog and News
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/userDashboard"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                User Dashboard
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/adminDashboard"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                Admin Dashboard
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/aboutUs"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                About Us
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink
+//                 to="/legalAndCompliance"
+//                 activeClassName="nav-link active"
+//                 className="nav-link"
+//               >
+//                Legal and Compliance
+//               </NavLink>
+//             </li>
+//           </ul>
+//         <Col sm={2}>
+//           <ul>
+//             {isLoggedIn ? (
+//               <li className="nav-item">
+//                 <button onClick={handleSignOut} className="sign-out-button">
+//                   Sign Out
+//                 </button>
+//               </li>
+//             ) : (
+//               <>
+//                 <li className="nav-item">
+//                   <NavLink
+//                     to="/createAccountSignUp"
+//                     activeClassName="nav-link active"
+//                     className="nav-link"
+//                   >
+//                     <button className="sign-up-button">Join</button>
+//                   </NavLink>
+//                 </li>
+//                 <li className="nav-item">
+//                   <NavLink
+//                     to="/createAccountSignIn"
+//                     activeClassName="nav-link active"
+//                     className="nav-link"
+//                   >
+//                     <button className="sign-in-button">Login</button>
+//                   </NavLink>
+//                 </li>
+//               </>
+//             )}
+//           </ul>
+//         </Col>
+//         </Col>
+//       </Row>
+//     </Container>
+//   </nav>
+// );
+// }
+
+// export default NavBar;
