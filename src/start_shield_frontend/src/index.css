@@ -24,7 +24,7 @@ form {
   justify-content: center;
   gap: 0.5em;
   flex-flow: row wrap;
-  max-width: 10vw;
+  /* max-width: 10vw; */
   margin: auto;
   align-items: baseline;
 }

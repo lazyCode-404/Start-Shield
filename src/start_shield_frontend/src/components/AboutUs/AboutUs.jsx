@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Hero from '../Hero/index';
-import aboutHero from '../../../public/assets/images/tba.jpg';
-import picture1 from '../../../public/assets/images/tba.jpg';
+import aboutHero from '../../src/assets/images/tba.jpg';
+import picture1 from '../../src/assets/images/tba.jpg';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import './style.css'
@@ -22,20 +22,37 @@ function AboutUs() {
       {/* </div> */}
       <Container>
         <Row xs={12}>
+        <Col sm={8}>
+            <h2 className='subtitle'>About Us</h2>
+            <p><strong>StartShield</strong>, developed by <strong>Motley Guard Solutions Limited, is an advanced insurance platform built on the </strong> <strong>Internet Computer Protocol (ICP)</strong>. Our platform utilizes blockchain technology to offer startups, SMEs, and individuals protection from various business disruptions, including hospitalization, natural disasters, and more.</p>
+            <p>With <strong>STSH tokens</strong> at the core of our platform, policyholders can access a range of financial services, such as using tokens as collateral for loans, participating in business and capacity-building training, and engaging in climate change initiatives like carbon credit trading. StartShield’s tokenized model ensures that our insurance solutions not only provide coverage but also offer opportunities for financial growth and innovation.
+            </p>
+            <p>At <strong>StartShield</strong>, we are transforming insurance into a future-forward solution that prioritizes security, transparency, and flexibility to meet the needs of today’s digital economy.</p>
+            <Container>
+              <Row><h2 className='subtitle'>Values</h2></Row>
+              <Container>
+                <Col> <ul><p>1. <strong>Innovation</strong>: We embrace the power of blockchain to deliver cutting-edge insurance solutions.
+                </p></ul>
+                  <ul><p>2. <strong>Transparency</strong>: We are committed to providing clear, accessible, and easy-to-understand insurance processes.
+                  </p></ul>
+                  <ul><p>3. <strong>Security</strong>: Our platform ensures the highest levels of data security and trust through decentralized technology.
+                  </p></ul>
+                  <ul><p>4. <strong>Empowerment</strong>: We aim to provide tools that allow businesses and individuals to protect and grow their assets.
+                  </p></ul>
+                  <ul><p>5. <strong>Sustainability</strong>: We actively support initiatives such as climate change action and carbon credit programs through tokenization.
+                  </p></ul></Col>
+              </Container>
+            </Container>
+          </Col>
           <Col sm={4}>
             <h2 className='subtitle'>Our Mission</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat scelerisque diam ac finibus. Pellentesque vel nunc vitae ex molestie fringilla in quis est. Aenean fermentum, lacus ac egestas sagittis, est justo fringilla tellus, eu semper ex dui a mi. Pellentesque tellus ante, hendrerit et gravida non, interdum et magna. Vivamus pharetra ante sit amet lacus condimentum, nec tempus eros congue. Vivamus id purus vel libero aliquam hendrerit. Nulla condimentum congue dolor eu efficitur. Nam et tempor dui. Nam eu ipsum scelerisque, aliquam neque id, ornare mi. Sed tristique elit quis neque pellentesque, et scelerisque risus mollis. Nulla consequat gravida risus sed lobortis.</p>
-            <h2 className='subtitle'>Our Vision</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat scelerisque diam ac finibus. Pellentesque vel nunc vitae ex molestie fringilla in quis est. Aenean fermentum, lacus ac egestas sagittis, est justo fringilla tellus, eu semper ex dui a mi. Pellentesque tellus ante, hendrerit et gravida non, interdum et magna. Vivamus pharetra ante sit amet lacus condimentum, nec tempus eros congue. Vivamus id purus vel libero aliquam hendrerit. Nulla condimentum congue dolor eu efficitur. Nam et tempor dui. Nam eu ipsum scelerisque, aliquam neque id, ornare mi. Sed tristique elit quis neque pellentesque, et scelerisque risus mollis. Nulla consequat gravida risus sed lobortis.</p>
+            <p>Our mission is to provide <i>innovative</i>, cost-effective insurance solutions that protect businesses and individuals from unforeseen disruptions, such as hospitalization, business challenges, and natural calamities. Through the use of blockchain technology and tokenization, <strong>StartShield</strong> aims to deliver secure, transparent, and flexible insurance services that offer both protection and financial empowerment.
+            </p>
+            <h2 className='subtitle'>Vision</h2>
+            <p>At <strong>StartShield</strong>, our vision is to redefine the insurance industry by seamlessly integrating decentralized blockchain technology to create an accessible, transparent, and efficient platform for risk management. We aspire to become the leading provider of tokenized insurance solutions, empowering startups, SMEs, and individuals to thrive in an ever-changing business environment, while promoting financial resilience and growth.
+            </p>
           </Col>
-          <Col sm={8}>
-            <h2 className='subtitle'>About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat scelerisque diam ac finibus. Pellentesque vel nunc vitae ex molestie fringilla in quis est. Aenean fermentum, lacus ac egestas sagittis, est justo fringilla tellus, eu semper ex dui a mi. Pellentesque tellus ante, hendrerit et gravida non, interdum et magna. Vivamus pharetra ante sit amet lacus condimentum, nec tempus eros congue. Vivamus id purus vel libero aliquam hendrerit. Nulla condimentum congue dolor eu efficitur. Nam et tempor dui. Nam eu ipsum scelerisque, aliquam neque id, ornare mi. Sed tristique elit quis neque pellentesque, et scelerisque risus mollis. Nulla consequat gravida risus sed lobortis. Sed at diam ut sapien ornare faucibus. Morbi vel elementum dui. Sed dignissim neque magna, id imperdiet mauris efficitur ullamcorper.
-
-              Mauris aliquet odio sapien, eget dignissim eros bibendum a. Donec porta eu lectus sed sagittis. Mauris tempor euismod tempus. Maecenas sit amet metus at tortor aliquam ultricies. Sed faucibus turpis eros, ac viverra odio accumsan non. Donec ullamcorper ut dui sit amet pretium. Duis sit amet augue in ligula semper egestas mollis eu felis. Fusce varius, erat in aliquet mollis, lectus lorem dapibus enim, vitae pharetra ipsum nisi consectetur nulla. Nullam volutpat porttitor nisl id viverra. Duis eleifend eget urna et pellentesque. Nulla nec blandit mauris.
-
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus a tempus metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lorem lacus, rutrum eget magna sit amet, tempor placerat mauris. Vestibulum sed diam vestibulum enim facilisis sagittis ut porta mi. Aliquam erat volutpat. Nunc nec libero vel nisl tincidunt semper. Quisque a nunc orci. Cras nec magna quis eros feugiat consectetur. Sed ac sodales neque, sit amet auctor nisi. Quisque vel arcu odio. Donec ac iaculis elit, nec ullamcorper ante. Vivamus leo turpis, porta at augue vel, vestibulum pretium nibh. Proin venenatis eleifend malesuada.</p>
-          </Col>
+          
         </Row>
         <div style={{ marginTop: '50px' }}>
           <h2 id="ourTeam-here" className='subtitle'>Our Team</h2>

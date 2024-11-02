@@ -1,143 +1,141 @@
-/* Basic reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Styling for the main container */
-  .CheckPriceInsurance {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f7f7f7;
-  }
-  
-  /* General heading styling */
-  h1 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-    color: #444;
-  }
-  
-  /* Container for the two sections */
-  .section-container {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    max-width: 1200px;
-    gap: 20px;
-  }
-  
-  /* Styling for each section */
-  .section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 45%;
-    min-width: 300px;
-  }
-  
-  /* Styling for dropdowns */
-  select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: #f8f8f8;
-  }
-  
-  /* Paragraph styling for company information */
-  p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #555;
-  }
-  
-  /* Form styling */
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  /* Input fields in the form */
-  input[type="number"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    width: 100%;
-  }
-  
-  /* Submit button styling */
-  button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Responsive design: stack sections on small screens */
-  @media (max-width: 768px) {
-    .section-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .section {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  }
-
-  select, input {
-    margin: 10px 0;
-    padding: 5px;
-    width: 200px;
-  }
-  
-  form {
-    margin-top: 10px;
-  }
-  
-  .saved-policies {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .policy-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 30%;
-    background-color: #f9f9f9;
-  }
-  input[type="text"],
-input[type="number"],
-select {
-  margin: 5px 0;
-  padding: 10px;
-  width: 100%;
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
-  
+input {
+  margin: 5px 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+  background-color: aliceblue;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.radio-button {
+  background-color: antiquewhite;
+  height: 80px;
+  margin: 20px 10px;
+}
+.radio-button:hover {
+  background-color: #007bff;
+}
+.input-fild {
+  margin-top: 30px;
+  margin-right: 30px;
+
+}
+.input-fild input {
+  margin-top: 10px;
+  /* width: 400px; */
+}
+.input-fild textarea {
+  background-color: #ccc;
+}
+
+.info-icon {
+  margin-left: 5px;
+  cursor: pointer;
+  color: blue;
+  font-weight: bold;
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  padding-right: 30px; /* Adjust the padding as needed */
+}
+
+.info-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust the positioning as needed */
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: #d4d4d4;
+  color: #000;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-weight: bold;
+}
+
+.info-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #f9f9f9;
+  color: #333;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position the tooltip above the text */
+  right: 50%;
+  margin-right: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.info-icon:hover .info-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 50%;
+  margin-right: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #f9f9f9 transparent transparent transparent;
+}
+ 
+.checkBoxes-fild {
+  background-color: aliceblue;
+}
+
+
+
+/* .image-preview img {
+  border: 2px solid #ccc;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.summary-table {
+  margin-top: 20px;
+}
+
+.summary-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table table, .summary-table th, .summary-table td {
+  border: 1px solid #ddd;
+}
+
+.summary-table th, .summary-table td {
+  padding: 8px;
+  text-align: left;
+} */

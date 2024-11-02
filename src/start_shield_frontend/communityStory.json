@@ -1,0 +1,18 @@
+[
+    {
+      "username": "john_doe",
+      "story": "My experience with the insurance platform was excellent. The process was smooth and hassle-free.",
+      "stars": 5
+    },
+    {
+      "username": "jane_smith",
+      "story": "I appreciate the variety of policies available, and customer service was very helpful!",
+      "stars": 4
+    },
+    {
+      "username": "alex_king",
+      "story": "Had a few issues at first, but support helped me resolve everything quickly.",
+      "stars": 3
+    }
+  ]
+  
