@@ -11,8 +11,6 @@ import EducationalResources from './components/EducationalResources/EducationalR
 import BlogNews from './components/BlogNews/BlogNews';
 import AboutUs from './components/AboutUs/AboutUs';
 import LegalCompliance from './components/LegalCompliance/LegalCompliance';
-// import SignUp from './components/CreateAccount';
-// import SignIn from './components/SignIn/index.jsx';
 import CheckPriceInsurance from './components/CheckPriceInsurance/index.jsx';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import UserDashboard from './components/UserDashboard/UserDasboard';
