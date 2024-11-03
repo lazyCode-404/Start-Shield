@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import './style.css';
+// import React, { useState } from 'react';
+// import './style.css';
 
-const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+// const SignIn = () => {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [errorMessage, setErrorMessage] = useState('');
 
   // const handleSignIn = async () => {
   //   if (!username || !password) {
@@ -35,71 +35,66 @@ const SignIn = () => {
   // };
 
 
-  const handleSignIn = async (event) => {
-    event.preventDefault();
-    
-    if (!username || !password) {
-      setErrorMessage('Please fill in both username and password.');
-      return;
-    }
   
+import React, { useState } from 'react';
+import { HttpAgent } from '@dfinity/agent';
+import { AuthClient } from '@dfinity/auth-client';
+import { canisterId, createActor } from '../../../../declarations/start_shield_backend/';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+
+export const Login = ({ onLogin }) => {
+  const [userInfo, setUserInfo] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleLogin = async () => {
     try {
-      // Make the fetch request to sign in
-      const response = await fetch('https://gcmportfolio.netlify.app/projectAgritek', {  // Adjust the URL if needed
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+      const authClient = await AuthClient.create();
+
+      await authClient.login({
+        identityProvider: "https://identity.ic0.app",
+        onSuccess: async () => {
+          const identity = authClient.getIdentity();
+          const agent = new HttpAgent({ identity });
+          const actor = createActor(canisterId, { agent });
+
+          // Get user information based on the identity's principal
+          const principal = identity.getPrincipal().toText();
+          const info = await actor.getUserInfo(principal); // Update this to fetch based on the principal
+
+          if (info) {
+            setUserInfo(info);
+            onLogin(info);
+            navigate('/InsuranceSolution'); // Redirect to InsuranceSolution page
+          } else {
+            setErrorMessage('User not found. Please sign up first.');
+          }
+        },
       });
-  
-      const data = await response.text();  // Use text() to handle simple string responses
-  
-      if (data.includes("Sign-in successful!")) {
-        console.log('Sign-in successful!');
-        
-        // Redirect to the About Us page (or update the URL if needed)
-        window.location.href = '/about-us';  // Redirect to the About Us page
-  
-        // Optionally, you can fetch and display About Us content on the same page
-        // Assuming there's a div with id 'aboutUsContent' to display the content
-        const aboutUsResponse = await fetch('/about-us');  // Fetch About Us content
-        const aboutUsContent = await aboutUsResponse.text();
-        document.getElementById("aboutUsContent").innerHTML = aboutUsContent;  // Insert About Us content
-        
-      } else {
-        setErrorMessage(data);  // Display the error returned from the backend
-      }
     } catch (error) {
-      console.error('Error:', error);
-      setErrorMessage('Network error occurred.');
+      console.error('Login error:', error);
+      setErrorMessage('An error occurred during login. Please try again.');
     }
   };
-  
+
+  const handleLogout = () => {
+    setUserInfo(null);
+    onLogin(null);
+  };
 
   return (
-    <div className="sign-in-form">
-      <h2>Sign In</h2>
+    <div>
       {errorMessage && <p className="error">{errorMessage}</p>}
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleSignIn}>Sign In</button>
-      <p>
-        <a href="/forgot-password">Forgot your password?</a>
-      </p>
-      <p>
-        Don't have an account? <a href="/sign-up">Sign Up</a>
-      </p>
+      {userInfo ? (
+        <div>
+          <h1>Welcome, {userInfo.firstName} {userInfo.lastName}</h1>
+          <h2>You are logged in as {userInfo.role}</h2>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      ) : (
+        <button onClick={handleLogin}>Login with Internet Identity</button>
+      )}
     </div>
   );
 };
 
-export default SignIn;

@@ -1,284 +1,123 @@
-// import React, { useState } from 'react';
-// import './style.css';
-
-// const CreateAccount = () => {
-//   const [username, setUsername] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [confirmEmail, setConfirmEmail] = useState('');
-//   const [dob, setDob] = useState('');
-//   const [address, setAddress] = useState('');
-//   const [firstName, setFirstName] = useState('');
-//   const [lastName, setLastName] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const [selectedRole, setSelectedRole] = useState('');
-
-//   const handleCreateAccount = async () => {
-//     // Validate input fields
-//     if (!username || !email || !dob || !address || !firstName || !lastName || !password || !confirmPassword || !selectedRole) {
-//       console.error('Please fill in all required fields.');
-//       return;
-//     }
-  
-//     // Validate email and confirm email
-//     if (email !== confirmEmail) {
-//       console.error('Email addresses do not match.');
-//       return;
-//     }
-  
-//     // Validate password and confirm password
-//     if (password !== confirmPassword) {
-//       console.error('Passwords do not match.');
-//       return;
-//     }
-  
-//     // Call backend API to create the account
-//     try {
-//       const response = await fetch('http://127.0.0.1:4943/?canisterId=be2us-64aaa-aaaaa-qaabq-cai&id=bkyz2-fmaaa-aaaaa-qaaaq-cai', {  // Adjust URL to your backend API endpoint
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           username,
-//           email,
-//           dob,
-//           address,
-//           firstName,
-//           lastName,
-//           password,
-//           confirmPassword  // Include all fields expected by the backend
-//         }),
-//       });
-  
-//       if (response.ok) {
-//         console.log('Account created successfully!');
-//         // Redirect to login page or perform other actions
-//       } else {
-//         console.error('Error creating account');
-//       }
-//     } catch (error) {
-//       console.error('Network error:', error);
-//     }
-//   };
-  
-  
-
-//   return (
-//     <div className="create-account-form">
-//       <div >
-//         <h2>Create an Account</h2>
-//         <input
-//           type="text"
-//           placeholder="Firstname"
-//           value={firstName}
-//           onChange={(e) => setFirstName(e.target.value)}
-//         />
-//         <input
-//           type="text"
-//           placeholder="Lastrname"
-//           value={lastName}
-//           onChange={(e) => setLastName(e.target.value)}
-//         />
-//         <input
-//           type="text"
-//           placeholder="Username"
-//           value={username}
-//           onChange={(e) => setUsername(e.target.value)}
-//         />
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//         />
-//         <input
-//           type="email"
-//           placeholder="Confirm Email"
-//           value={confirmEmail}
-//           onChange={(e) => setConfirmEmail(e.target.value)}
-//         />
-//         <input
-//           type="date"
-//           placeholder="Date of Birth"
-//           value={dob}
-//           onChange={(e) => setDob(e.target.value)}
-//         />
-//         <input
-//           type="text"
-//           placeholder="Address"
-//           value={address}
-//           onChange={(e) => setAddress(e.target.value)}
-//         />
-//         {/* Add other input fields (first name, last name, etc.) similarly */}
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//         />     
-//         <input
-//           type="password"
-//           placeholder="Confirm Password"
-//           value={confirmPassword}
-//           onChange={(e) => setConfirmPassword(e.target.value)}
-//         />
-//           <select
-//           value={selectedRole}
-//           onChange={(e) => setSelectedRole(e.target.value)}
-//         >
-//           <option value="">Select Role</option>
-//           <option value="user">User</option>
-//           <option value="admin">Administrator</option>
-//           <option value="ceo">CEO</option>
-//           {/* Add other role options here */}
-//         </select>
-//       </div>
-//       <button onClick={handleCreateAccount}>Create Account</button>
-//     </div>
-//   );
-// };
-
-// export default CreateAccount;
-
-
-
 import React, { useState } from 'react';
+import { registerUser } from '../../utils/api'; // Funcția registerUser
+import { validateFormData } from '../../utils/helpers'; // Funcția de validare
+import { HttpAgent } from '@dfinity/agent'; // HttpAgent pentru conectarea la canister
+import { canisterId, createActor } from '../../../../declarations/start_shield_backend/'; // CanisterId și createActor
+import { hashPassword } from '../../utils/bcryptjs'; // Funcția de hash pentru parolă
 import './style.css';
 
-const CreateAccount = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [confirmEmail, setConfirmEmail] = useState('');
-  const [dob, setDob] = useState('');
-  const [address, setAddress] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [selectedRole, setSelectedRole] = useState('');
+const SignUp = ({ onSignUp }) => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    role: 'User',
+  });
+
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleCreateAccount = async () => {
-    if (!username || !email || !dob || !address || !firstName || !lastName || !password || !confirmPassword || !selectedRole) {
-      setErrorMessage('Please fill in all required fields.');
-      return;
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    if (email !== confirmEmail) {
-      setErrorMessage('Email addresses do not match.');
-      return;
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match.');
+    const validationErrors = validateFormData(formData);
+    if (validationErrors.length > 0) {
+      setErrorMessage(validationErrors.join(' '));
       return;
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:4943/?canisterId=be2us-64aaa-aaaaa-qaabq-cai&id=bkyz2-fmaaa-aaaaa-qaaaq-cai', {  // Adjust the URL
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username, email, confirmEmail, dob, address, firstName, lastName, password, confirmPassword, selectedRole
-        }),
-      });
+      const { firstName, lastName, email, password, role } = formData;
 
-      const data = await response.json();
+      if (!password) {
+        throw new Error('Password is required');
+      }
+      console.log('Date formular înainte de hashing:', formData);
 
-      if (response.ok) {
-        console.log('Account created successfully!');
+      const hashedPassword = await hashPassword(formData.password);
+      console.log('Parolă hashed:', hashedPassword);
+
+      const agent = new HttpAgent();
+      const actor = createActor(canisterId, { agent });
+
+      const response = await actor.registerUser(
+        firstName,
+        lastName,
+        email,
+        hashedPassword,
+        role === 'Admin' ? { "ADMIN": null } : { "USER": null }
+      );
+     
+
+      if (response === "User signed up successfully.") {
+        onSignUp(response);
+        alert('Înregistrare reușită!');
       } else {
-        setErrorMessage(data);  // Display the error returned from the backend
+        setErrorMessage('Înregistrare eșuată.');
       }
     } catch (error) {
-      console.error('Network error:', error);
-      setErrorMessage('Network error occurred.');
+      console.error('Eroare în timpul înregistrării:', error);
+      setErrorMessage('A apărut o eroare. Te rog să încerci din nou.');
     }
   };
 
-
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   const name = event.target.elements.name.value;
-  //   actors_backend.greet(name).then((greeting) => {
-  //     setGreeting(greeting);
-  //   });
-  //   return false;
-  // }
-
   return (
     <div className="create-account-form">
-      <h2>Create an Account</h2>
+      <h2>Sign Up</h2>
       {errorMessage && <p className="error">{errorMessage}</p>}
-      <input
-        type="text"
-        placeholder="Firstname"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Lastname"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Confirm Email"
-        value={confirmEmail}
-        onChange={(e) => setConfirmEmail(e.target.value)}
-      />
-      <input
-        type="date"
-        value={dob}
-        onChange={(e) => setDob(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Address"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <select value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)}>
-        <option value="">Select Role</option>
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-        <option value="ceo">CEO</option>
-      </select>
-      <button onClick={handleCreateAccount}>Create Account</button>
-
-      {/* <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form> */}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          className="input-field"
+          value={formData.firstName}
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          className="input-field"
+          value={formData.lastName}
+          onChange={handleInputChange}
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="input-field"
+          value={formData.email}
+          onChange={handleInputChange}
+          autoComplete="username" // Fixed case
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          className="input-field"
+          value={formData.password}
+          onChange={handleInputChange}
+          autoComplete="current-password" // Fixed case
+        />
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleInputChange}
+          className="select-field"
+        >
+          <option value="User">User</option>
+          <option value="Admin">Admin</option>
+        </select>
+        <button type="submit" className="submit-button">Sign Up</button>
+      </form>
     </div>
   );
 };
 
-export default CreateAccount;
+export default SignUp;

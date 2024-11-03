@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import './style.css'; // Your custom CSS file
 import Hero from '../Hero'
-import imag_hero from '../../../public/assets/images/h2.jpeg'
+import imag_hero from '../../src/assets/images/h2.jpeg'
 
 const Homepage=() => {
     return (
