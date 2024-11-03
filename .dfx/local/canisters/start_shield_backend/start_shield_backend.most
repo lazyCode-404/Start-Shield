@@ -1,9 +1,0 @@
-// Version: 1.0.0
-actor {
-  stable var activePolicies : Text;
-  stable var claimsStatus : Text;
-  stable var events : Text;
-  stable var recentTransactions : Text;
-  stable var renewalDate : Text;
-  stable var tokenBalance : Text
-};

@@ -1,8 +1,0 @@
-service : {
-  getPolicySummary: () -> (text, text, text);
-  getTokenOverview: () -> (text, text);
-  getUpcomingEvents: () -> (text);
-  setPolicySummary: (text, text, text) -> ();
-  setTokenOverview: (text, text) -> ();
-  setUpcomingEvents: (text) -> ();
-}

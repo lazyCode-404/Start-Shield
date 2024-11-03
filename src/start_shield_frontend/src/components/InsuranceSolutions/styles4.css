@@ -1,0 +1,136 @@
+/* General styles for the quote container */
+.quote-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form styling */
+  .quote-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .quote-form label {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .quote-form input,
+  .quote-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .quote-form button {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .quote-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Table styles */
+  .quote-response table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .quote-response th,
+  .quote-response td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .quote-response th {
+    background-color: #f3f3f3;
+  }
+  
+  /* How It Works Section */
+  .how-it-works {
+    margin-top: 30px;
+  }
+  
+  .how-it-works h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .how-it-works ol {
+    padding-left: 20px;
+  }
+  
+  .how-it-works li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 768px) {
+    /* Tablet and larger: align form inputs side by side */
+    .quote-form label {
+      font-size: 18px;
+    }
+  
+    .quote-form input,
+    .quote-form textarea {
+      font-size: 18px;
+    }
+  
+    .quote-form button {
+      width: auto;
+      align-self: flex-start;
+    }
+  
+    .quote-response th,
+    .quote-response td {
+      font-size: 18px;
+    }
+  
+    .how-it-works h2 {
+      font-size: 26px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    /* Desktop and larger */
+    .quote-container {
+      max-width: 900px;
+      padding: 30px;
+    }
+  
+    .quote-form label {
+      font-size: 20px;
+    }
+  
+    .quote-form input,
+    .quote-form textarea {
+      font-size: 18px;
+      padding: 12px;
+    }
+  
+    .quote-response th,
+    .quote-response td {
+      padding: 12px;
+    }
+  }
+  
