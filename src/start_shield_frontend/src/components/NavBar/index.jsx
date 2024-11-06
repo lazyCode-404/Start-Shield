@@ -82,18 +82,41 @@ const NavBar = ({ userInfo }) => {
                 </NavLink>
               </li>
               <li className="nav-item">
+                  <NavLink to="/adminDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    Admin Dashboard
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/userDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    User Dashboard
+                  </NavLink>
+                </li>
+              <li className="nav-item">
                 <NavLink to="/adminPage" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                a
+                All Users
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/a-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                ADashboard
                 </NavLink>
               </li>
 
               {/* Afișează linkurile pentru dashboard doar dacă utilizatorul este logat */}
               {userInfo && userInfo.role === 'Admin' && (
-                <li className="nav-item">
-                  <NavLink to="/adminDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                    Admin Dashboard
+                 <>
+                 <li className="nav-item">
+                  <NavLink to="/adminPage" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    All Users 
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink to="/adminDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                      Admin Dashboard
+                    </NavLink>
+                  </li>
+                  </>
+                
               )}
               {userInfo && userInfo.role === 'User' && (
                 <li className="nav-item">

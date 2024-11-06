@@ -90,7 +90,9 @@
     background-color: #336699;
     border-radius: 5px;
     box-shadow: 5px 5px 10px #111, -5px -5px 10px #ddd;
-    padding: 10Spx;
+    padding: 10px;
+    color: #fff;
+    
   }
   
   .buy-now-button {
