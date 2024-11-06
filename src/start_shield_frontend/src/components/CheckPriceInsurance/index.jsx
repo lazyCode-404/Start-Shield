@@ -1,5 +1,182 @@
+// import React, { useState, useEffect } from "react";
+// import { Container, Button, Row} from "react-bootstrap";
+// import "./style.css";
+// import axios from "axios";
+
+// const InsuranceForm = () => {
+//   const [hasAccount, setHasAccount] = useState(null);
+//   const [companySize, setCompanySize] = useState(null);
+//   const [owners, setOwners] = useState([{ firstName: "", lastName: "" }]);
+//   const [uploadedImages, setUploadedImages] = useState([]); // State pentru imagini
+//   const [formData, setFormData] = useState({
+//     companyName: "",
+//     registrationNumber: "",
+//     email: "",
+//     phone: "",
+//     address: {
+//       country: "",
+//       state: "",
+//       city: "",
+//       street: "",
+//       number: "",
+//       postalCode: "",
+//     },
+//     insuranceType: "",
+//     additionalInfo: "",
+//     insuredValue: "",
+//     policyValue: "",
+//     paymentOption: "annual",
+//     premium: false,
+//     startDate: "",
+//     endDate: "", // New end date field
+//     insuranceMonths: 12, // Default to 12 months for the insurance
+//     termsAgreed: false,
+//     over18: false,
+//     discount: 0,
+//     commission: 0,
+//     tokensEarned: 0,
+//     rewardPercentage: 5,
+//     industryType: "",
+//     annualRevenue: "",
+//     employees: "",
+//   });
+
+//   const annualDiscount = 10;
+//   const monthlyCommission = 5;
+
+//    // Calculate the end date based on the selected start date and number of months
+//    const calculateEndDate = () => {
+//     if (formData.startDate && formData.insuranceMonths) {
+//       const start = new Date(formData.startDate);
+//       start.setMonth(start.getMonth() + parseInt(formData.insuranceMonths));
+//       const endDate = start.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+//       setFormData((prev) => ({
+//         ...prev,
+//         endDate: endDate,
+//       }));
+//     }
+//   };
+
+//   useEffect(() => {
+//     calculateEndDate();
+//   }, [formData.startDate, formData.insuranceMonths]);
+
+//   // Fetch company data if already registered
+//   useEffect(() => {
+//     if (formData.registrationNumber) {
+//       axios
+//         .get(`http://localhost:8000/api/company/${formData.registrationNumber}`)
+//         .then((response) => {
+//           if (response.data) {
+//             setFormData((prev) => ({
+//               ...prev,
+//               ...response.data,
+//             }));
+//             setOwners(response.data.owners || [{ firstName: "", lastName: "" }]);
+//           }
+//         })
+//         .catch((error) => console.error(error));
+//     }
+//   }, [formData.registrationNumber]);
+
+//   const calculatePayment = () => {
+//     let payment = parseFloat(formData.policyValue) || 0;
+//     if (formData.paymentOption === "annual") {
+//       payment -= (annualDiscount / 100) * payment;
+//       formData.tokensEarned =
+//         (formData.rewardPercentage / 100) * formData.insuredValue;
+//     } else {
+//       payment += (monthlyCommission / 100) * payment;
+//       formData.tokensEarned = 0;
+//     }
+//     return payment.toFixed(2);
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     const payment = calculatePayment();
+//     alert(`Total payment: $${payment}`);
+//     alert(`Tokens Earned: ${formData.tokensEarned}`);
+
+//     // Save data to data.json
+//     axios
+//       .post("http://localhost:8000/api/apply", {
+//         ...formData,
+//         owners,
+//       })
+//       .then((response) => console.log(response))
+//       .catch((error) => console.error(error));
+//   };
+
+//   const handleInputChange = (e) => {
+//     const { name, value, type, checked } = e.target;
+
+//     if (name === "paymentOption" && value === "monthly") {
+//       setFormData((prev) => ({
+//         ...prev,
+//         premium: false, // Dezactivează opțiunea premium
+//         [name]: value,
+//       }));
+//     } else {
+//       setFormData((prev) => ({
+//         ...prev,
+//         [name]: type === "checkbox" ? checked : value,
+//       }));
+//     }
+//   };
+
+//   const handleOwnerChange = (index, e) => {
+//     const { name, value } = e.target;
+//     const updatedOwners = [...owners];
+//     updatedOwners[index][name] = value;
+//     setOwners(updatedOwners);
+//   };
+
+//   const addOwner = () => {
+//     setOwners([...owners, { firstName: "", lastName: "" }]);
+//   };
+
+//   const handleAddressChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({
+//       ...prev,
+//       address: {
+//         ...prev.address,
+//         [name]: value,
+//       },
+//     }));
+//   };
+
+//   // Funcția pentru a gestiona încărcarea și previzualizarea imaginilor
+//   const handleImageUpload = (e) => {
+//     const files = Array.from(e.target.files); // Convertește fișierele într-un array
+//     const imagesArray = files.map((file) => URL.createObjectURL(file)); // Creează URL-uri pentru previzualizare
+//     setUploadedImages(imagesArray); // Setează imaginile încărcate
+//   };
+
+//   // Funcția pentru documente
+//   const handleDocumentUpload = (e) => {
+//     const files = Array.from(e.target.files);
+//     const documentsArray = files.map((file) => file.name); // Obținem numele fișierelor
+//     setUploadedDocuments(documentsArray); // Setăm documentele în state
+//   };
+
+
+//   return (
+//     <div>
+//       <Container>
+//         {hasAccount === null ? (
+//           <div>
+//             <h2>Do you have an account?</h2>
+//             <Button onClick={() => setHasAccount(true)}>Login</Button>{" "}
+//             <Button onClick={() => setHasAccount(false)}>Sign Up</Button>{" "}
+//             <Button onClick={() => setHasAccount(true)}>Continue as Guest</Button>
+//           </div>
+//         ) : (
+
+
 import React, { useState, useEffect } from "react";
-import { Container, Button, Row} from "react-bootstrap";
+import { Container, Button, Row } from "react-bootstrap";
 import "./style.css";
 import axios from "axios";
 
@@ -7,7 +184,8 @@ const InsuranceForm = () => {
   const [hasAccount, setHasAccount] = useState(null);
   const [companySize, setCompanySize] = useState(null);
   const [owners, setOwners] = useState([{ firstName: "", lastName: "" }]);
-  const [uploadedImages, setUploadedImages] = useState([]); // State pentru imagini
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [uploadedDocuments, setUploadedDocuments] = useState([]);
   const [formData, setFormData] = useState({
     companyName: "",
     registrationNumber: "",
@@ -28,8 +206,8 @@ const InsuranceForm = () => {
     paymentOption: "annual",
     premium: false,
     startDate: "",
-    endDate: "", // New end date field
-    insuranceMonths: 12, // Default to 12 months for the insurance
+    endDate: "",
+    insuranceMonths: 12,
     termsAgreed: false,
     over18: false,
     discount: 0,
@@ -44,12 +222,11 @@ const InsuranceForm = () => {
   const annualDiscount = 10;
   const monthlyCommission = 5;
 
-   // Calculate the end date based on the selected start date and number of months
-   const calculateEndDate = () => {
+  const calculateEndDate = () => {
     if (formData.startDate && formData.insuranceMonths) {
       const start = new Date(formData.startDate);
       start.setMonth(start.getMonth() + parseInt(formData.insuranceMonths));
-      const endDate = start.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+      const endDate = start.toISOString().split("T")[0];
       setFormData((prev) => ({
         ...prev,
         endDate: endDate,
@@ -61,7 +238,6 @@ const InsuranceForm = () => {
     calculateEndDate();
   }, [formData.startDate, formData.insuranceMonths]);
 
-  // Fetch company data if already registered
   useEffect(() => {
     if (formData.registrationNumber) {
       axios
@@ -98,11 +274,12 @@ const InsuranceForm = () => {
     alert(`Total payment: $${payment}`);
     alert(`Tokens Earned: ${formData.tokensEarned}`);
 
-    // Save data to data.json
     axios
       .post("http://localhost:8000/api/apply", {
         ...formData,
         owners,
+        uploadedImages,
+        uploadedDocuments,
       })
       .then((response) => console.log(response))
       .catch((error) => console.error(error));
@@ -110,19 +287,10 @@ const InsuranceForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-
-    if (name === "paymentOption" && value === "monthly") {
-      setFormData((prev) => ({
-        ...prev,
-        premium: false, // Dezactivează opțiunea premium
-        [name]: value,
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-      }));
-    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleOwnerChange = (index, e) => {
@@ -147,20 +315,17 @@ const InsuranceForm = () => {
     }));
   };
 
-  // Funcția pentru a gestiona încărcarea și previzualizarea imaginilor
   const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files); // Convertește fișierele într-un array
-    const imagesArray = files.map((file) => URL.createObjectURL(file)); // Creează URL-uri pentru previzualizare
-    setUploadedImages(imagesArray); // Setează imaginile încărcate
+    const files = Array.from(e.target.files);
+    const imagesArray = files.map((file) => URL.createObjectURL(file));
+    setUploadedImages(imagesArray);
   };
 
-  // Funcția pentru documente
   const handleDocumentUpload = (e) => {
     const files = Array.from(e.target.files);
-    const documentsArray = files.map((file) => file.name); // Obținem numele fișierelor
-    setUploadedDocuments(documentsArray); // Setăm documentele în state
+    const documentsArray = files.map((file) => file.name);
+    setUploadedDocuments(documentsArray);
   };
-
 
   return (
     <div>
@@ -177,11 +342,12 @@ const InsuranceForm = () => {
             <Container style={{ margin: '20px' }}>
               <h2>Select Company Size</h2>
               <div style={{ marginBottom: "5px" }} >
-              <label className="radio-button">
+                <label className="radio-button">
                   <input
                     type="radio"
                     name="companySize"
                     value="micro"
+                    checked={companySize === "micro"}
                     onChange={() => setCompanySize("micro")}
                   />
                   Micro Company
@@ -191,15 +357,17 @@ const InsuranceForm = () => {
                     type="radio"
                     name="companySize"
                     value="small"
+                    checked={companySize === "small"}
                     onChange={() => setCompanySize("small")}
                   />
                   Small Company
-                </label>{" "}
+                </label>
                 <label className="radio-button">
                   <input
                     type="radio"
                     name="companySize"
                     value="large"
+                    checked={companySize === "large"}
                     onChange={() => setCompanySize("large")}
                   />
                   Large Company
@@ -212,8 +380,8 @@ const InsuranceForm = () => {
                 <Container className="input-fild">
                   <h3>Company Information</h3>
                   <span className="info-icon">i
-        <span className="info-text">Here’s some more information!</span>
-      </span>
+                    <span className="info-text">Here’s some more information!</span>
+                  </span>
                   <input
                     type="text"
                     name="companyName"
@@ -221,7 +389,7 @@ const InsuranceForm = () => {
                     value={formData.companyName}
                     onChange={handleInputChange}
                   />
-                  
+
                   <input
                     type="text"
                     name="registrationNumber"
@@ -243,7 +411,7 @@ const InsuranceForm = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                   />
-                   <input
+                  <input
                     type="text"
                     name="industryType"
                     placeholder="Industry Type"
@@ -292,7 +460,7 @@ const InsuranceForm = () => {
                 </Container>
                 <Container >
                   <Row>
-                  <Button onClick={addOwner}>Add More Owners/Partners</Button>
+                    <Button onClick={addOwner}>Add More Owners/Partners</Button>
                   </Row>
                 </Container>
 
@@ -382,7 +550,7 @@ const InsuranceForm = () => {
                         name="description"
                         placeholder="Detailed Description"
                         onChange={handleInputChange}
-                        style={{width:'380px'}}
+                        style={{ width: '380px' }}
                       />
                     </div>
                   )}
@@ -402,106 +570,106 @@ const InsuranceForm = () => {
                         name="description"
                         placeholder="Detailed Description"
                         onChange={handleInputChange}
-                        style={{width:'380px'}}
+                        style={{ width: '380px' }}
                       />
                     </div>
                   )}
                 </Container>
                 {/* Additional Information */}
                 <Container className="input-fild checkBoxes-fild">
-                <h3>Additional Info</h3>
-                <textarea
-                  name="additionalInfo"
-                  placeholder="Any additional details about the insured asset..."
-                  value={formData.additionalInfo}
-                  onChange={handleInputChange}
-                  style={{width:'380px'}}
-                />
+                  <h3>Additional Info</h3>
+                  <textarea
+                    name="additionalInfo"
+                    placeholder="Any additional details about the insured asset..."
+                    value={formData.additionalInfo}
+                    onChange={handleInputChange}
+                    style={{ width: '380px' }}
+                  />
                 </Container>
                 {/* Insurance Details */}
                 <Container className="input-fild checkBoxes-fild">
-                <h3>Insurance Details</h3>
-                <div style={{ marginBottom: '5px' }}>
-                  <input
-                    type="number"
-                    name="insuredValue"
-                    placeholder="Insured Value"
-                    value={formData.insuredValue}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div style={{ marginBottom: '5px' }}>
-                  <input
-                    type="number"
-                    name="policyValue"
-                    placeholder="Policy Value"
-                    value={formData.policyValue}
-                    onChange={handleInputChange}
-                  />
-                </div>
+                  <h3>Insurance Details</h3>
+                  <div style={{ marginBottom: '5px' }}>
+                    <input
+                      type="number"
+                      name="insuredValue"
+                      placeholder="Insured Value"
+                      value={formData.insuredValue}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div style={{ marginBottom: '5px' }}>
+                    <input
+                      type="number"
+                      name="policyValue"
+                      placeholder="Policy Value"
+                      value={formData.policyValue}
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </Container>
                 {/* Payment Options */}
                 <Container className="input-fild checkBoxes-fild">
-                <h3>Payment Options</h3>
-                <label>
-                  <input
-                    type="radio"
-                    name="paymentOption"
-                    value="annual"
-                    checked={formData.paymentOption === "annual"}
-                    onChange={handleInputChange}
-                  />
-                  Annual Payment (10% discount)
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="paymentOption"
-                    value="monthly"
-                    checked={formData.paymentOption === "monthly"}
-                    onChange={handleInputChange}
-                  />
-                  Monthly Payment (5% commission)
-                </label>
+                  <h3>Payment Options</h3>
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentOption"
+                      value="annual"
+                      checked={formData.paymentOption === "annual"}
+                      onChange={handleInputChange}
+                    />
+                    Annual Payment (10% discount)
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentOption"
+                      value="monthly"
+                      checked={formData.paymentOption === "monthly"}
+                      onChange={handleInputChange}
+                    />
+                    Monthly Payment (5% commission)
+                  </label>
                 </Container>
                 <Container className="input-fild checkBoxes-fild">
-                <h3>Premium Option</h3>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="premium"
-                    checked={formData.premium}
-                    onChange={handleInputChange}
-                    disabled={formData.paymentOption === "monthly"} // Dezactivat dacă plata este lunară
-                  />
-                  I want Premium Insurance (only available for annual payments)
-                </label>
+                  <h3>Premium Option</h3>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="premium"
+                      checked={formData.premium}
+                      onChange={handleInputChange}
+                      disabled={formData.paymentOption === "monthly"} // Dezactivat dacă plata este lunară
+                    />
+                    I want Premium Insurance (only available for annual payments)
+                  </label>
                 </Container>
 
                 {/* Terms and Conditions */}
                 <Container className="input-fild checkBoxes-fild">
-                <h3>Legal</h3>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="termsAgreed"
-                    checked={formData.termsAgreed}
-                    onChange={handleInputChange}
-                  />
-                  I agree to the terms and conditions.
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="over18"
-                    checked={formData.over18}
-                    onChange={handleInputChange}
-                  />
-                  I am over 18 years old.
-                </label>
+                  <h3>Legal</h3>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="termsAgreed"
+                      checked={formData.termsAgreed}
+                      onChange={handleInputChange}
+                    />
+                    I agree to the terms and conditions.
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="over18"
+                      checked={formData.over18}
+                      onChange={handleInputChange}
+                    />
+                    I am over 18 years old.
+                  </label>
                 </Container>
-                    {/* Start and End Dates Section */}
-                    <Container className="input-fild checkBoxes-fild">
+                {/* Start and End Dates Section */}
+                <Container className="input-fild checkBoxes-fild">
                   <h3>Insurance Period</h3>
                   <div style={{ marginBottom: "5px" }}>
                     <label>Start Date: </label>
@@ -543,53 +711,53 @@ const InsuranceForm = () => {
                   Submit and Preview
                 </Button>
                 <Container className="input-fild checkBoxes-fild">
-                <div className="summary-table">
-                  <h4>Summary of Your Choices</h4>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>Field</th>
-                        <th>Value</th>
-                      </tr>
-                      <tr>
-                        <td>Company Name</td>
-                        <td>{formData.companyName}</td>
-                      </tr>
-                      <tr>
-                        <td>Registration Number</td>
-                        <td>{formData.registrationNumber}</td>
-                      </tr>
-                      <tr>
-                        <td>Insurance Type</td>
-                        <td>{formData.insuranceType}</td>
-                      </tr>
-                      <tr>
-                        <td>Policy Value</td>
-                        <td>{formData.policyValue}</td>
-                      </tr>
-                      <tr>
-                        <td>Payment Option</td>
-                        <td>{formData.paymentOption}</td>
-                      </tr>
-                      <tr>
-                        <td>Premium</td>
-                        <td>{formData.premium ? "Yes" : "No"}</td>
-                      </tr>
-                      <tr>
-                        <td>Discount</td>
-                        <td>{formData.paymentOption === "annual" ? `${annualDiscount}%` : "N/A"}</td>
-                      </tr>
-                      <tr>
-                        <td>Commission</td>
-                        <td>{formData.paymentOption === "monthly" ? `${monthlyCommission}%` : "N/A"}</td>
-                      </tr>
-                      <tr>
-                        <td>Tokens Earned</td>
-                        <td>{formData.tokensEarned}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                  <div className="summary-table">
+                    <h4>Summary of Your Choices</h4>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>Field</th>
+                          <th>Value</th>
+                        </tr>
+                        <tr>
+                          <td>Company Name</td>
+                          <td>{formData.companyName}</td>
+                        </tr>
+                        <tr>
+                          <td>Registration Number</td>
+                          <td>{formData.registrationNumber}</td>
+                        </tr>
+                        <tr>
+                          <td>Insurance Type</td>
+                          <td>{formData.insuranceType}</td>
+                        </tr>
+                        <tr>
+                          <td>Policy Value</td>
+                          <td>{formData.policyValue}</td>
+                        </tr>
+                        <tr>
+                          <td>Payment Option</td>
+                          <td>{formData.paymentOption}</td>
+                        </tr>
+                        <tr>
+                          <td>Premium</td>
+                          <td>{formData.premium ? "Yes" : "No"}</td>
+                        </tr>
+                        <tr>
+                          <td>Discount</td>
+                          <td>{formData.paymentOption === "annual" ? `${annualDiscount}%` : "N/A"}</td>
+                        </tr>
+                        <tr>
+                          <td>Commission</td>
+                          <td>{formData.paymentOption === "monthly" ? `${monthlyCommission}%` : "N/A"}</td>
+                        </tr>
+                        <tr>
+                          <td>Tokens Earned</td>
+                          <td>{formData.tokensEarned}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </Container>
               </>
             )}

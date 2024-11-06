@@ -4,6 +4,7 @@ import Text "mo:base/Text";
 import Result "mo:base/Result"; // Import corect
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
+import Data "data.mo"; // Replace with the actual import path for your `data.mo`
 // import SmallCompany "smallCompany";
 
 
@@ -23,6 +24,40 @@ actor {
     role: AccessLevel;
     principal: Principal; // Store user Principal
   };
+
+
+  public shared(msg) func addOrUpdateCompany(
+    companyName: Text,
+    registrationNumber: Text,
+    email: Text,
+    phone: Text,
+    address: Address,
+    insuranceType: Text,
+    insuredValue: Nat,
+    policyValue: Nat,
+    paymentOption: Text,
+    premium: Bool,
+    gps: Text
+): async () {
+    let companyData: Data.CompanyData = {
+        companyName = companyName;
+        registrationNumber = registrationNumber;
+        email = email;
+        phone = phone;
+        address = address;
+        insuranceType = insuranceType;
+        insuredValue = insuredValue;
+        policyValue = policyValue;
+        paymentOption = paymentOption;
+        premium = premium;
+        gps = gps;
+    };
+    await Data.addOrUpdateCompany(companyData);
+};
+
+public shared(msg) func getCompanies(): async [Data.CompanyData] {
+    return await Data.getCompanies();
+};
 
   var users = TrieMap.TrieMap<Text, User>(Text.equal, Text.hash);
   stable var usersEntries: [(Text, User)] = [];

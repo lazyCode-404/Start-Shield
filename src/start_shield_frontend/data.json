@@ -3,19 +3,59 @@
     {
       "id": "BOP12345",
       "industry": "Retail",
-      "revenue": "500000",
+      "annualRevenue": "500000",
       "employees": 10,
       "coverage": "General Liability",
       "active": true,
       "startDate": "2024-01-01",
-      "endDate": "2024-12-31"
+      "endDate": "2024-12-31",
+      "insuredValue": 100000,
+      "policyValue": 1500,
+      "paymentOption": "annual",
+      "premium": true,
+      "tokensEarned": 500
+    },
+    {
+      "id": "BOP12346",
+      "industry": "Retail",
+      "annualRevenue": "500000",
+      "employees": 10,
+      "coverage": "General Liability",
+      "active": false,
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "insuredValue": 80000,
+      "policyValue": 1200,
+      "paymentOption": "monthly",
+      "premium": false,
+      "tokensEarned": 0
+    },
+    {
+      "id": "BOP12347",
+      "industry": "Retail",
+      "annualRevenue": "500000",
+      "employees": 10,
+      "coverage": "General Liability",
+      "active": true,
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "insuredValue": 60000,
+      "policyValue": 1000,
+      "paymentOption": "annual",
+      "premium": true,
+      "tokensEarned": 300
     },
     {
       "id": "POL54321",
       "coverage": "Premium Coverage",
       "active": false,
       "startDate": "2023-05-01",
-      "endDate": "2024-04-30"
+      "endDate": "2024-04-30",
+      "insuredValue": 200000,
+      "policyValue": 3000,
+      "paymentOption": "annual",
+      "premium": true,
+      "tokensEarned": 1000
     }
   ],
   "claims": [
@@ -24,6 +64,12 @@
       "policyId": "BOP12345",
       "description": "Property damage due to storm",
       "status": "Pending"
+    },
+    {
+      "id": "CLM54324",
+      "policyId": "BOP12347",
+      "description": "Property damage due to snow",
+      "status": "Solved"
     }
   ],
   "companies": [
@@ -45,31 +91,58 @@
       "policyValue": 1200,
       "paymentOption": "annual",
       "premium": true,
-      "gps": "37.7749° N, 122.4194° W"
+      "gps": "37.7749° N, 122.4194° W",
+      "industryType": "Transport",
+      "annualRevenue": "700000",
+      "employees": 20
+    }
+  ],
+  "users": [
+    {
+      "id": "USR123",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "555-1234",
+      "status": "Active",
+      "role": "User",
+      "lastActivity": "2024-10-12",
+      "termsAgreed": true,
+      "over18": true
+    },
+    {
+      "id": "USR124",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "phone": "555-5678",
+      "status": "Inactive",
+      "role": "Admin",
+      "lastActivity": "2024-10-10",
+      "termsAgreed": true,
+      "over18": true
     }
   ],
   "smallCompanies": {
-      "transport": {
-        "description": "Transport companies deal with logistics and cargo handling.",
-        "insuranceRate": 5
-      },
-      "agriculture": {
-        "description": "Agriculture companies focus on farming and food production.",
-        "insuranceRate": 4
-      },
-      "minimarket": {
-        "description": "Minimarkets sell a variety of everyday items.",
-        "insuranceRate": 3
-      }
+    "transport": {
+      "description": "Transport companies deal with logistics and cargo handling.",
+      "insuranceRate": 5
     },
-    "mediumCompanies": {
-      "production": {
-        "description": "Production companies manufacture goods at scale.",
-        "insuranceRate": 6
-      },
-      "retail": {
-        "description": "Retail companies sell products to the public.",
-        "insuranceRate": 4
-      }
+    "agriculture": {
+      "description": "Agriculture companies focus on farming and food production.",
+      "insuranceRate": 4
+    },
+    "minimarket": {
+      "description": "Minimarkets sell a variety of everyday items.",
+      "insuranceRate": 3
     }
+  },
+  "mediumCompanies": {
+    "production": {
+      "description": "Production companies manufacture goods at scale.",
+      "insuranceRate": 6
+    },
+    "retail": {
+      "description": "Retail companies sell products to the public.",
+      "insuranceRate": 4
+    }
+  }
 }
