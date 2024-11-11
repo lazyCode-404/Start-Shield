@@ -22,13 +22,17 @@ const AdminDashboard1 = ({ setActiveSection }) => {
             <FaCoins className="icon" />
             <span>Token Management</span>
           </li>
-          <li onClick={() => setActiveSection('trainingEvents')}>
+          <li onClick={() => setActiveSection('trainingYEvtsManag')}>
             <FaCalendarAlt className="icon" />
             <span>Training & Events</span>
           </li>
-          <li onClick={() => setActiveSection('reports')}>
+          <li onClick={() => setActiveSection('reportsAnalytics')}>
             <FaChartLine className="icon" />
-            <span>Reports</span>
+            <span>Reports & Analytics</span>
+          </li>
+          <li onClick={() => setActiveSection('supportHelp')}>
+            <FaChartLine className="icon" />
+            <span>Support & Help</span>
           </li>
           <li onClick={() => setActiveSection('settings')}>
             <FaCog className="icon" />

@@ -81,16 +81,8 @@ const NavBar = ({ userInfo }) => {
                 
                 </NavLink>
               </li>
-              <li className="nav-item">
-                  <NavLink to="/adminDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                    Admin Dashboard
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/userDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                    User Dashboard
-                  </NavLink>
-                </li>
+             
+                {/* </li> */}
               <li className="nav-item">
                 <NavLink to="/adminPage" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
                 All Users

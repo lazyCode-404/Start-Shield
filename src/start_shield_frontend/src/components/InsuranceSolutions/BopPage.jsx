@@ -14,6 +14,10 @@ import VmP1 from '../../src/assets/images/VmP.jpg';
 const InsuranceSolution = () => {
   const navigate = useNavigate();
 
+  const handleAlb = () => {
+    navigate('/alb');  // Navighează către pagina ViewPolicies
+  };
+
   const handleViewPolicies = () => {
     navigate('/view-policies');  // Navighează către pagina ViewPolicies
   };
@@ -173,6 +177,7 @@ const InsuranceSolution = () => {
               <li>Used as collateral for business funding on the StartShield platform.</li>
             </ul>
             <button onClick={handleTokenManagement} className="convert-tokens-button">Token Management</button>
+            <button onClick={handleAlb} className="convert-tokens-button">File a AlbColor</button>
           </div>
         </div>
       </Container>

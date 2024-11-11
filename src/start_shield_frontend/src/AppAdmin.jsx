@@ -5,6 +5,9 @@ import Footer from './components/Footer/index.jsx';
 import AdminDashboard1 from './components/NewAD/ADasboard.jsx';
 import DashboardPage from './components/NewAD/DashboardPage.jsx';
 import UserManagement from './components/NewAD/UserManagement.jsx';
+import PolicyManagement from './components/NewAD/POlicyManagement.jsx';
+import TokenManagement from './components/NewAD/TokenManagement.jsx';
+import TrainingYEvtsManag from './components/NewAD/TrainingYEvtsManag.jsx'
 
 function AppAdmin() {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -18,15 +21,17 @@ function AppAdmin() {
         <UserManagement />
       </ErrorBoundary>;
       case 'policyManagement':
-        return <div>Policy Management Content</div>;
+        return <PolicyManagement />;
       case 'tokenManagement':
-        return <div>Token Management Content</div>;
-      case 'trainingEvents':
-        return <div>Training & Events Content</div>;
-      case 'reports':
-        return <div>Reports Content</div>;
+        return <TokenManagement />;
+      case 'trainingYEvtsManag':
+        return <TrainingYEvtsManag />;
+      case 'reportsAnalytics':
+        return <div>ReportsAnalytics</div>;
+      case 'supportHelp':
+        return <div>SupportHelp</div>;
       case 'settings':
-        return <div>Settings Content</div>;
+        return <div>Settings</div>;
       default:
         return null;
     }

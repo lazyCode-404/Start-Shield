@@ -30,6 +30,22 @@
       "premium": false,
       "tokensEarned": 0
     },
+    
+    {
+      "id": "BOP12344",
+      "industry": "Retail",
+      "annualRevenue": "5000000",
+      "employees": 60,
+      "coverage": "General Liability",
+      "active": false,
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "insuredValue": 810000,
+      "policyValue": 12100,
+      "paymentOption": "monthly",
+      "premium": false,
+      "tokensEarned": 0
+    },
     {
       "id": "BOP12347",
       "industry": "Retail",
@@ -44,6 +60,22 @@
       "paymentOption": "annual",
       "premium": true,
       "tokensEarned": 300
+    },
+    
+    {
+      "id": "BOP12355",
+      "industry": "Retail",
+      "annualRevenue": "5020000",
+      "employees": 10,
+      "coverage": "General Liability",
+      "active": true,
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "insuredValue": 60000,
+      "policyValue": 1000,
+      "paymentOption": "annual",
+      "premium": true,
+      "tokensEarned": 931
     },
     {
       "id": "POL54321",
@@ -67,6 +99,12 @@
     },
     {
       "id": "CLM54324",
+      "policyId": "BOP12347",
+      "description": "Property damage due to snow",
+      "status": "Solved"
+    },
+    {
+      "id": "CLM54329",
       "policyId": "BOP12347",
       "description": "Property damage due to snow",
       "status": "Solved"
