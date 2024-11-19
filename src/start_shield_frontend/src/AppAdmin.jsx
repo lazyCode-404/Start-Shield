@@ -8,6 +8,7 @@ import UserManagement from './components/NewAD/UserManagement.jsx';
 import PolicyManagement from './components/NewAD/POlicyManagement.jsx';
 import TokenManagement from './components/NewAD/TokenManagement.jsx';
 import TrainingYEvtsManag from './components/NewAD/TrainingYEvtsManag.jsx'
+import InsuranceList from './components/InsuranceList/InsuranceList.jsx';
 
 function AppAdmin() {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -32,6 +33,8 @@ function AppAdmin() {
         return <div>SupportHelp</div>;
       case 'settings':
         return <div>Settings</div>;
+        case 'insuranceList':
+          return <InsuranceList />;
       default:
         return null;
     }

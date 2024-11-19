@@ -14,3 +14,46 @@
 .card-personal-style {
     box-shadow: 5px 5px 10px #111, -5px -5px 10px #ddd;
 }
+
+.img-styles {
+    max-height: 80vw;
+}
+
+.custom-h6-style {
+    font-size: 1.1rem; /* Ajustează dimensiunea fontului */
+    font-weight: bold; /* Bold text */
+    color: #007bff; /* Schimbă culoarea textului */
+    margin-bottom: 10px; /* Adaugă spațiu jos */
+    text-transform: uppercase; /* Transformă textul în litere mari (opțional) */
+  }
+
+  .card-personal-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuie conținutul între partea de sus și jos */
+    height: 100%; /* Asigură înălțimi egale pentru carduri */
+  }
+  
+  .card-personal-style .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Face corpul cardului să ocupe spațiul rămas */
+    justify-content: space-between; /* Poziționează conținutul */
+  }
+  
+  .linkedin-link {
+    margin-top: auto; /* Poziționează link-ul în partea de jos */
+    font-size: 0.9rem;
+    color: #0e76a8;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .linkedin-link:hover {
+    text-decoration: underline;
+    color: #005582;
+  }
+  
+  
+  

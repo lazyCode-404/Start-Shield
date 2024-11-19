@@ -35,6 +35,7 @@
 
 .nav-links li {
   margin-left: 18px;
+  border-bottom: none;
 }
 
 .nav-item {
@@ -124,12 +125,18 @@ text-design {
   .nav-links ul {
     flex-direction: column;
     width: 100%;
+    
   }
 
   .nav-links li {
     margin-left: 0;
     text-align: center;
     padding: 10px 0;
+   
+  }
+
+  .nav-links ul li{
+    border-bottom: none;
   }
 
   .sign-up-button, .sign-in-button {
@@ -138,3 +145,4 @@ text-design {
     text-align: center;
   }
 }
+

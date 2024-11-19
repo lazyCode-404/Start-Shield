@@ -198,7 +198,7 @@ public shared(msg) func getCompanies(): async [Data.CompanyData] {
             };
         };
     };
-};
+  };
 
 
 
@@ -234,100 +234,3 @@ public shared(msg) func getCompanies(): async [Data.CompanyData] {
     return events;
   };
 };
-
-
-
-// import Nat "mo:base/Nat";
-// import Text "mo:base/Text";
-
-// actor InsuranceBackend {
-
-//   // Structura pentru adresa companiei
-//   public type Address = {
-//     country: Text;
-//     state: Text;
-//     city: Text;
-//     street: Text;
-//     number: Text;
-//     postalCode: Text;
-//   };
-
-//   // Structura pentru datele companiei
-//   public type Company = {
-//     companyName: Text;
-//     registrationNumber: Text;
-//     email: Text;
-//     phone: Text;
-//     address: Address;
-//     insuranceType: Text;
-//     insuredValue: Nat;
-//     policyValue: Nat;
-//     paymentOption: Text;
-//     premium: Bool;
-//     gps: ?Text; // Opțional pentru tipurile care au nevoie
-//     tokensEarned: Nat;
-//   };
-
-//   // Lista pentru a stoca companiile
-//   stable var companies: [Company] = [];
-
-//   // Functie pentru inregistrarea unei companii
-//   public func registerCompany(company: Company): async Bool {
-//     // Verificăm dacă firma este deja înregistrată
-//     let existingCompany = companies.filter((c) => c.companyName == company.companyName);
-//     if (existingCompany.size() > 0) {
-//       return false; // Compania este deja înregistrată
-//     } else {
-//       companies := Array.append(companies, [company]);
-//       return true; // Compania a fost înregistrată
-//     }
-//   };
-
-//   // Functie pentru a returna toate companiile
-//   public func getAllCompanies(): async [Company] {
-//     return companies;
-//   };
-
-//   // Functie pentru a găsi o companie după nume
-//   public func findCompanyByName(name: Text): async ?Company {
-//     let result = companies.filter((c) => c.companyName == name);
-//     if (result.size() > 0) {
-//       return ?result[0];
-//     } else {
-//       return null; // Nu s-a găsit compania
-//     }
-//   };
-
-//   // Functie pentru a calcula tokenii recompensați
-//   public func calculateTokens(insuredValue: Nat, rewardPercentage: Nat): async Nat {
-//     return (insuredValue * rewardPercentage) / 100;
-//   };
-// };
-
-
-
-
-// // import Claims "claims";
-// // import Coverage "coverage";
-// // import Quote "quote";
-// // import Policy "policy";
-// import Token "token";
-
-// actor Main {
-//   public query func submitClaim(claimDetails: Claims.Claim) : async Text {
-//     Claims.addClaim(claimDetails);
-//     return "Claim submitted!";
-//   };
-
-//   public query func getQuote(quoteDetails: Quote.QuoteDetails) : async Text {
-//     return await Quote.generateQuote(quoteDetails);
-//   };
-
-//   public query func renewPolicy(policyId: Text) : async Text {
-//     return await Policy.renewPolicy(policyId);
-//   };
-
-//   public query func manageTokens(tokenData: Token.TokenManagement) : async Text {
-//     return Token.processToken(tokenData);
-//   };
-// };
