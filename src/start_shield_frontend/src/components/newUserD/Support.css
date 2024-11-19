@@ -1,0 +1,100 @@
+.support-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .help-center,
+  .contact-support,
+  .user-info {
+    margin-bottom: 30px;
+  }
+  
+  h3 {
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .faq-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .faq-list li {
+    margin-bottom: 15px;
+  }
+  
+  .contact-support .support-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .label {
+    margin-bottom: 5px;
+  }
+  
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  input.input-error,
+  textarea.input-error {
+    border-color: red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
+  
+  .btn-submit {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-submit:hover {
+    background-color: #388e3c;
+  }
+  
+  .success-message {
+    color: green;
+    text-align: center;
+  }
+  
+  .user-info {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+  }
+  
+  .user-details {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .user-details p {
+    margin: 5px 0;
+  }
+  

@@ -182,5 +182,50 @@
       "description": "Retail companies sell products to the public.",
       "insuranceRate": 4
     }
-  }
+  },
+  "events": [
+    {
+      "id": "EVT001",
+      "title": "Cyber Security Workshop",
+      "date": "2024-12-05",
+      "location": "Online",
+      "status": "Upcoming",
+      "materials": []
+    },
+    {
+      "id": "EVT002",
+      "title": "Risk Management Seminar",
+      "date": "2024-10-01",
+      "location": "New York, USA",
+      "status": "Completed",
+      "materials": ["Risk_Management.pdf"]
+    },
+    {
+      "id": "EVT003",
+      "title": "Insurance Trends 2024",
+      "date": "2024-11-20",
+      "location": "London, UK",
+      "status": "Upcoming",
+      "materials": []
+    }
+  ],
+  "helpCenter": {
+    "faqs": [
+      { "question": "How to reset my password?", "answer": "Click on 'Forgot Password' on the login page." },
+      { "question": "How to update my profile?", "answer": "Go to the Profile Management section under Admin Settings." }
+    ],
+    "guidelines": [
+      "Ensure your profile is up-to-date.",
+      "Use strong passwords to secure your account."
+    ]
+  },
+  "contactSupport": {
+    "email": "support@example.com",
+    "phone": "+1-800-555-1234",
+    "hours": "Mon-Fri, 9 AM - 5 PM"
+  },
+  "systemLogs": [
+    { "date": "2024-11-01", "activity": "User John Doe updated profile." },
+    { "date": "2024-11-02", "activity": "Admin Jane Smith changed system settings." }
+  ]
 }
