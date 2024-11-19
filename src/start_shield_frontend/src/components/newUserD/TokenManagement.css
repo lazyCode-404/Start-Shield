@@ -1,0 +1,28 @@
+.token-management {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .balance-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .balance-section p {
+    font-size: 1.5em;
+    color: #4caf50;
+  }
+  
+  .token-utilization {
+    margin-top: 20px;
+  }
+  
+  .token-utilization ul {
+    list-style: disc;
+    padding-left: 20px;
+  }
+  

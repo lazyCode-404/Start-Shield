@@ -8,7 +8,7 @@ const AdminDashboard1 = ({ setActiveSection }) => {
         <ul className="sidebar-menu">
           <li onClick={() => setActiveSection('dashboard')}>
             <FaTachometerAlt className="icon" />
-            <span>Dashboard</span>
+            <span>Dashboard Overview</span>
           </li>
           <li onClick={() => setActiveSection('userManagement')}>
             <FaUsers className="icon" />
@@ -22,7 +22,7 @@ const AdminDashboard1 = ({ setActiveSection }) => {
             <FaCoins className="icon" />
             <span>Token Management</span>
           </li>
-          <li onClick={() => setActiveSection('trainingYEvtsManag')}>
+          <li onClick={() => setActiveSection('trainingEvtsManag')}>
             <FaCalendarAlt className="icon" />
             <span>Training & Events</span>
           </li>
@@ -30,13 +30,13 @@ const AdminDashboard1 = ({ setActiveSection }) => {
             <FaChartLine className="icon" />
             <span>Reports & Analytics</span>
           </li>
-          <li onClick={() => setActiveSection('supportHelp')}>
+          <li onClick={() => setActiveSection('supportHelp')}>s
             <FaChartLine className="icon" />
             <span>Support & Help</span>
           </li>
           <li onClick={() => setActiveSection('settings')}>
             <FaCog className="icon" />
-            <span>Settings</span>
+            <span>Admin Settings</span>
           </li>
         </ul>
       </aside>

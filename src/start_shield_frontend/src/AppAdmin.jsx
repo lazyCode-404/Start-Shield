@@ -7,7 +7,10 @@ import DashboardPage from './components/NewAD/DashboardPage.jsx';
 import UserManagement from './components/NewAD/UserManagement.jsx';
 import PolicyManagement from './components/NewAD/POlicyManagement.jsx';
 import TokenManagement from './components/NewAD/TokenManagement.jsx';
-import TrainingYEvtsManag from './components/NewAD/TrainingYEvtsManag.jsx'
+import TrainingEvtsManag from './components/NewAD/TrainingEvtsManag.jsx';
+import ReportsAnalytics from './components/NewAD/ReportsAnalytics.jsx';
+import AdminSettings from './components/NewAD/AdminSettings.jsx';
+import SupportHelp from './components/NewAD/SupportHelp.jsx';
 
 function AppAdmin() {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -24,14 +27,14 @@ function AppAdmin() {
         return <PolicyManagement />;
       case 'tokenManagement':
         return <TokenManagement />;
-      case 'trainingYEvtsManag':
-        return <TrainingYEvtsManag />;
+      case 'trainingEvtsManag':
+        return <TrainingEvtsManag />;
       case 'reportsAnalytics':
-        return <div>ReportsAnalytics</div>;
+        return <ReportsAnalytics />;
       case 'supportHelp':
-        return <div>SupportHelp</div>;
+        return <SupportHelp />;
       case 'settings':
-        return <div>Settings</div>;
+        return <AdminSettings />;
       default:
         return null;
     }

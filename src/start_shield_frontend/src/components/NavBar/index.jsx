@@ -93,7 +93,11 @@ const NavBar = ({ userInfo }) => {
                 ADashboard
                 </NavLink>
               </li>
-
+              <li className="nav-item">
+                <NavLink to="/u-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                UDashboard
+                </NavLink>
+              </li>
               {/* Afișează linkurile pentru dashboard doar dacă utilizatorul este logat */}
               {userInfo && userInfo.role === 'Admin' && (
                  <>
