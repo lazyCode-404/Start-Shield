@@ -22,13 +22,15 @@ import TokenManagement from './components/InsuranceSolutions/TokenManagement.jsx
 import Claims from './components/InsuranceSolutions/Claims.jsx'
 import GetQuote from './components/InsuranceSolutions/GetQuote.jsx';
 import AdminDashboard1 from './components/NewAD/ADasboard.jsx';
+import UserDashboard1 from './components/newUserD/UDasboard.jsx';
 import AppAdmin from './AppAdmin.jsx'; // Import the new AppAdmin component
+import AppUser from './AppUser.jsx';
 import Alb from './components/InsuranceSolutions/Albcolor.jsx'
 
 
 function App() {
-  const [userInfo, setUserInfo] = useState(null); 
-  
+  const [userInfo, setUserInfo] = useState(null);
+
   return (
     <Router>
       <AppContent userInfo={userInfo} setUserInfo={setUserInfo} />
@@ -43,19 +45,21 @@ function AppContent({ userInfo, setUserInfo }) {
   const handleLogin = (user) => {
     setUserInfo(user); // Setează datele utilizatorului după login
   };
-    // Verifică ruta pentru a afișa navbar-ul corect
-    const isAdminDashboard = location.pathname === '/a-dashboard';
-    // const isAdminDashboard = location.pathname.startsWith('/admin') 
-    // && userInfo?.role === ('Admin');
-
+  // Verifică ruta pentru a afișa navbar-ul corect
+  const isAdminDashboard = location.pathname === '/a-dashboard';
+  // const isAdminDashboard = location.pathname.startsWith('/admin') 
+  // && userInfo?.role === ('Admin');
+  const isUserDashboard = location.pathname === '/u-dashboard';
   return (
     <>
       {/* <Router> */}
-        {/* <div> */}
-            {/* Afișează AdminNavbar doar pe pagina specifică */}
-            {/* {isAdminDashboard ? <AdminNavbar /> : <NavBar userInfo={userInfo} />} */}
-            {isAdminDashboard ? (
+      {/* <div> */}
+      {/* Afișează AdminNavbar doar pe pagina specifică */}
+      {/* {isAdminDashboard ? <AdminNavbar /> : <NavBar userInfo={userInfo} />} */}
+      {isAdminDashboard ? (
         <AppAdmin /> // Renders the admin-specific app if the path matches
+      ) : isUserDashboard ? (
+        <AppUser /> // Afișează aplicația User dacă rolul și URL-ul se potrivesc
       ) : (
         <div>
           <NavBar userInfo={userInfo} />
@@ -79,9 +83,11 @@ function AppContent({ userInfo, setUserInfo }) {
               <Route path="/token-management" element={<TokenManagement />} />
               <Route path="/claims" element={<Claims />} />
               <Route path="/get-quote" element={<GetQuote />} />
-              <Route path='/a-dashboard' element={<AdminDashboard1/>} />
-               {/* <Route path='/u-dashboard' element={<UserDashboard1/>} /> */}
-               <Route path='/alb' element={<Alb/>} />
+              <Route path='/a-dashboard' element={<AdminDashboard1 />} />
+              <Route path='/u-dashboard' element={<UserDashboard1 />} />
+
+              {/* <Route path='/u-dashboard' element={<UserDashboard1/>} /> */}
+              <Route path='/alb' element={<Alb />} />
               {/* Redirecționează către dashboard-uri doar dacă utilizatorul e autentificat */}
               {userInfo && userInfo.role === 'Admin' && (
                 <Route path="/adminDashboard" element={<AdminDashboard />} />
@@ -89,9 +95,9 @@ function AppContent({ userInfo, setUserInfo }) {
               {userInfo && userInfo.role === 'User' && (
                 <Route path="/userDashboard" element={<UserDashboard />} />
               )}
-               {userInfo && userInfo.role === 'Admin' && (
+              {userInfo && userInfo.role === 'Admin' && (
                 <Route path="/adminPage" element={<AdminPage />} />
-              )} 
+              )}
 
             </Routes>
           </Wrapper>

@@ -1,6 +1,8 @@
 # Object file
 *.o
-
 # Ada Library Information
 *.ali
+# Environment variables
 .env
+# Node modules directory
+node-module/

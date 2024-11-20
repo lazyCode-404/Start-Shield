@@ -15,7 +15,9 @@
     "react-dom": "^18.2.0",
     "@dfinity/agent": "^0.15.7",
     "@dfinity/candid": "^0.15.7",
-    "@dfinity/principal": "^0.15.7"
+    "@dfinity/principal": "^0.15.7",
+    "chart.js": "^4.4.0",
+    "react-chartjs-2": "^5.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
