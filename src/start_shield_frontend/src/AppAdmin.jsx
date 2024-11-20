@@ -7,10 +7,12 @@ import DashboardPage from './components/NewAD/DashboardPage.jsx';
 import UserManagement from './components/NewAD/UserManagement.jsx';
 import PolicyManagement from './components/NewAD/POlicyManagement.jsx';
 import TokenManagement from './components/NewAD/TokenManagement.jsx';
+import InsuranceList from './components/InsuranceList/InsuranceList.jsx';
 import TrainingEvtsManag from './components/NewAD/TrainingEvtsManag.jsx';
 import ReportsAnalytics from './components/NewAD/ReportsAnalytics.jsx';
 import AdminSettings from './components/NewAD/AdminSettings.jsx';
 import SupportHelp from './components/NewAD/SupportHelp.jsx';
+
 
 function AppAdmin() {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -39,7 +41,6 @@ function AppAdmin() {
         return null;
     }
   };
-
   return (
     <div>
       <AdminNavbar />

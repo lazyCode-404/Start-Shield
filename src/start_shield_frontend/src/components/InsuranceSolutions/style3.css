@@ -217,3 +217,12 @@
 .claims .status-display strong {
   color: #007bff;
 }
+ 
+drop-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+

@@ -34,6 +34,10 @@ const AdminDashboard1 = ({ setActiveSection }) => {
             <FaChartLine className="icon" />
             <span>Support & Help</span>
           </li>
+          <li onClick={() => setActiveSection('insuranceList')}>
+            <FaChartLine className="icon" />
+            <span>Insurance List</span>
+          </li>
           <li onClick={() => setActiveSection('settings')}>
             <FaCog className="icon" />
             <span>Admin Settings</span>
