@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ClaimForm from "./ClaimForm.jsx"; // Import the ClaimForm component
 import './MyPolicies.css';
 import data from '../../../data.json';
 
@@ -6,6 +7,7 @@ function MyPolicies() {
   const [policies, setPolicies] = useState([]);
   const [sortField, setSortField] = useState('id');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [selectedPolicy, setSelectedPolicy] = useState(null); // Store the selected policy for claims
 
   useEffect(() => {
     setPolicies(data.policies);
@@ -27,8 +29,14 @@ function MyPolicies() {
     alert(`Viewing details for Policy ID: ${id}`);
   };
 
-  const submitClaim = (id) => {
-    alert(`Submitting claim for Policy ID: ${id}`);
+  // const submitClaim = (id) => {
+  //   alert(`Submitting claim for Policy ID: ${id}`);
+  // };
+  const submitClaim = (policy) => {
+    setSelectedPolicy(policy); // Set the selected policy for the Claim Form
+  };
+  const closeClaimForm = () => {
+    setSelectedPolicy(null); // Close the Claim Form
   };
 
   const renewPolicy = (id) => {
@@ -38,6 +46,10 @@ function MyPolicies() {
   return (
     <div className="policies-container">
       <h2>My Policies</h2>
+      {selectedPolicy ? (
+        <ClaimForm policy={selectedPolicy} onClose={closeClaimForm} />
+      ) : (
+        <>
       <table className="policies-table">
         <thead>
           <tr>
@@ -57,13 +69,21 @@ function MyPolicies() {
               <td>{policy.endDate}</td>
               <td>
                 <button onClick={() => viewPolicyDetails(policy.id)}>View</button>
-                <button onClick={() => submitClaim(policy.id)}>Claim</button>
+                {/* <button onClick={() => submitClaim(policy.id)}>Claim</button> */}
+                <button
+                      className="action-button"
+                      onClick={() => submitClaim(policy)}
+                    >
+                      Claim
+                    </button>
                 <button onClick={() => renewPolicy(policy.id)}>Renew</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      </>
+      )}
     </div>
   );
 }

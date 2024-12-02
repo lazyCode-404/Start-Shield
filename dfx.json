@@ -1,7 +1,6 @@
 {
   "canisters": {
-    "start_shield_backend": {
-      "main": "src/start_shield_backend/main.mo",
+    "internet_identity": {
       "type": "custom",
       "candid": "https://github.com/dfinity/internet-identity/releases/download/release-2024-10-18/internet_identity.did",
       "wasm": "https://github.com/dfinity/internet-identity/releases/download/release-2024-10-18/internet_identity_dev.wasm.gz",
@@ -13,7 +12,10 @@
       },
       "frontend": {}
     },
-  
+    "users_backend": {
+      "main": "src/start_shield_backend/main.mo",
+      "type": "motoko"
+    },
     "start_shield_frontend": {
       "dependencies": [
         "start_shield_backend"

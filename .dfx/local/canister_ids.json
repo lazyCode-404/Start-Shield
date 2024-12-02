@@ -1,11 +1,11 @@
 {
-  "__Candid_UI": {
-    "local": "be2us-64aaa-aaaaa-qaabq-cai"
-  },
-  "start_shield_backend": {
-    "local": "bkyz2-fmaaa-aaaaa-qaaaq-cai"
+  "internet_identity": {
+    "local": "bw4dl-smaaa-aaaaa-qaacq-cai"
   },
   "start_shield_frontend": {
-    "local": "bd3sg-teaaa-aaaaa-qaaba-cai"
+    "local": "b77ix-eeaaa-aaaaa-qaada-cai"
+  },
+  "users_backend": {
+    "local": "by6od-j4aaa-aaaaa-qaadq-cai"
   }
 }
