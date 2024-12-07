@@ -12,7 +12,7 @@
       },
       "frontend": {}
     },
-    "users_backend": {
+    "start_shield_backend": {
       "main": "src/start_shield_backend/main.mo",
       "type": "motoko"
     },

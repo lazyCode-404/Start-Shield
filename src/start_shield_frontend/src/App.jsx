@@ -13,7 +13,8 @@ import AboutUs from './components/AboutUs/AboutUs';
 import LegalCompliance from './components/LegalCompliance/LegalCompliance';
 import CheckPriceInsurance from './components/CheckPriceInsurance/index.jsx';
 import SignUp from './components/CreateAccount/index.jsx';  // Only one import for SignUp
-import { Login } from './components/SignIn/index.jsx'
+// import { Login } from './components/SignIn/index.jsx'
+import Login from './login.jsx';
 import { WelcomePage } from './components/Welcome/welcome.jsx'
 import AdminPage from './components/AdminPage/AdminPage.jsx';
 import ViewPolicies from './components/InsuranceSolutions/ViewPolicies';

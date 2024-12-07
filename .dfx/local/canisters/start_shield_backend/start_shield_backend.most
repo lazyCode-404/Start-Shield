@@ -1,0 +1,13 @@
+// Version: 1.0.0
+type AccessLevel = {#ADMIN; #GUEST; #USER};
+type User =
+  {
+    accessLevel : AccessLevel;
+    age : Nat;
+    email : Text;
+    name : Text;
+    timestamp : Int
+  };
+actor {
+  stable var usersEntries : [(Text, User)]
+};
