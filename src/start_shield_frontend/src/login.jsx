@@ -1,168 +1,254 @@
 import { useEffect, useState } from "react";
-// import { useAuth } from "./context/AppContext";
-import { useAuth } from "./context/AppContext"; // Adjust based on actual folder structure
-
+import { useAuth } from "./context/AppContext"; // Ajustează calea după structura ta
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const { backendActor, login, logout, isAuthenticated, identity } = useAuth();
-  const [users, setUsers] = useState([]);
-  const [saving , setSaving] = useState(false);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState(0);
+  const [accessLevel, setAccessLevel] = useState(""); // Default role
+  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]); // Adaugăm state pentru `users`
+  const navigate = useNavigate();
+  const [userChecked, setUserChecked] = useState(false); // Nouă stare pentru finalizarea verificării
 
-  const submit = async (e) => {
-    e.preventDefault();
-    if (backendActor) {
-      try {
-        setSaving(true);
-        let user = {
-          name: name,
-          email: email,
-          age: BigInt(age),
-          accessLevel: { USER: null },
-          timestamp: BigInt(Date.now()),
-        };
-        await backendActor.createUser(user);
-        setName("");
-        setEmail("");
-        setAge(0);
-        setSaving(false);
-        getUsers();
-      } catch (error) {
-        console.log("Error adding user:", error);
-        setSaving(false);
-      }
+  // Redirect if authenticated
+  useEffect(() => {
+    console.log("Auth state:", { isAuthenticated, identity });
+    if (isAuthenticated) {
+      checkUser();
+    }
+  }, [isAuthenticated]);
+
+  // Fetch users when component mounts
+  useEffect(() => {
+    if (isAuthenticated && identity) {
+      checkUser();
+    }
+  }, [isAuthenticated, identity]);
+  
+
+  // Fetch all users
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const allUsers = await backendActor.getAllUsers(); // Presupunem că există metoda `getAllUsers`
+      setUsers(allUsers);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Check if the user already exists
   useEffect(() => {
-    if (backendActor && isAuthenticated) {
-      getUsers();
+    if (isAuthenticated && identity && backendActor) {
+      checkUser();
     }
-  }, [isAuthenticated, backendActor]);
+  }, [isAuthenticated, identity, backendActor]);
 
-  const getUsers = async () => {
+  const checkUser = async () => {
     try {
-      const res = await backendActor?.getAllUsers();
-      if (res) {
-        setUsers(res);
+      setLoading(true);
+      const principal = await identity.getPrincipal();
+      console.log("Checking user for principal:", principal);
+  
+      const user = await backendActor.getUserByPrincipal(principal);
+      console.log("User found:", user);
+  
+      // Dacă user este un array gol, considerăm că utilizatorul nu există
+      if (user && user.length > 0) {
+        // const role = Object.keys(user[0].accessLevel || {})[0]; // Presupunem că user[0] conține datele utilizatorului
+        const role = user[0]?.accessLevel;
+        console.log("User role:", role);
+        if (role === "Admin") {
+          navigate("/a-dashboard");
+        } else {
+          navigate("/u-dashboard");
+        }
+      } else {
+        console.log("User does not exist. Redirecting to signup.");
+        navigate("/createAccountSignIn");
       }
     } catch (error) {
-      console.log("Error getting users:", error);
+      console.error("Error checking user:", error);
+    } finally {
+      setLoading(false);
+      setUserChecked(true); // Marchează verificarea ca finalizată
+    }
+  };
+  
+  // Evită afișarea interfeței până când utilizatorul este verificat
+  if (loading || (isAuthenticated && !userChecked)) {
+    return <div className="text-center">Loading...</div>;
+  }
+
+  
+
+  // Submit new user
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!name || !email || !age || !accessLevel) {
+      alert("Please fill in all fields!");
+      return;
+    }
+    if (backendActor) {
+      try {
+        setLoading(true);
+        const user = {
+          name,
+          email,
+          age: BigInt(age),
+          accessLevel: { [accessLevel]: null },
+          timestamp: BigInt(Date.now()),
+        };
+        const principal = await identity.getPrincipal();
+        await backendActor.createUser(principal, user); // Presupunem că există metoda `createUser`
+        await fetchUsers(); // Reîmprospătăm lista de utilizatori
+        navigate(accessLevel === "Admin" ? "/a-dashboard" : "/u-dashboard");
+      } catch (error) {
+        console.error("Error adding user:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   return (
-    <main className="app-main">
-      {isAuthenticated ? (
-        <div className="auth-container">
-          <img src="/logo2.svg" alt="DFINITY logo" className="app-logo" />
-          <button
-            className="
-          bg-blue-500 text-white font-bold py-1 px-4 rounded-lg
-          "
-            onClick={logout}
-          >
-            Logout
-          </button>
-          <section id="greeting" className="greeting-section">
-            <h1 className="greeting-title">Hi there!</h1>
-            <p className="greeting-text">Welcome to the users app</p>
-          </section>
+    <div>
+      {/* Navbar */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/">
+          <img
+                className="logo"
+                src="/assets/images/start-shield-black-logo.jpg"
+                alt="StartShield Logo"
+              />
+          </a>
+          {isAuthenticated && (
+            <button className="btn btn-danger" onClick={logout}>
+              Logout
+            </button>
+          )}
+        </div>
+      </nav>
 
-          <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-            <form className="space-y-4">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block font-medium text-gray-700"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  id="name"
-                  className="mt-1 block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                  placeholder="Name"
-                />
-              </div>
+      {/* Main content */}
+      <main className="container mt-5">
+        {isAuthenticated ? (
+          <div>
+            <h1 className="mb-4">Welcome to the User App!</h1>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block font-medium text-gray-700"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  id="email"
-                  className="mt-1 block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                  placeholder="you@example.com"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="age"
-                  className="block font-medium text-gray-700"
-                >
-                  Age
-                </label>
-                <input
-                  type="number"
-                  name="age"
-                  value={age}
-                  onChange={(e) => setAge(parseInt(e.target.value))}
-                  id="age"
-                  className="mt-1 block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                  placeholder="30"
-                />
-              </div>
-
-              <div className="text-right">
-                <button
-                  type="submit"
-                  onClick={submit}
-                  disabled={saving}
-                  className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
-                >
-                  {saving ? "Saving..." : "Save"}
-                </button>
-              </div>
-            </form>
-          </div>
-
-          {users.length > 0 &&
-            users.map((user, index) => (
-              <div
-                key={index}
-                className="max-w-sm rounded overflow-hidden shadow-lg bg-white m-2"
-              >
-                <div className="px-6 py-4">
-                  <div className="font-bold text-xl mb-2">{user.name}</div>
-                  <p className="text-gray-700 text-base">{user.email}</p>
+            {/* Add User Form */}
+            <div className="card p-4 mb-4">
+              <h2>Add a User</h2>
+              <form onSubmit={submit}>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="form-control"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
                 </div>
-              </div>
-            ))}
-        </div>
-      ) : (
-        <div className="login-container">
-          <button className="login-btn" onClick={login}>
-            Login
-          </button>
-        </div>
-      )}
-    </main>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="form-control"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="age" className="form-label">
+                    Age
+                  </label>
+                  <input
+                    type="number"
+                    id="age"
+                    className="form-control"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="accessLevel" className="form-label">
+                    Access Level
+                  </label>
+                  <select
+                    id="accessLevel"
+                    className="form-select"
+                    value={accessLevel}
+                    onChange={(e) => setAccessLevel(e.target.value)}
+                    required
+                  >
+                    <option value="ADMIN">Admin</option>
+                    <option value="USER">User</option>
+                    <option value="GUEST">Guest</option>
+                  </select>
+                </div>
+                <button type="submit" className="btn btn-primary" disabled={loading}>
+                  {loading ? "Saving..." : "Save"}
+                </button>
+              </form>
+            </div>
+
+            {/* Display Registered Users */}
+            <div>
+              <h2>Registered Users</h2>
+              {users.length > 0 ? (
+                <div className="row">
+                  {users.map((user, index) => (
+                    <div key={index} className="col-md-4">
+                      <div className="card mb-3 p-3">
+                        <h5>{user.name}</h5>
+                        <p>Email: {user.email}</p>
+                        <p>Age: {user.age.toString()}</p>
+                        <p>Access Level: {Object.keys(user.accessLevel)[0]}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p>No users found.</p>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="text-center">
+            {isAuthenticated ? (
+          <div className="text-center">
+            <h1>Welcome! Redirecting...</h1>
+          </div>
+        ) : (
+          <div className="text-center">
+            <h1>Login to Access the App</h1>
+            <button className="btn btn-primary" onClick={login}>
+              Login
+            </button>
+          </div>
+        )}
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
 
 export default Login;
+

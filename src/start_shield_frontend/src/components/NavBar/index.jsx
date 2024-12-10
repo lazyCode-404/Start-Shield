@@ -83,7 +83,7 @@ const NavBar = ({ userInfo }) => {
               </li>
              
                 {/* </li> */}
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink to="/adminPage" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
                 All Users
                 </NavLink>
@@ -97,7 +97,7 @@ const NavBar = ({ userInfo }) => {
                 <NavLink to="/u-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
                 UDashboard
                 </NavLink>
-              </li>
+              </li> */}
               {/* Afișează linkurile pentru dashboard doar dacă utilizatorul este logat */}
               {userInfo && userInfo.role === 'Admin' && (
                  <>
@@ -107,7 +107,7 @@ const NavBar = ({ userInfo }) => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink to="/adminDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    <NavLink to="/a-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
                       Admin Dashboard
                     </NavLink>
                   </li>
@@ -116,7 +116,7 @@ const NavBar = ({ userInfo }) => {
               )}
               {userInfo && userInfo.role === 'User' && (
                 <li className="nav-item">
-                  <NavLink to="/userDashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                  <NavLink to="/u-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
                     User Dashboard
                   </NavLink>
                 </li>

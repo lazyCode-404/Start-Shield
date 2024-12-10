@@ -23,10 +23,11 @@ type AccessLevel =
    USER;
  };
 service : {
-  createUser: (User) -> ();
-  deleteUser: (text) -> ();
+  createUser: (principal, User) -> (text);
+  deleteUser: (principal) -> (text);
   getAllUsers: () -> (vec User) query;
-  getUser: (text) -> (Result_1) query;
-  getUserAccessLevel: (text) -> (Result) query;
-  updateUser: (User) -> ();
+  getUser: (principal) -> (Result_1) query;
+  getUserAccessLevel: (principal) -> (Result) query;
+  getUserByPrincipal: (principal) -> (opt User);
+  updateUser: (principal, User) -> (text);
 }
