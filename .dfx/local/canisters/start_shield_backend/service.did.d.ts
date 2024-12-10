@@ -17,12 +17,13 @@ export interface User {
   'timestamp' : bigint,
 }
 export interface _SERVICE {
-  'createUser' : ActorMethod<[User], undefined>,
-  'deleteUser' : ActorMethod<[string], undefined>,
+  'createUser' : ActorMethod<[Principal, User], string>,
+  'deleteUser' : ActorMethod<[Principal], string>,
   'getAllUsers' : ActorMethod<[], Array<User>>,
-  'getUser' : ActorMethod<[string], Result_1>,
-  'getUserAccessLevel' : ActorMethod<[string], Result>,
-  'updateUser' : ActorMethod<[User], undefined>,
+  'getUser' : ActorMethod<[Principal], Result_1>,
+  'getUserAccessLevel' : ActorMethod<[Principal], Result>,
+  'getUserByPrincipal' : ActorMethod<[Principal], [] | [User]>,
+  'updateUser' : ActorMethod<[Principal, User], string>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];

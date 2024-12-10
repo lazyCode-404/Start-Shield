@@ -9,5 +9,5 @@ type User =
     timestamp : Int
   };
 actor {
-  stable var usersEntries : [(Text, User)]
+  stable var usersEntries : [(Principal, User)]
 };

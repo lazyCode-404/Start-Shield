@@ -14,12 +14,13 @@ export const idlFactory = ({ IDL }) => {
   const Result_1 = IDL.Variant({ 'ok' : User, 'err' : IDL.Text });
   const Result = IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text });
   return IDL.Service({
-    'createUser' : IDL.Func([User], [], []),
-    'deleteUser' : IDL.Func([IDL.Text], [], []),
+    'createUser' : IDL.Func([IDL.Principal, User], [IDL.Text], []),
+    'deleteUser' : IDL.Func([IDL.Principal], [IDL.Text], []),
     'getAllUsers' : IDL.Func([], [IDL.Vec(User)], ['query']),
-    'getUser' : IDL.Func([IDL.Text], [Result_1], ['query']),
-    'getUserAccessLevel' : IDL.Func([IDL.Text], [Result], ['query']),
-    'updateUser' : IDL.Func([User], [], []),
+    'getUser' : IDL.Func([IDL.Principal], [Result_1], ['query']),
+    'getUserAccessLevel' : IDL.Func([IDL.Principal], [Result], ['query']),
+    'getUserByPrincipal' : IDL.Func([IDL.Principal], [IDL.Opt(User)], []),
+    'updateUser' : IDL.Func([IDL.Principal, User], [IDL.Text], []),
   });
 };
 export const init = ({ IDL }) => { return []; };
