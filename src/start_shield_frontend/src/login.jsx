@@ -28,7 +28,7 @@ function Login() {
       checkUser();
     }
   }, [isAuthenticated, identity]);
-  
+
 
   // Fetch all users
   const fetchUsers = async () => {
@@ -55,16 +55,23 @@ function Login() {
       setLoading(true);
       const principal = await identity.getPrincipal();
       console.log("Checking user for principal:", principal);
-  
+
       const user = await backendActor.getUserByPrincipal(principal);
       console.log("User found:", user);
-  
+
       // Dacă user este un array gol, considerăm că utilizatorul nu există
       if (user && user.length > 0) {
         // const role = Object.keys(user[0].accessLevel || {})[0]; // Presupunem că user[0] conține datele utilizatorului
-        const role = user[0]?.accessLevel;
-        console.log("User role:", role);
-        if (role === "Admin") {
+        // const role = user[0]?.accessLevel;
+        // console.log("User role:", role);
+        // if (role === "ADMIN") {
+        //   navigate("/a-dashboard");
+        // } else {
+        //   navigate("/u-dashboard");
+        // }
+        const role = Object.keys(user[0].accessLevel || {})[0]; // Presupunem că user[0] conține datele utilizatorului
+
+        if (role === "ADMIN") { // Verifică exact valoarea pentru rolul Admin
           navigate("/a-dashboard");
         } else {
           navigate("/u-dashboard");
@@ -80,13 +87,13 @@ function Login() {
       setUserChecked(true); // Marchează verificarea ca finalizată
     }
   };
-  
+
   // Evită afișarea interfeței până când utilizatorul este verificat
   if (loading || (isAuthenticated && !userChecked)) {
     return <div className="text-center">Loading...</div>;
   }
 
-  
+
 
   // Submit new user
   const submit = async (e) => {
@@ -108,7 +115,7 @@ function Login() {
         const principal = await identity.getPrincipal();
         await backendActor.createUser(principal, user); // Presupunem că există metoda `createUser`
         await fetchUsers(); // Reîmprospătăm lista de utilizatori
-        navigate(accessLevel === "Admin" ? "/a-dashboard" : "/u-dashboard");
+        navigate(accessLevel === "ADMIN" ? "/a-dashboard" : "/u-dashboard");
       } catch (error) {
         console.error("Error adding user:", error);
       } finally {
@@ -123,11 +130,11 @@ function Login() {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
-          <img
-                className="logo"
-                src="/assets/images/start-shield-black-logo.jpg"
-                alt="StartShield Logo"
-              />
+            <img
+              className="logo"
+              src="/assets/images/start-shield-black-logo.jpg"
+              alt="StartShield Logo"
+            />
           </a>
           {isAuthenticated && (
             <button className="btn btn-danger" onClick={logout}>
@@ -232,17 +239,17 @@ function Login() {
         ) : (
           <div className="text-center">
             {isAuthenticated ? (
-          <div className="text-center">
-            <h1>Welcome! Redirecting...</h1>
-          </div>
-        ) : (
-          <div className="text-center">
-            <h1>Login to Access the App</h1>
-            <button className="btn btn-primary" onClick={login}>
-              Login
-            </button>
-          </div>
-        )}
+              <div className="text-center">
+                <h1>Welcome! Redirecting...</h1>
+              </div>
+            ) : (
+              <div className="text-center">
+                <h1>Login to Access the App</h1>
+                <button className="btn btn-primary" onClick={login}>
+                  Login
+                </button>
+              </div>
+            )}
           </div>
         )}
       </main>
