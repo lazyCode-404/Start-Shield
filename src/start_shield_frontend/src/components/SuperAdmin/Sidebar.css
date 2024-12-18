@@ -1,0 +1,86 @@
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    /* position: fixed; */
+    height: 100vh;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-menu li {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+  }
+  
+  .sidebar-menu li:hover {
+    background-color: #34495e;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  .submenu {
+    background-color: #34495e;
+    padding: 10px;
+    margin-left: 30px;
+    border-left: 2px solid #ecf0f1;
+    color: #bdc3c7;
+    transition: max-height 0.3s ease;
+  }
+  
+  .submenu p {
+    margin: 0;
+  }
+  
+  .active > .submenu {
+    max-height: 500px; /* Expanded */
+  }
+  
+  .submenu:not(.active) {
+    max-height: 0; /* Collapsed */
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar-menu li {
+      justify-content: space-between;
+    }
+    .submenu {
+      margin-left: 0;
+    }
+  }
+
+  .admin-container {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 250px;
+    /* Alte stiluri */
+  }
+  
+  .section-content {
+    padding: 20px;
+    flex-grow: 1;
+    /* Stiluri suplimentare pentru conținut */
+  }
+  
+  

@@ -1,0 +1,44 @@
+.user-management {
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  th {
+    cursor: pointer;
+  }
+  
+  button {
+    margin: 6 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .edit-button {
+    background-color: #4CAF50;
+    color: white;
+    margin: 4px;
+  }
+  
+  .view-profile-button {
+    background-color: #2196F3;
+    color: white;
+    margin: 4px;
+  }
+  
+  .deactivate-button {
+    background-color: #f44336;
+    color: white;
+    margin: 4px;
+  }
+  
+  

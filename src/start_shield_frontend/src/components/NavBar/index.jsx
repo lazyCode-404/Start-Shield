@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaSignOutAlt } from 'react-icons/fa';
 import './navbar.css';
+import { useAuth } from "../../context/AppContext";
 
-const NavBar = ({ userInfo }) => {
+
+const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, userInfo, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLogout = () => {
-    // Funcția de logout
-    window.location.reload();
-  };
+  // const handleLogout = () => {
+  //   // Funcția de logout
+  //   window.location.reload();
+  // };
 
   return (
     <nav className="navbar">
@@ -81,40 +85,34 @@ const NavBar = ({ userInfo }) => {
                 
                 </NavLink>
               </li>
-             
-                {/* </li> */}
-              {/* <li className="nav-item">
-                <NavLink to="/adminPage" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                All Users
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/a-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                ADashboard
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/u-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                UDashboard
-                </NavLink>
-              </li> */}
               {/* Afișează linkurile pentru dashboard doar dacă utilizatorul este logat */}
-              {userInfo && userInfo.role === 'Admin' && (
-                 <>
-                 <li className="nav-item">
-                  <NavLink to="/adminPage" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                    All Users 
+              {userInfo && userInfo.role === 'SUPER_ADMIN' && (
+                <>
+                <li className="nav-item">
+                  <NavLink to="/s-a-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    Super Admin Dashboard
+                  </NavLink>
+                  </li>
+                <li className="nav-item">
+                  <NavLink to="/a-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    Admin Dashboard
+                  </NavLink>
+                  </li>
+                  <li className="nav-item">
+                  <NavLink to="/u-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    User Dashboard
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                    <NavLink to="/a-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-                      Admin Dashboard
-                    </NavLink>
-                  </li>
-                  </>
-                
+                </>
               )}
-              {userInfo && userInfo.role === 'User' && (
+              {userInfo && userInfo.role === 'ADMIN' && (
+                <li className="nav-item">
+                  <NavLink to="/a-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+                    Admin Dashboard
+                  </NavLink>
+                </li>
+              )}
+              {userInfo && userInfo.role === 'USER' && (
                 <li className="nav-item">
                   <NavLink to="/u-dashboard" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
                     User Dashboard
@@ -124,31 +122,31 @@ const NavBar = ({ userInfo }) => {
             </ul>
 
             <Col sm={2}>
-              <ul>
-                {/* Afișează butonul de login sau logout */}
-                {!userInfo ? (
-                  <>
-                    <li>
-                      <NavLink to="/SignUp" className="nav-link">
-                        <button className="sign-up-button">Join</button>
-                      </NavLink>
-
-                    </li>
-                    <li>
-                      <NavLink to="/createAccountSignIn" className="nav-link">
-                        <button className="sign-in-button">Login</button>
-                      </NavLink>
-                    </li>
-                  </>
-                ) : (
+            <ul>
+              {!isAuthenticated ? (
+                <>
                   <li>
-                    <button onClick={handleLogout} className="sign-out-button">
-                      Logout
-                    </button>
+                    <NavLink to="/createAccountSignIn" className="nav-link">
+                      <button className="sign-in-button">Login or SignUp</button>
+                    </NavLink>
                   </li>
-                )}
-              </ul>
-            </Col>
+                </>
+              ) : (
+                <li>
+                  {/* Dacă utilizatorul este autentificat */}
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      logout();
+                      navigate("/"); // Navighează către pagina de start după logout
+                    }}
+                  >
+                    <FaSignOutAlt /> Logout
+                  </button>
+                </li>
+              )}
+            </ul>
+          </Col>
           </Col>
         </Row>
       </Container>

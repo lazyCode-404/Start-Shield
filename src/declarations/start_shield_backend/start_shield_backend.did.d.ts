@@ -4,7 +4,8 @@ import type { IDL } from '@dfinity/candid';
 
 export type AccessLevel = { 'GUEST' : null } |
   { 'USER' : null } |
-  { 'ADMIN' : null };
+  { 'ADMIN' : null } |
+  { 'SUPER_ADMIN' : null };
 export type Result = { 'ok' : string } |
   { 'err' : string };
 export type Result_1 = { 'ok' : User } |
