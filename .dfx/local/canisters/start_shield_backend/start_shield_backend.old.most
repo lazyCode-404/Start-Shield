@@ -1,5 +1,6 @@
 // Version: 1.0.0
 type AccessLevel = {#ADMIN; #GUEST; #SUPER_ADMIN; #USER};
+
 type User =
   {
     accessLevel : AccessLevel;
