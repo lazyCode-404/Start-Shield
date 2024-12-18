@@ -1,49 +1,23 @@
-// const API_URL = 'http://<your-canister-id>.ic0.app';
+import { Actor, HttpAgent } from "@dfinity/agent";
+import { idlFactory as companyIdl, canisterId as companyCanisterId } from "dfx-generated/companyData";
 
-// // Fetch Policy Summary data
-// export const getPolicySummary = async () => {
-//   const response = await fetch(`${API_URL}/policy-summary`);
-//   return response.json();
-// };
+const agent = new HttpAgent();
 
-// // Update Policy Summary data
-// export const updatePolicySummary = async (policyData) => {
-//   const response = await fetch(`${API_URL}/policy-summary`, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(policyData),
-//   });
-//   return response.json();
-// };
+if (process.env.NODE_ENV !== "production") {
+  agent.fetchRootKey(); // Doar pentru dezvoltare locală
+}
 
-// // Fetch Token Overview data
-// export const getTokenOverview = async () => {
-//   const response = await fetch(`${API_URL}/token-overview`);
-//   return response.json();
-// };
+export const companyActor = Actor.createActor(companyIdl, {
+  agent,
+  canisterId: companyCanisterId,
+});
 
-// // Update Token Overview data
-// export const updateTokenOverview = async (tokenData) => {
-//   const response = await fetch(`${API_URL}/token-overview`, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(tokenData),
-//   });
-//   return response.json();
-// };
+export const addCompany = async (data) => {
+  const principal = await window.ic.plug.getPrincipal();
+  return await companyActor.addCompany(principal, data);
+};
 
-// // Fetch Upcoming Events data
-// export const getUpcomingEvents = async () => {
-//   const response = await fetch(`${API_URL}/upcoming-events`);
-//   return response.json();
-// };
-
-// // Update Upcoming Events data
-// export const updateUpcomingEvents = async (eventData) => {
-//   const response = await fetch(`${API_URL}/upcoming-events`, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(eventData),
-//   });
-//   return response.json();
-// };
+export const getCompany = async () => {
+  const principal = await window.ic.plug.getPrincipal();
+  return await companyActor.getCompany(principal);
+};

@@ -14,7 +14,10 @@
     },
     "start_shield_backend": {
       "main": "src/start_shield_backend/main.mo",
-      "type": "motoko"
+      "type": "motoko",
+      "dependencies": [
+        "companyData"
+      ]
     },
     "start_shield_frontend": {
       "dependencies": [
@@ -25,7 +28,12 @@
       ],
       "type": "assets",
       "workspace": "start_shield_frontend"
-    }
+    },
+  "companyData": {
+  "type": "motoko",
+  "main": "src/start_shield_backend/companyData.mo",
+  "candid": "src/declarations/companyData/companyData.did"
+}
   },
   "defaults": {
     "build": {

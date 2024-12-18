@@ -21,13 +21,11 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
-
-    "express": "^4.21.1",
-
     "chart.js": "^4.4.6",
+    "express": "^4.21.1",
     "file-saver": "^2.0.5",
+    "ipfs-http-client": "^60.0.1",
     "jspdf": "^2.5.2",
-
     "react-bootstrap": "^2.10.5",
     "react-chartjs-2": "^5.2.0",
     "react-csv": "^2.2.2",

@@ -12,7 +12,7 @@ import BlogNews from './components/BlogNews/BlogNews';
 import AboutUs from './components/AboutUs/AboutUs';
 import LegalCompliance from './components/LegalCompliance/LegalCompliance';
 import CheckPriceInsurance from './components/CheckPriceInsurance/index.jsx';
-import SignUp from './components/CreateAccount/index.jsx';  // Only one import for SignUp
+// import SignUp from './components/CreateAccount/index.jsx';  // Only one import for SignUp
 import Login from './login.jsx';
 import { WelcomePage } from './components/Welcome/welcome.jsx';
 import ViewPolicies from './components/InsuranceSolutions/ViewPolicies';
@@ -20,6 +20,7 @@ import RenewPolicy from './components/InsuranceSolutions/RenewPolicy';
 import TokenManagement from './components/InsuranceSolutions/TokenManagement.jsx';
 import Claims from './components/InsuranceSolutions/Claims.jsx';
 import GetQuote from './components/InsuranceSolutions/GetQuote.jsx';
+import SuperAdminDashboard1 from './components/SuperAdmin/SADasboard.jsx';
 import AdminDashboard1 from './components/NewAD/ADasboard.jsx';
 import UserDashboard1 from './components/newUserD/UDasboard.jsx';
 import AppAdmin from './AppAdmin.jsx'; // Import the new AppAdmin component
@@ -44,6 +45,7 @@ function AppContent({ userInfo, setUserInfo }) {
   };
 
   // Verifică ruta pentru a afișa navbar-ul corect
+  const isSuperAdminDashboard = location.pathname === '/s-a-dashboard';
   const isAdminDashboard = location.pathname === '/a-dashboard';
   const isUserDashboard = location.pathname === '/u-dashboard';
 
@@ -54,6 +56,8 @@ function AppContent({ userInfo, setUserInfo }) {
         <AppAdmin /> // Renders the admin-specific app if the path matches
       ) : isUserDashboard ? (
         <AppUser /> // Afișează aplicația User dacă rolul și URL-ul se potrivesc
+      )  : isSuperAdminDashboard ? (
+        <AppSuperAdmin /> // Afișează aplicația User dacă rolul și URL-ul se potrivesc
       ) : (
         <div>
           <NavBar userInfo={userInfo} />
@@ -67,7 +71,7 @@ function AppContent({ userInfo, setUserInfo }) {
               <Route path="/blogNews" element={<BlogNews />} />
               <Route path="/aboutUs" element={<AboutUs />} />
               <Route path="/legalCompliance" element={<LegalCompliance />} />
-              <Route path="/SignUp" element={<SignUp />} />
+              {/* <Route path="/SignUp" element={<SignUp />} /> */}
               <Route path="/createAccountSignIn" element={<Login onLogin={handleLogin} />} />
               <Route path="/checkPriceInsurance" element={<CheckPriceInsurance />} />
               <Route path="/" element={<WelcomePage />} />
@@ -79,6 +83,9 @@ function AppContent({ userInfo, setUserInfo }) {
               <Route path="/alb" element={<Alb />} />
 
               {/* Redirecționează către dashboard-uri doar dacă utilizatorul e autentificat */}
+              {userInfo && userInfo.role === 'Admin' && (
+                <Route path="/s_a-dashboard" element={<SuperAdminDashboard1 />} />
+              )}
               {userInfo && userInfo.role === 'Admin' && (
                 <Route path="/a-dashboard" element={<AdminDashboard1 />} />
               )}

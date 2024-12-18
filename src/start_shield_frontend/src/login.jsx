@@ -61,20 +61,18 @@ function Login() {
 
       // Dacă user este un array gol, considerăm că utilizatorul nu există
       if (user && user.length > 0) {
-        // const role = Object.keys(user[0].accessLevel || {})[0]; // Presupunem că user[0] conține datele utilizatorului
-        // const role = user[0]?.accessLevel;
-        // console.log("User role:", role);
-        // if (role === "ADMIN") {
-        //   navigate("/a-dashboard");
-        // } else {
-        //   navigate("/u-dashboard");
-        // }
+       
         const role = Object.keys(user[0].accessLevel || {})[0]; // Presupunem că user[0] conține datele utilizatorului
 
-        if (role === "ADMIN") { // Verifică exact valoarea pentru rolul Admin
+        if (role === "SUPER_ADMIN") { // Verifică exact valoarea pentru rolul Admin
+          navigate("/s-a-dashboard");
+        }else if (role === "ADMIN") {
           navigate("/a-dashboard");
-        } else {
+        }else if (role === "USER") {
           navigate("/u-dashboard");
+        }
+        else if (role === "GUEST") {
+          navigate("/ ")
         }
       } else {
         console.log("User does not exist. Redirecting to signup.");
@@ -98,31 +96,65 @@ function Login() {
   // Submit new user
   const submit = async (e) => {
     e.preventDefault();
+  
+    // Validarea câmpurilor obligatorii
     if (!name || !email || !age || !accessLevel) {
       alert("Please fill in all fields!");
       return;
     }
+  
     if (backendActor) {
       try {
         setLoading(true);
+  
+        // Crearea obiectului utilizator
         const user = {
           name,
           email,
           age: BigInt(age),
-          accessLevel: { [accessLevel]: null },
+          accessLevel: { [accessLevel]: null }, // Nivelul de acces este un obiect
           timestamp: BigInt(Date.now()),
         };
+  
+        // Obținerea principalului utilizatorului curent
         const principal = await identity.getPrincipal();
-        await backendActor.createUser(principal, user); // Presupunem că există metoda `createUser`
-        await fetchUsers(); // Reîmprospătăm lista de utilizatori
-        navigate(accessLevel === "ADMIN" ? "/a-dashboard" : "/u-dashboard");
+  
+        // Crearea utilizatorului în backend
+        await backendActor.createUser(principal, user);
+  
+        // Reîmprospătarea listei de utilizatori
+        await fetchUsers();
+  
+        // Navigare în funcție de nivelul de acces
+        switch (accessLevel) {
+          case "ADMIN":
+            navigate("/a-dashboard");
+            break;
+          case "USER":
+            navigate("/u-dashboard");
+            break;
+          case "SUPER-ADMIN":
+            navigate("/s-a-dashboard");
+            break;
+          default:
+            console.error("Unknown access level:", accessLevel);
+            navigate("/");
+        }
+  
+        // Confirmare succes
+        alert("User successfully added!");
       } catch (error) {
         console.error("Error adding user:", error);
+        alert("An error occurred while adding the user. Please try again.");
       } finally {
         setLoading(false);
       }
+    } else {
+      console.error("Backend actor is not available!");
+      alert("Backend actor is not initialized. Please check your setup.");
     }
   };
+  
 
   return (
     <div>
@@ -204,9 +236,10 @@ function Login() {
                     onChange={(e) => setAccessLevel(e.target.value)}
                     required
                   >
-                    <option value="ADMIN">Admin</option>
                     <option value="USER">User</option>
                     <option value="GUEST">Guest</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="SUPER_ADMIN">Super Admin</option>
                   </select>
                 </div>
                 <button type="submit" className="btn btn-primary" disabled={loading}>

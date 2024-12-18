@@ -20,6 +20,8 @@ type AccessLevel =
  variant {
    ADMIN;
    GUEST;
+   SUPER_ADMIN;
+
    USER;
  };
 service : {

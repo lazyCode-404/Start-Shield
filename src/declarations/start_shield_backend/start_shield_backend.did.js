@@ -3,6 +3,7 @@ export const idlFactory = ({ IDL }) => {
     'GUEST' : IDL.Null,
     'USER' : IDL.Null,
     'ADMIN' : IDL.Null,
+    'SUPER_ADMIN' : IDL.Null,
   });
   const User = IDL.Record({
     'age' : IDL.Nat,
