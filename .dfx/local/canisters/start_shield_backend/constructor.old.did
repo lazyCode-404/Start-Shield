@@ -1,0 +1,33 @@
+type User = 
+ record {
+   accessLevel: AccessLevel;
+   age: nat;
+   email: text;
+   name: text;
+   timestamp: int;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: User;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type AccessLevel = 
+ variant {
+   ADMIN;
+   GUEST;
+   USER;
+ };
+service : {
+  createUser: (principal, User) -> (text);
+  deleteUser: (principal) -> (text);
+  getAllUsers: () -> (vec User) query;
+  getUser: (principal) -> (Result_1) query;
+  getUserAccessLevel: (principal) -> (Result) query;
+  getUserByPrincipal: (principal) -> (opt User);
+  updateUser: (principal, User) -> (text);
+}
