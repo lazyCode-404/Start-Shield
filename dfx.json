@@ -27,6 +27,10 @@
         "src/start_shield_frontend/dist"
       ],
       "type": "assets",
+      "source": [
+        "src/start_shield_frontend/dist"
+      ],
+      "build": "npm run build --workspace=start_shield_frontend",
       "workspace": "start_shield_frontend"
     },
   "companyData": {
