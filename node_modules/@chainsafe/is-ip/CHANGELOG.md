@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.1.0](https://github.com/ChainSafe/is-ip/compare/v2.0.2...v2.1.0) (2025-01-30)
+
+
+### Features
+
+* ipv4 mapped addresses ([#13](https://github.com/ChainSafe/is-ip/issues/13)) ([213767b](https://github.com/ChainSafe/is-ip/commit/213767bd2aa81263b359787ef1d99ed73c56b4fb))
+
+
+### Bug Fixes
+
+* include src in module tarball ([#12](https://github.com/ChainSafe/is-ip/issues/12)) ([fdec06b](https://github.com/ChainSafe/is-ip/commit/fdec06bdb34220b4f58f334e8b8ca3436da938e3))
+* use node 22 in CI ([#14](https://github.com/ChainSafe/is-ip/issues/14)) ([d76c472](https://github.com/ChainSafe/is-ip/commit/d76c472f7b2719cc985205fb61d5fc5c3255a02b))
+
 ## [2.0.2](https://github.com/ChainSafe/is-ip/compare/v2.0.1...v2.0.2) (2023-08-11)
 
 

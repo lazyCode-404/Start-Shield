@@ -8,11 +8,7 @@ const UserDashboard1 = ({ setActiveSection }) => {
         <ul className="sidebar-menu">
           <li onClick={() => setActiveSection('dashboard')}>
             <FaTachometerAlt className="icon" />
-<<<<<<< HEAD
             <span>Dashboard Overview U</span>
-=======
-            <span>Dashboard(Home)</span>
->>>>>>> cab7a48bfd1554dab43c795654e43d2f4b1aa8a8
           </li>
           <li onClick={() => setActiveSection('myPolicies')}>
             <FaUsers className="icon" />

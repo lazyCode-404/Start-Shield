@@ -42,6 +42,7 @@ Parse a string into IP address bytes
 import { expect } from "chai";
 import {
 	parseIPv4,
+	parseIPv4Mapped,
 	parseIPv6,
 	parseIP,
 } from "@chainsafe/is-ip/parse";
@@ -54,12 +55,19 @@ expect(b1).to.deep.equal(Uint8Array.from([127, 0, 0, 1]));
 const b2 = parseIPv6("::1");
 expect(b2).to.deep.equal(Uint8Array.from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]));
 
-// parse a string into either IPv4 or IPv6 bytes
-const b3 = parseIP("127.0.0.1");
-expect(b3).to.deep.equal(Uint8Array.from([127, 0, 0, 1]));
+// parse an IPv4 string into IPv4-mapped IPv6 bytes
+const b3 = parseIPv4Mapped("127.0.0.1");
+expect(b3).to.deep.equal(Uint8Array.from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 127, 0, 0, 1]));
 
-const b4 = parseIP("::1");
-expect(b4).to.deep.equal(Uint8Array.from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]));
+// parse a string into either IPv4 or IPv6 bytes
+const b4 = parseIP("127.0.0.1");
+expect(b4).to.deep.equal(Uint8Array.from([127, 0, 0, 1]));
+
+const b5 = parseIP("::1");
+expect(b5).to.deep.equal(Uint8Array.from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]));
+
+const b6 = parseIP("127.0.0.1", true);
+expect(b6).to.deep.equal(Uint8Array.from([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 127, 0, 0, 1]));
 
 // parseIP* functions return undefined on invalid input
 expect(parseIP("not an IP")).to.equal(undefined);
