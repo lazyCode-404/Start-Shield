@@ -8,7 +8,11 @@ const UserDashboard1 = ({ setActiveSection }) => {
         <ul className="sidebar-menu">
           <li onClick={() => setActiveSection('dashboard')}>
             <FaTachometerAlt className="icon" />
+<<<<<<< HEAD
             <span>Dashboard Overview U</span>
+=======
+            <span>Dashboard(Home)</span>
+>>>>>>> cab7a48bfd1554dab43c795654e43d2f4b1aa8a8
           </li>
           <li onClick={() => setActiveSection('myPolicies')}>
             <FaUsers className="icon" />
@@ -20,19 +24,23 @@ const UserDashboard1 = ({ setActiveSection }) => {
           </li>
           <li onClick={() => setActiveSection('tokenManagement')}>
             <FaCoins className="icon" />
-            <span>Token Management</span>
+            <span>Claims Management</span>
           </li>
           <li onClick={() => setActiveSection('trainingEvents')}>
             <FaCalendarAlt className="icon" />
-            <span>Training & Events</span>
+            <span>STSH Token Wallet</span>
           </li>
           <li onClick={() => setActiveSection('support')}>
             <FaChartLine className="icon" />
-            <span>Support</span>
+            <span>AI Insights</span>
           </li>
           <li onClick={() => setActiveSection('userSettings')}>s
             <FaChartLine className="icon" />
-            <span>User Settings</span>
+            <span>Suport and Comunity</span>
+          </li>
+          <li onClick={() => setActiveSection('userSettings')}>s
+            <FaChartLine className="icon" />
+            <span>Settings</span>
           </li>
         </ul>
       </aside>
