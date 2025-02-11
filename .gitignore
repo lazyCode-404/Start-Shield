@@ -6,3 +6,4 @@
 .env
 # Node modules directory
 node-module/
+.dfx
