@@ -30,7 +30,7 @@ function AboutUs() {
         <Row xs={12}>
           <Col sm={8}>
             <h2 className='subtitle'>About Us</h2>
-            <p><strong>StartShield</strong>, developed by <strong>Motley Guard Solutions Limited, is an advanced insurance platform built on the </strong> <strong>Internet Computer Protocol (ICP)</strong>. Our platform utilizes blockchain technology to offer startups, SMEs, and individuals protection from various business disruptions, including hospitalization, natural disasters, and more.</p>
+            <p><strong>StartShield</strong>: developed by <strong>Motley Guard Solutions Limited, is an advanced insurance platform built on the </strong> <strong>Internet Computer Protocol (ICP)</strong>. Our platform utilizes blockchain technology to offer startups, SMEs, and individuals protection from various business disruptions, including hospitalization, natural disasters, and more.</p>
             <p>With <strong>STSH tokens</strong> at the core of our platform, policyholders can access a range of financial services, such as using tokens as collateral for loans, participating in business and capacity-building training, and engaging in climate change initiatives like carbon credit trading. StartShield’s tokenized model ensures that our insurance solutions not only provide coverage but also offer opportunities for financial growth and innovation.
             </p>
             <p>At <strong>StartShield</strong>, we are transforming insurance into a future-forward solution that prioritizes security, transparency, and flexibility to meet the needs of today’s digital economy.</p>
