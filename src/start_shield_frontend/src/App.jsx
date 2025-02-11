@@ -84,13 +84,8 @@ function AppContent({ userInfo, setUserInfo }) {
               <Route path="/alb" element={<Alb />} />
 
               {/* Redirecționează către dashboard-uri doar dacă utilizatorul e autentificat */}
-<<<<<<< HEAD
               {userInfo && userInfo.role === 'SUPER_ADMIN' && (
                 <Route path="/s_a-dashboard" element={<SuperAdminDashboard1 />} />
-=======
-              {userInfo && userInfo.role === 'Admin' && (
-                <Route path="/s-a-dashboard" element={<SuperAdminDashboard1 />} />
->>>>>>> cab7a48bfd1554dab43c795654e43d2f4b1aa8a8
               )}
               {userInfo && userInfo.role === 'Admin' && (
                 <Route path="/a-dashboard" element={<AdminDashboard1 />} />
