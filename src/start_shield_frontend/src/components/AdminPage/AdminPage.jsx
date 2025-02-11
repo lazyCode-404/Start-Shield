@@ -29,6 +29,25 @@ const AdminPage = () => {
     fetchUsers();
   }, []);
 
+  const fetchUserDetails = async () => {
+    if (backendActor && isAuthenticated) {
+      try {
+        const principal = await backendActor.getCallerPrincipal();
+        console.log("Principal:", principal);
+  
+        const user = await backendActor.getUserByPrincipal(principal);
+        console.log("User from backend:", user);
+  
+        if (user) {
+          setUserDetails({ name: user.name, email: user.email });
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    }
+  };
+  
+
   return (
     <div className="admin-page">
       <h2>Registered Users</h2>

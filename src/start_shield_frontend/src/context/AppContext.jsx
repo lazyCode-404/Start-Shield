@@ -63,6 +63,7 @@ export const useAuthClient = (options = defaultOptions) => {
     setAuthClient(client);
 
     const _identity = client.getIdentity();
+    console.log("Identity:", _identity); // Log pentru a verifica identitatea
     setIdentity(_identity);
 
     const agent = new HttpAgent({

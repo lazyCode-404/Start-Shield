@@ -8,7 +8,7 @@ const AdminDashboard1 = ({ setActiveSection }) => {
         <ul className="sidebar-menu">
           <li onClick={() => setActiveSection('dashboard')}>
             <FaTachometerAlt className="icon" />
-            <span>Dashboard Overview</span>
+            <span>Dashboard Overview A</span>
           </li>
           <li onClick={() => setActiveSection('userManagement')}>
             <FaUsers className="icon" />

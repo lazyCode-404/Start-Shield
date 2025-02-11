@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ErrorBoundary from './components/NewAD/ErrorBoundary.jsx';
-import AdminNavbar from './components/AdminNavBar/AdminNavBar.jsx';
+import SuperAdminNavbar from './components/SuperAdminNavBar/SuperAdminNavBar.jsx';
 import Footer from './components/Footer/index.jsx';
-import AdminDashboard1 from './components/NewAD/ADasboard.jsx';
+import AdminDashboard2 from './components/SuperAdmin/SADasboard.jsx';
 import DashboardPage from './components/NewAD/DashboardPage.jsx';
 import UserManagement from './components/NewAD/UserManagement.jsx';
 import PolicyManagement from './components/NewAD/POlicyManagement.jsx';
@@ -12,6 +12,8 @@ import TrainingEvtsManag from './components/NewAD/TrainingEvtsManag.jsx';
 import ReportsAnalytics from './components/NewAD/ReportsAnalytics.jsx';
 import AdminSettings from './components/NewAD/AdminSettings.jsx';
 import SupportHelp from './components/NewAD/SupportHelp.jsx';
+import AdminDashboard from './components/SuperAdmin/AdminDashboard.jsx';
+import AdminApprovalRegister from './components/RegisterAdmin/registerAdmin.jsx'
 
 
 function AppSuperAdmin() {
@@ -22,9 +24,9 @@ function AppSuperAdmin() {
       case 'dashboard':
         return <DashboardPage />;
       case 'userManagement':
-        return  <ErrorBoundary>
-        <UserManagement />
-      </ErrorBoundary>;
+        return <ErrorBoundary>
+          <UserManagement />
+        </ErrorBoundary>;
       case 'policyManagement':
         return <PolicyManagement />;
       case 'tokenManagement':
@@ -37,15 +39,19 @@ function AppSuperAdmin() {
         return <SupportHelp />;
       case 'settings':
         return <AdminSettings />;
+      case 'adminDashboard':
+        return <AdminDashboard />;
+      case 'adminApprove':
+        return <AdminApprovalRegister />;
       default:
         return null;
     }
   };
   return (
     <div>
-      <AdminNavbar />
+      <SuperAdminNavbar />
       <div className="admin-container">
-        <AdminDashboard1 setActiveSection={setActiveSection} />
+        <AdminDashboard2 setActiveSection={setActiveSection} />
         <div className="section-content">
           {renderSectionContent()}
         </div>

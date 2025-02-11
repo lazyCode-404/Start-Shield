@@ -1,7 +1,10 @@
-import { create } from "../../../../node_modules/ipfs-http-client/dist/index.min.js";
+import { create } from "ipfs-http-client";
 
-
-const ipfs = create("https://ipfs.infura.io:5001");
+const ipfs = create({
+  host: "ipfs.infura.io",
+  port: 5001,
+  protocol: "https",
+});
 
 export const uploadToIPFS = async (file) => {
   try {
@@ -12,3 +15,4 @@ export const uploadToIPFS = async (file) => {
     return null;
   }
 };
+

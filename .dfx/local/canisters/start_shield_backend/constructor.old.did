@@ -16,20 +16,56 @@ type Result =
    err: text;
    ok: text;
  };
+type Company = 
+ record {
+   additionalInfo: text;
+   address: Address;
+   annualRevenue: nat;
+   commission: nat;
+   companyName: text;
+   discount: nat;
+   email: text;
+   employees: nat;
+   endDate: text;
+   industryType: text;
+   insuranceMonths: nat;
+   insuranceType: text;
+   insuredValue: nat;
+   over18: bool;
+   paymentOption: text;
+   phone: text;
+   policyValue: nat;
+   premium: bool;
+   registrationNumber: text;
+   rewardPercentage: nat;
+   startDate: text;
+   termsAgreed: bool;
+   tokensEarned: nat;
+ };
+type Address = 
+ record {
+   city: text;
+   country: text;
+   number: text;
+   postalCode: text;
+   state: text;
+   street: text;
+ };
 type AccessLevel = 
  variant {
    ADMIN;
    GUEST;
    SUPER_ADMIN;
-
    USER;
  };
 service : {
+  addCompanyForUser: (principal, Company) -> (text);
+  addUser: (principal, User) -> (text);
   createUser: (principal, User) -> (text);
   deleteUser: (principal) -> (text);
   getAllUsers: () -> (vec User) query;
+  getCompanyForUser: (principal) -> (opt Company);
   getUser: (principal) -> (Result_1) query;
   getUserAccessLevel: (principal) -> (Result) query;
   getUserByPrincipal: (principal) -> (opt User);
-  updateUser: (principal, User) -> (text);
 }

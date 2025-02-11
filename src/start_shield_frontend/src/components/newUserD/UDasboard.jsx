@@ -8,16 +8,16 @@ const UserDashboard1 = ({ setActiveSection }) => {
         <ul className="sidebar-menu">
           <li onClick={() => setActiveSection('dashboard')}>
             <FaTachometerAlt className="icon" />
-            <span>Dashboard Overview</span>
+            <span>Dashboard Overview U</span>
           </li>
           <li onClick={() => setActiveSection('myPolicies')}>
             <FaUsers className="icon" />
             <span>My Policies</span>
           </li>
-          {/* <li onClick={() => setActiveSection('tokenManagement')}>
-            <FaFileContract className="icon" />
-            <span>Token Management</span>
-          </li> */}
+          <li onClick={() => setActiveSection('paymentPage')}>
+            <FaCog className="icon" />
+            <span>Payment Page</span>
+          </li>
           <li onClick={() => setActiveSection('tokenManagement')}>
             <FaCoins className="icon" />
             <span>Token Management</span>

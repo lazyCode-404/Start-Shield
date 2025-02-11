@@ -265,7 +265,7 @@ function AboutUs() {
                 <Card.Body>
                   <Card.Title>Costinel Malaiasi</Card.Title>
                   <Card.Text>
-                    <h6 className="custom-h6-style">Chief Insurance & Risk Management Officer (CIRMO)</h6>
+                    <h6 className="custom-h6-style">Chief Technology Officer (CTO)</h6>
                   </Card.Text>
                   <Card.Text>
                   Blockchain and AI Technology Expert.

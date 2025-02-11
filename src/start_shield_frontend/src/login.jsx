@@ -94,6 +94,68 @@ function Login() {
 
 
   // Submit new user
+  // const submit = async (e) => {
+  //   e.preventDefault();
+  
+  //   // Validarea câmpurilor obligatorii
+  //   if (!name || !email || !age || !accessLevel) {
+  //     alert("Please fill in all fields!");
+  //     return;
+  //   }
+  
+  //   if (backendActor) {
+  //     try {
+  //       setLoading(true);
+  
+  //       // Crearea obiectului utilizator
+  //       const user = {
+  //         name,
+  //         email,
+  //         age: BigInt(age),
+  //         accessLevel: { [accessLevel]: null }, // Nivelul de acces este un obiect
+  //         timestamp: BigInt(Date.now()),
+  //       };
+  
+  //       // Obținerea principalului utilizatorului curent
+  //       const principal = await identity.getPrincipal();
+  
+  //       // Crearea utilizatorului în backend
+  //       await backendActor.createUser(principal, user);
+  
+  //       // Reîmprospătarea listei de utilizatori
+  //       await fetchUsers();
+  
+  //       // Navigare în funcție de nivelul de acces
+  //       switch (accessLevel) {
+  //         case "ADMIN":
+  //           navigate("/a-dashboard");
+  //           break;
+  //         case "USER":
+  //           navigate("/u-dashboard");
+  //           break;
+  //         case "SUPER-ADMIN":
+  //           navigate("/s-a-dashboard");
+  //           break;
+  //         default:
+  //           console.error("Unknown access level:", accessLevel);
+  //           navigate("/");
+  //       }
+  
+  //       // Confirmare succes
+  //       alert("User successfully added!");
+  //     } catch (error) {
+  //       console.error("Error adding user:", error);
+  //       alert("An error occurred while adding the user. Please try again.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   } else {
+  //     console.error("Backend actor is not available!");
+  //     alert("Backend actor is not initialized. Please check your setup.");
+  //   }
+  // };
+
+
   const submit = async (e) => {
     e.preventDefault();
   
@@ -113,6 +175,7 @@ function Login() {
           email,
           age: BigInt(age),
           accessLevel: { [accessLevel]: null }, // Nivelul de acces este un obiect
+          status: accessLevel === "ADMIN" ? "pending" : "approved", // Setăm statusul ca "pending" pentru admin
           timestamp: BigInt(Date.now()),
         };
   
@@ -128,7 +191,7 @@ function Login() {
         // Navigare în funcție de nivelul de acces
         switch (accessLevel) {
           case "ADMIN":
-            navigate("/a-dashboard");
+            alert("Your account is pending approval by a Super Admin.");
             break;
           case "USER":
             navigate("/u-dashboard");
@@ -152,6 +215,28 @@ function Login() {
     } else {
       console.error("Backend actor is not available!");
       alert("Backend actor is not initialized. Please check your setup.");
+    }
+    if (!backendActor) {
+      console.error("Backend actor is not initialized!");
+      alert("Backend actor is not initialized. Please check your setup.");
+      return;
+    }
+    
+    if (!identity) {
+      console.error("Identity is not initialized!");
+      alert("Identity is not initialized. Please check your setup.");
+      return;
+    }
+    try {
+      const principal = await identity.getPrincipal();
+      console.log("Principal:", principal);
+    
+      console.log("Creating user:", users);
+      await backendActor.createUser(principal, users);
+      console.log("User created successfully");
+    } catch (error) {
+      console.error("Error from backend:", error);
+      alert("An error occurred while adding the user. Please try again.");
     }
   };
   

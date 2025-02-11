@@ -18,19 +18,45 @@
   transform: scale(1.1); /* Mărește logo-ul la hover */
 }
 
-
+.main-section {
+  margin: 20px;
+  padding: 10px;
+  border: #fafafa 2px;
+}
 .top-title { 
   text-align: center;
   font-weight: 700;
   padding: 20px;
-  color:#ff6f00;
+  color:#8c4006;
  
 }
-/* .titles 
-{background-color: #00a859} */
-/* style.css */
+
+.homepage {
+  margin: 10px;
+  padding: 4px;
+  border: 5px;
+}
+.startShieldSTSH {
+  color: #38aaf1;
+  text-decoration: double;
+  font-weight: bold;
+} 
+
+.setSection {
+  margin: 20px 5px 10px 5px;
+  border: #000 1px;
+  padding: 1px;
+}
+
+.first-row{
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
 .first-col {
-  background-color: #00bcd4;
+  background-color: #f6f6f6;
+  margin-left: 0px;
+  margin-top: 0px;
 }
 /* Circular frame for images */
 img.circular-frame {
@@ -52,17 +78,26 @@ img.circular-frame {
 .benefit-circle {
   background-color: #f9f9f9; /* Light gray background */
 }
+.titl-section {
+  margin: 10px;
+  padding: 10px;
+  border: 5px;
+}
 
 .overview {
   border-image: fill 0 linear-gradient(#0001, #000);
 }
 col { text-align: center;}
 .overview p {
-  color:#ff6f00;
+  color:#f3c6a3;
   text-align: justify;
    margin:100px 40px 1px 10px ;
-   /* text-decoration:wavy; */
-   /* text-shadow: #ff6f00; */
+   text-decoration:wavy;
+   text-shadow: #0b0501;
+   border-image: fill 0 linear-gradient(#0001, #000);
 }
-/* 
+
+.top-subtitle {
+  color: #fafafa;
+}
 

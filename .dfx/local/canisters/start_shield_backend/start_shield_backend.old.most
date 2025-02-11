@@ -1,6 +1,5 @@
 // Version: 1.0.0
 type AccessLevel = {#ADMIN; #GUEST; #SUPER_ADMIN; #USER};
-
 type User =
   {
     accessLevel : AccessLevel;
@@ -10,5 +9,7 @@ type User =
     timestamp : Int
   };
 actor {
+  stable var approvedAdmins : [(Principal, User)];
+  stable var pendingAdmins : [(Principal, User)];
   stable var usersEntries : [(Principal, User)]
 };
