@@ -68,7 +68,7 @@ const InsuranceForm = () => {
   useEffect(() => {
     if (formData.registrationNumber) {
       axios
-        .get(`http://localhost:8000/api/company/${formData.registrationNumber}`)
+        .get(`http://localhost:4943/api/company/${formData.registrationNumber}`)
         .then((response) => {
           if (response.data) {
             setFormData((prev) => ({
@@ -95,6 +95,80 @@ const InsuranceForm = () => {
     return payment.toFixed(2);
   };
 
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  
+  //   if (!isAuthenticated) {
+  //     alert("You must log in to submit the form.");
+  //     login(); // Redirecționează utilizatorul către autentificare
+  //     return;
+  //   }
+  
+  //   if (!backendActor || !backendActor.identity) {
+  //     console.error("Backend actor or identity is not initialized.");
+  //     alert("An error occurred. Please try again later.");
+  //     return;
+  //   }
+  
+  //   if (!formData.termsAgreed || !formData.over18) {
+  //     alert("You must agree to the terms and confirm you are over 18.");
+  //     return;
+  //   }
+  
+  //   try {
+  //     // Uploading data to RESTful API
+  //     await axios.post("http://localhost:4943/api/apply", {
+  //       ...formData,
+  //       owners,
+  //       uploadedImages,
+  //       uploadedDocuments,
+  //     });
+  
+  //     alert("Data successfully sent to the RESTful API!");
+  
+  //     // Adding the company to the Motoko backend
+  //     const principal = backendActor.identity.getPrincipal(); // Accesăm principalul utilizatorului
+  //     const company = {
+  //       ...formData,
+  //       insuredValue: BigInt(formData.insuredValue || "0"),
+  //       policyValue: BigInt(formData.policyValue || "0"),
+  //       insuranceMonths: BigInt(formData.insuranceMonths || "0"),
+  //       discount: BigInt(annualDiscount),
+  //       commission: BigInt(monthlyCommission),
+  //       tokensEarned: BigInt(formData.tokensEarned || "0"),
+  //       annualRevenue: BigInt(formData.annualRevenue || "0"),
+  //       employees: BigInt(formData.employees || "0"),
+  //     };
+  
+  //     const result = await backendActor.addCompany(principal, company);
+  
+  //     if (result) {
+  //       alert("Company successfully added to the backend canister!");
+  //     } else {
+  //       alert("Failed to add company data to the backend.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //     alert("An error occurred during submission.");
+  //   }
+  // };
+  // useEffect(() => {
+  //   const initializeOnMount = async () => {
+  //     const authClient = await AuthClient.create();
+  //     await initializeAuth(authClient);
+  //   };
+  
+  //   initializeOnMount();
+  // }, []);
+  
+  // if (!isAuthenticated) {
+  //   console.error("User is not authenticated.");
+  //   alert("Please log in to continue.");
+  //   login(); // Redirecționează utilizatorul către procesul de autentificare
+  //   return;
+  // }
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -105,7 +179,7 @@ const InsuranceForm = () => {
 
     try {
       // Uploading data to RESTful API
-      await axios.post("http://localhost:8000/api/apply", {
+      await axios.post("http://localhost:4943/api/apply", {
         ...formData,
         owners,
         uploadedImages,
@@ -141,7 +215,7 @@ const InsuranceForm = () => {
     }
   };
 
-
+   
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -244,6 +318,14 @@ const InsuranceForm = () => {
       employees: "",
     });
   };
+  // if (!cn || !cn.identity) {
+  //   console.error("Identity is undefined", cn);
+  //   return; // Prevent further execution if identity is missing
+  // }
+  
+  // // Continue with submission logic
+  // submitData(cn.identity);
+  
 
   return (
     <div>
@@ -320,9 +402,9 @@ const InsuranceForm = () => {
                   <>
                     <Container className="input-fild">
                       <h3>Company Information</h3>
-                      <span className="info-icon">i
+                      {/* <span className="info-icon">i
                         <span className="info-text">Here’s some more information!</span>
-                      </span>
+                      </span> */}
                       <input
                         type="text"
                         name="companyName"
@@ -708,6 +790,7 @@ const InsuranceForm = () => {
       </Container>
     </div>
   );
+
 };
 
 export default InsuranceForm;

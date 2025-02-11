@@ -16,7 +16,8 @@
       "main": "src/start_shield_backend/main.mo",
       "type": "motoko",
       "dependencies": [
-        "companyData"
+        "companyData",
+        "Payment"
       ]
     },
     "start_shield_frontend": {
@@ -37,6 +38,11 @@
   "type": "motoko",
   "main": "src/start_shield_backend/companyData.mo",
   "candid": "src/declarations/companyData/companyData.did"
+},
+"Payment": {
+  "type": "motoko",
+  "main": "src/start_shield_backend/Payment.mo",
+   "candid": "src/declarations/Payment/Payment.did"
 }
   },
   "defaults": {

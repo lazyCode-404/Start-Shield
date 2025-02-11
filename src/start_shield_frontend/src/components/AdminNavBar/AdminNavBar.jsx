@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminNavbar.css';
 import logo from '../../../public/assets/images/start-shield-black-logo.jpg';
@@ -11,16 +11,79 @@ function AdminNavbar({ adminName }) {
   const navigate = useNavigate();
   const { backendActor, login, logout, isAuthenticated } = useAuth();
 
+  // State pentru a stoca detalii despre utilizator
+  const [userDetails, setUserDetails] = useState({ name: 'Guest', email: 'N/A' });
+  const [isFetching, setIsFetching] = useState(false); // Previne apelurile multiple
+
+
+  const fetchCallerPrincipal = async () => {
+    try {
+      const principal = await backendActor.getCallerPrincipal();
+      console.log("Caller principal:", principal.toText()); // Afișează identitatea apelantului
+    } catch (error) {
+      console.error("Error fetching caller principal:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (backendActor) {
+      fetchCallerPrincipal();
+    }
+  }, [backendActor]); // Apelează funcția doar când `backendActor` este disponibil
+
+  // Funcție pentru a obține datele utilizatorului din backend
+  const fetchUserDetails = async () => {
+    if (isFetching) return; // Previne apelurile multiple
+    setIsFetching(true);
+
+    if (!backendActor) {
+      console.error("Backend actor is not initialized.");
+      setIsFetching(false);
+      return;
+    }
+
+    if (!isAuthenticated) {
+      console.error("User is not authenticated.");
+      setIsFetching(false);
+      return;
+    }
+
+    try {
+      const principal = await backendActor.getCallerPrincipal();
+      console.log("Caller principal:", principal);
+
+      const user = await backendActor.getUserByPrincipal(principal);
+
+      if (user) {
+        setUserDetails({ name: user.name, email: user.email });
+      } else {
+        console.warn("No user details found for the given principal.");
+      }
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    } finally {
+      setIsFetching(false); // Resetează starea după ce funcția s-a terminat
+    }
+  };
+
+  // Fetch user details when dependencies change
+  useEffect(() => {
+    if (backendActor && isAuthenticated && !userDetails.name) {
+      fetchUserDetails();
+    }
+  }, [backendActor, isAuthenticated]);
+
   // Navigate to the home page
   const handleHomeClick = () => {
     navigate('/');
   };
 
-  useEffect(() => {
-    if (backendActor && isAuthenticated) {
-      console.log("Authenticated and backend ready.");
-    }
-  }, [backendActor, isAuthenticated]);
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
+
+  
 
   return (
     <>
@@ -41,7 +104,15 @@ function AdminNavbar({ adminName }) {
           />
           <FaSearch className="search-icon" />
         </div>
-        <div className="navbar-right">
+        <div className="navbar-right" style={{ color: 'white' }}>
+          {isAuthenticated && (
+            <div
+              className="user-name-tooltip"
+              title={`Email: ${userDetails.email}`} // Afișează email-ul ca tooltip
+            >
+              {userDetails.name}
+            </div>
+          )}
           <div className="profile-dropdown">
             <FaUserCircle className="profile-icon" />
             <div className="dropdown-menu">
@@ -49,10 +120,7 @@ function AdminNavbar({ adminName }) {
               <div className="dropdown-item"><FaCog /> Settings</div>
               {isAuthenticated && (
                 <div className="dropdown-item">
-                  <button className="btn btn-danger" onClick={() => {
-                    logout();
-                    navigate("/"); // Navighează după logout
-                  }}>
+                  <button className="btn btn-danger" onClick={handleLogout}>
                     <FaSignOutAlt /> Logout
                   </button>
                 </div>
@@ -66,6 +134,9 @@ function AdminNavbar({ adminName }) {
           <h1 className="hero-text">
             Hello and Welcome back, {adminName}!
           </h1>
+          <div className="user-name-tooltip" title={`Email: ${userDetails.email || "N/A"}`}>
+            {userDetails.name || "Guest"}
+          </div>
         </section>
       </Hero>
     </>

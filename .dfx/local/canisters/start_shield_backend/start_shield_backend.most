@@ -9,5 +9,7 @@ type User =
     timestamp : Int
   };
 actor {
+  stable var approvedAdmins : [(Principal, User)];
+  stable var pendingAdmins : [(Principal, User)];
   stable var usersEntries : [(Principal, User)]
 };

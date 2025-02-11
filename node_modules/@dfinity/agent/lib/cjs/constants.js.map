@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.js","sourceRoot":"","sources":["../../src/constants.ts"],"names":[],"mappings":";;;AAAA,iDAAiD;AACpC,QAAA,qCAAqC,GAAG,CAAC,GAAG,EAAE,GAAG,IAAI,CAAC","sourcesContent":["// Default delta for ingress expiry is 5 minutes.\nexport const DEFAULT_INGRESS_EXPIRY_DELTA_IN_MSECS = 5 * 60 * 1000;\n"]}

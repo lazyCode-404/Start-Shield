@@ -23,6 +23,7 @@ import GetQuote from './components/InsuranceSolutions/GetQuote.jsx';
 import SuperAdminDashboard1 from './components/SuperAdmin/SADasboard.jsx';
 import AdminDashboard1 from './components/NewAD/ADasboard.jsx';
 import UserDashboard1 from './components/newUserD/UDasboard.jsx';
+import AppSuperAdmin from './AppSuperAdmin.jsx'
 import AppAdmin from './AppAdmin.jsx'; // Import the new AppAdmin component
 import AppUser from './AppUser.jsx';
 import Alb from './components/InsuranceSolutions/Albcolor.jsx';
@@ -83,8 +84,8 @@ function AppContent({ userInfo, setUserInfo }) {
               <Route path="/alb" element={<Alb />} />
 
               {/* Redirecționează către dashboard-uri doar dacă utilizatorul e autentificat */}
-              {userInfo && userInfo.role === 'Admin' && (
-                <Route path="/s-a-dashboard" element={<SuperAdminDashboard1 />} />
+              {userInfo && userInfo.role === 'SUPER_ADMIN' && (
+                <Route path="/s_a-dashboard" element={<SuperAdminDashboard1 />} />
               )}
               {userInfo && userInfo.role === 'Admin' && (
                 <Route path="/a-dashboard" element={<AdminDashboard1 />} />
@@ -102,3 +103,6 @@ function AppContent({ userInfo, setUserInfo }) {
 }
 
 export default App;
+
+
+

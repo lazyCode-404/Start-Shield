@@ -119,3 +119,14 @@
     }
   }
   
+  .user-name-tooltip {
+    margin-right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .user-name-tooltip:hover {
+    text-decoration: underline;
+  }
+  

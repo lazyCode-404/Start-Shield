@@ -1,0 +1,6 @@
+// Version: 1.0.0
+type Transaction =
+  {amount : Nat; id : Text; status : Text; timestamp : Int; user : Principal};
+actor {
+  stable var transactions : [Transaction]
+};

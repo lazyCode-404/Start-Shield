@@ -5,6 +5,9 @@ import Result "mo:base/Result";
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
 import Debug "mo:base/Debug";
+import HashMap "mo:base/HashMap";
+import Time "mo:base/Time";
+import Nat "mo:base/Nat";
 // import CompanyData "mo:companyData";
 
 actor Main {
@@ -23,59 +26,224 @@ actor Main {
     #USER;
     #GUEST;
   };
+
+  type AdminRequest = {
+    principal: Principal;
+    user: User;
+  };
+
+  type Address = {
+    country: Text;
+    state: Text;
+    city: Text;
+    street: Text;
+    number: Text;
+    postalCode: Text;
+};
+
+type Company = {
+    companyName: Text;
+    registrationNumber: Text;
+    email: Text;
+    phone: Text;
+    address: Address;
+    insuranceType: Text;
+    additionalInfo: Text;
+    insuredValue: Nat;
+    policyValue: Nat;
+    paymentOption: Text;
+    premium: Bool;
+    startDate: Text;
+    endDate: Text;
+    insuranceMonths: Nat;
+    termsAgreed: Bool;
+    over18: Bool;
+    discount: Nat;
+    commission: Nat;
+    tokensEarned: Nat;
+    rewardPercentage: Nat;
+    industryType: Text;
+    annualRevenue: Nat;
+    employees: Nat;
+};
+
+
   var users = TrieMap.TrieMap<Principal, User>(Principal.equal, Principal.hash);
   stable var usersEntries: [(Principal, User)] = [];
 
-  // public let companyDataActor = CompanyData.CompanyData();
-  
-  // public shared ({caller}) func getCompanyActor() : async Principal {
-  //   return companyDataActor;
-  // };
-
-  system func preupgrade() {
-    usersEntries := Iter.toArray(users.entries());
+  let CompanyData = actor("b77ix-eeaaa-aaaaa-qaada-cai") : actor {
+    addCompany : (Principal, Company) -> async Bool; // Folosește tipul local "Company"
+    getCompany : (Principal) -> async ?Company;     // Folosește tipul local "Company"
 };
 
-  system func postupgrade() {
-    users := TrieMap.fromEntries(usersEntries.vals(), Principal.equal, Principal.hash);
-};
+// public shared(msg) query func getCallerPrincipal() : async Principal {
+//   return msg.caller;
+// };
 
-public shared func getUserByPrincipal(caller: Principal): async ?User {
-  return users.get(caller);
-};
-
-public shared func createUser(caller: Principal, args: User): async Text {
+public shared func addCompanyForUser(caller: Principal, company: Company): async Text {
   switch (users.get(caller)) {
-      case (?existingUser) {
-          return "User already exists!";
+      case (null) {
+          return "User not found. Please create an account first.";
       };
-      case null {
-          users.put(caller, args);
-          return "Account created successfully for " # args.name # "!";
+      case (?user) {
+          let result = await CompanyData.addCompany(caller, company);
+          if (result) {
+              return "Company added successfully for user " # user.name # ".";
+          } else {
+              return "Failed to add company.";
+          };
       };
   };
 };
 
+
+public shared func getCompanyForUser(caller: Principal): async ?Company {
+  switch (users.get(caller)) {
+      case (null) {
+          return null; // Utilizatorul nu există
+      };
+      case (?user) {
+          // Apelăm funcția din CompanyData pentru a obține compania asociată
+          return await CompanyData.getCompany(caller);
+      };
+  };
+};
+
+
+
+
+  //public let companyDataActor = CompanyData.CompanyData();
+  
+  // public shared ({caller}) func getCompanyActor() : async Principal {
+  //   return companyDataActor;
+  // };
+  // Cereri pentru administratori
+  stable var pendingAdmins: [(Principal, User)] = [];
+  stable var approvedAdmins: [(Principal, User)] = [];
+
+  system func preupgrade() {
+    usersEntries := Iter.toArray(users.entries());
+  };
+
+  system func postupgrade() {
+    users := TrieMap.fromEntries(usersEntries.vals(), Principal.equal, Principal.hash);
+  };
+
+  // Use update (without 'shared') to ensure msg is available.
+  // public update func getCallerPrincipal(): async Principal {
+  //   return msg.caller;
+  // };
+  // public shared func getCompanyData() : async CompanyData.CompanyData {
+  //   return companyDataActor;
+  // };
+
+//   public shared update func getCallerPrincipal(): async Principal {
+//   return msg.caller;
+// };
+
+
+  // Funcție pentru aprobare Admin
+  // public shared func approveAdmin(principal: Principal, args: AdminRequest): async Text {
+  //   switch (users.get(principal)) {
+  //       case (null) {
+  //           return "User not found.";
+  //       };
+  //       case (?user) {
+  //           if (user.accessLevel == #GUEST) {
+  //               user.accessLevel = #ADMIN;
+  //               approvedAdmins.add((principal, user));
+  //               return "Admin approval successful.";
+  //           } else {
+  //               return "User is already approved or does not require approval.";
+  //           };
+  //     };
+  // };
+
+  // Funcție pentru respingerea Adminului
+  // public shared func rejectAdmin(principal: Principal, args: AdminRequest): async Text {
+  //   switch (users.get(principal)) {
+  //       case (null) {
+  //           return "User not found.";
+  //       };
+  //       case (?user) {
+  //           if (user.pendingApproval == true) { // Accesăm câmpul cu .pendingApproval
+  //               users.remove(principal);  // Remove the user if pending approval
+  //               return "Admin request rejected.";  // Return rejection message
+  //           } else {
+  //               return "User is already approved or does not require approval.";  // User is already approved
+  //           };
+  //       };
+  // };
+
+  // Funcție pentru aprobare utilizatorului
+  // public shared func approveUser(principal: Principal, args: AdminRequest): async Text {
+  //   switch (users.get(principal)) {
+  //       case (null) {
+  //           return "User not found.";
+  //       };
+  //       case (?user) {
+  //           if (user.accessLevel == #GUEST) {
+  //               user.accessLevel = #USER;
+  //               approvedAdmins.add((principal, user));
+  //               return "User approval successful.";
+  //           } else {
+  //               return "User is already approved or does not require approval.";
+  //           };
+  //       };
+  // };
+  // Funcție pentru respingerea utilizatorului
+  // public shared func rejectUser(principal: Principal, args: AdminRequest): async Text {
+  //   switch (users.get(principal)) {
+  //       case (null) {
+  //           return "User not found.";
+  //       };
+  //       case (?user) {
+  //           if (user.pendingApproval == true) { // Accesăm câmpul cu .pendingApproval
+  //               users.remove(principal);  // Remove the user if pending approval
+  //               return "User request rejected.";  // Return rejection message
+  //           } else {
+  //               return "User is already approved or does not require approval.";  // User is already approved
+  //           };
+  //       };
+  // };
+
+  // Funcție pentru aprobare utilizatorii
+  // public shared func approveAllUsers(): async Text {
+  //   for (pendingAdmin in pendingAdmins) {
+  //       await approveUser(pendingAdmin.0, pendingAdmin.1);
+  //   };
+  //   pendingAdmins = [];
+  //   return "All pending users approved successfully.";
+  // };
+
+
+  public shared func getUserByPrincipal(caller: Principal): async ?User {
+    Debug.print(debug_show(caller));
+    return users.get(caller);
+  };
+
+  public shared func createUser(caller: Principal, args: User): async Text {
+    switch (users.get(caller)) {
+        case (?existingUser) {
+            return "User already exists!";
+        };
+        case null {
+            users.put(caller, args);
+            return "Account created successfully for " # args.name # "!";
+        };
+    };
+  };
 
   public shared query func getUser(caller : Principal) : async Result.Result<User, Text> {
     switch (users.get(caller)) {
         case (null) {
             return #err("User not found");
         };
-        case (?user) {
-            return #ok(user);
+        case (?User) {
+            return #ok(User);
         };
     };
-};
-
-  public shared func updateUser(caller : Principal, args : User) : async Text {
-    if (users.get(caller) != null) {
-        users.put(caller, args);
-        return "User updated successfully.";
-    } else {
-        return "User not found.";
-    };
-};
+  };
 
   public shared func deleteUser(caller : Principal) : async Text {
     if (users.get(caller) != null) {
@@ -84,19 +252,35 @@ public shared func createUser(caller: Principal, args: User): async Text {
     } else {
         return "User not found.";
     };
-};
+  };
 
   public shared query func getAllUsers() : async [User] {
     return Iter.toArray(users.vals());
-};
+  };
+
+  public func addUser(principal: Principal, user: User): async Text {
+    users.put(principal, user);
+    return "User added successfully.";
+  };
+
+
+  // public shared(msg) query func getCallerPrincipal() : async Text {
+  //   return Debug.show(msg.caller); // Returnează apelantul ca text
+  // };
+
+  // public query func getCallerPrincipal() : async Text {
+  //   return Debug.show(Principal.fromActor(this));
+  // };
+  
+  
 
   public shared query func getUserAccessLevel(caller : Principal) : async Result.Result<Text, Text> {
     switch (users.get(caller)) {
         case (null) {
             return #err("User not found");
         };
-        case (?user) {
-            switch (user.accessLevel) {
+        case (?User) {
+            switch (User.accessLevel) {
                 case (#SUPER_ADMIN) {
                     return #ok("You are an SUPER_ADMIN");
                 };
@@ -112,7 +296,7 @@ public shared func createUser(caller: Principal, args: User): async Text {
             };
         };
     };
-};
+  };
 
-Debug.print(debug_show(usersEntries));
+  Debug.print(debug_show(usersEntries));
 };

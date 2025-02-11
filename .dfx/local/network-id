@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
+  "created": "2025-02-11 15:25:25.325677668 +00:00:00",
+  "settings_digest": "2282cb9cc08e17798da9997dc3cc74c53ef04d5cf51307505bad84a126c54f61"
+=======
   "created": "2025-01-21 17:12:00.377854634 +00:00:00",
   "settings_digest": "a2c7b27b81377d6b5f7e38775792e6f435f034f3afc27553f2f3eed938fb7e9b"
+>>>>>>> cab7a48bfd1554dab43c795654e43d2f4b1aa8a8
 }

@@ -8,7 +8,7 @@ const AdminDashboard1 = ({ setActiveSection }) => {
         <ul className="sidebar-menu">
           <li onClick={() => setActiveSection('dashboard')}>
             <FaTachometerAlt className="icon" />
-            <span>Dashboard Overview</span>
+            <span>Dashboard Overview S</span>
           </li>
           <li onClick={() => setActiveSection('userManagement')}>
             <FaUsers className="icon" />
@@ -37,6 +37,14 @@ const AdminDashboard1 = ({ setActiveSection }) => {
           <li onClick={() => setActiveSection('insuranceList')}>
             <FaChartLine className="icon" />
             <span>Insurance List</span>
+          </li>
+          <li onClick={() => setActiveSection('adminDhboard')}>
+            <FaChartLine className="icon" />
+            <span>Admin Dashbord</span>
+          </li>
+          <li onClick={() => setActiveSection('adminApprove')}>
+            <FaChartLine className="icon" />
+            <span>Admin Approve</span>
           </li>
           <li onClick={() => setActiveSection('settings')}>
             <FaCog className="icon" />
