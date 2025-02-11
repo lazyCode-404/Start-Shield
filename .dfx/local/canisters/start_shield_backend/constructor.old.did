@@ -21,7 +21,6 @@ type AccessLevel =
    ADMIN;
    GUEST;
    SUPER_ADMIN;
-
    USER;
  };
 service : {
