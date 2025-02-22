@@ -53,6 +53,7 @@ export const idlFactory = ({ IDL }) => {
     'createUser' : IDL.Func([IDL.Principal, User], [IDL.Text], []),
     'deleteUser' : IDL.Func([IDL.Principal], [IDL.Text], []),
     'getAllUsers' : IDL.Func([], [IDL.Vec(User)], ['query']),
+    'getCallerPrincipal' : IDL.Func([], [IDL.Principal], []),
     'getCompanyForUser' : IDL.Func([IDL.Principal], [IDL.Opt(Company)], []),
     'getUser' : IDL.Func([IDL.Principal], [Result_1], ['query']),
     'getUserAccessLevel' : IDL.Func([IDL.Principal], [Result], ['query']),

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./context/AppContext"; // Ajustează calea după structura ta
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+// import { FeCompositeElement } from "../dist/assets/index.es-9cd05e67";
 
 function Login() {
   const { backendActor, login, logout, isAuthenticated, identity } = useAuth();
@@ -14,22 +15,20 @@ function Login() {
   const navigate = useNavigate();
   const [userChecked, setUserChecked] = useState(false); // Nouă stare pentru finalizarea verificării
 
-  // Redirect if authenticated
   useEffect(() => {
     console.log("Auth state:", { isAuthenticated, identity });
     if (isAuthenticated) {
       checkUser();
+      console.log("Calling fetchUsers...");
     }
   }, [isAuthenticated]);
-
   // Fetch users when component mounts
   useEffect(() => {
     if (isAuthenticated && identity) {
       checkUser();
+      console.log("Calling fetchUsers...");
     }
   }, [isAuthenticated, identity]);
-
-
   // Fetch all users
   const fetchUsers = async () => {
     try {
@@ -42,33 +41,27 @@ function Login() {
       setLoading(false);
     }
   };
-
   // Check if the user already exists
   useEffect(() => {
     if (isAuthenticated && identity && backendActor) {
       checkUser();
     }
   }, [isAuthenticated, identity, backendActor]);
-
   const checkUser = async () => {
     try {
       setLoading(true);
       const principal = await identity.getPrincipal();
       console.log("Checking user for principal:", principal);
-
       const user = await backendActor.getUserByPrincipal(principal);
       console.log("User found:", user);
-
       // Dacă user este un array gol, considerăm că utilizatorul nu există
       if (user && user.length > 0) {
-       
         const role = Object.keys(user[0].accessLevel || {})[0]; // Presupunem că user[0] conține datele utilizatorului
-
         if (role === "SUPER_ADMIN") { // Verifică exact valoarea pentru rolul Admin
           navigate("/s-a-dashboard");
-        }else if (role === "ADMIN") {
+        } else if (role === "ADMIN") {
           navigate("/a-dashboard");
-        }else if (role === "USER") {
+        } else if (role === "USER") {
           navigate("/u-dashboard");
         }
         else if (role === "GUEST") {
@@ -91,84 +84,19 @@ function Login() {
     return <div className="text-center">Loading...</div>;
   }
 
-
-
-  // Submit new user
-  // const submit = async (e) => {
-  //   e.preventDefault();
-  
-  //   // Validarea câmpurilor obligatorii
-  //   if (!name || !email || !age || !accessLevel) {
-  //     alert("Please fill in all fields!");
-  //     return;
-  //   }
-  
-  //   if (backendActor) {
-  //     try {
-  //       setLoading(true);
-  
-  //       // Crearea obiectului utilizator
-  //       const user = {
-  //         name,
-  //         email,
-  //         age: BigInt(age),
-  //         accessLevel: { [accessLevel]: null }, // Nivelul de acces este un obiect
-  //         timestamp: BigInt(Date.now()),
-  //       };
-  
-  //       // Obținerea principalului utilizatorului curent
-  //       const principal = await identity.getPrincipal();
-  
-  //       // Crearea utilizatorului în backend
-  //       await backendActor.createUser(principal, user);
-  
-  //       // Reîmprospătarea listei de utilizatori
-  //       await fetchUsers();
-  
-  //       // Navigare în funcție de nivelul de acces
-  //       switch (accessLevel) {
-  //         case "ADMIN":
-  //           navigate("/a-dashboard");
-  //           break;
-  //         case "USER":
-  //           navigate("/u-dashboard");
-  //           break;
-  //         case "SUPER-ADMIN":
-  //           navigate("/s-a-dashboard");
-  //           break;
-  //         default:
-  //           console.error("Unknown access level:", accessLevel);
-  //           navigate("/");
-  //       }
-  
-  //       // Confirmare succes
-  //       alert("User successfully added!");
-  //     } catch (error) {
-  //       console.error("Error adding user:", error);
-  //       alert("An error occurred while adding the user. Please try again.");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   } else {
-  //     console.error("Backend actor is not available!");
-  //     alert("Backend actor is not initialized. Please check your setup.");
-  //   }
-  // };
-
-
   const submit = async (e) => {
     e.preventDefault();
-  
+
     // Validarea câmpurilor obligatorii
     if (!name || !email || !age || !accessLevel) {
       alert("Please fill in all fields!");
       return;
     }
-  
+
     if (backendActor) {
       try {
         setLoading(true);
-  
+
         // Crearea obiectului utilizator
         const user = {
           name,
@@ -178,16 +106,12 @@ function Login() {
           status: accessLevel === "ADMIN" ? "pending" : "approved", // Setăm statusul ca "pending" pentru admin
           timestamp: BigInt(Date.now()),
         };
-  
         // Obținerea principalului utilizatorului curent
         const principal = await identity.getPrincipal();
-  
         // Crearea utilizatorului în backend
         await backendActor.createUser(principal, user);
-  
         // Reîmprospătarea listei de utilizatori
         await fetchUsers();
-  
         // Navigare în funcție de nivelul de acces
         switch (accessLevel) {
           case "ADMIN":
@@ -203,7 +127,6 @@ function Login() {
             console.error("Unknown access level:", accessLevel);
             navigate("/");
         }
-  
         // Confirmare succes
         alert("User successfully added!");
       } catch (error) {
@@ -221,7 +144,6 @@ function Login() {
       alert("Backend actor is not initialized. Please check your setup.");
       return;
     }
-    
     if (!identity) {
       console.error("Identity is not initialized!");
       alert("Identity is not initialized. Please check your setup.");
@@ -230,16 +152,14 @@ function Login() {
     try {
       const principal = await identity.getPrincipal();
       console.log("Principal:", principal);
-    
       console.log("Creating user:", users);
       await backendActor.createUser(principal, users);
-      console.log("User created successfully");
+      console.log("User created successfully", principal.toText());
     } catch (error) {
       console.error("Error from backend:", error);
       alert("An error occurred while adding the user. Please try again.");
     }
   };
-  
 
   return (
     <div>
@@ -260,13 +180,11 @@ function Login() {
           )}
         </div>
       </nav>
-
       {/* Main content */}
       <main className="container mt-5">
         {isAuthenticated ? (
           <div>
             <h1 className="mb-4">Welcome to the User App!</h1>
-
             {/* Add User Form */}
             <div className="card p-4 mb-4">
               <h2>Add a User</h2>
@@ -332,7 +250,6 @@ function Login() {
                 </button>
               </form>
             </div>
-
             {/* Display Registered Users */}
             <div>
               <h2>Registered Users</h2>

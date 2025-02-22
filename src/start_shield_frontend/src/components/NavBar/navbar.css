@@ -1,153 +1,180 @@
-
 .navbar {
-  background-color: rgba(0, 0, 0, 0.948);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  padding: 6px 8px;
-  z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.948);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 6px 8px;
+    z-index: 1000;
 }
+
+
 /* .navbar:hover {
   background-color: rgb(10, 17, 17);
   position: sticky;
 } */
 
 .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .logo {
-  height: 60px;
-  margin-left: 0px;
+    height: 60px;
+    margin-left: 0px;
 }
 
 .nav-links {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .nav-links ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-links li {
-  margin-left: 18px;
-  border-bottom: none;
+    margin-left: 18px;
+    border-bottom: none;
 }
 
 .nav-item {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: white;
 }
 
 .nav-item a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 .nav-item a:hover {
-  color: #00bcd4;
+    color: #00bcd4;
 }
 
 .nav-item a.active {
-  color: #00a859;
+    color: #00a859;
 }
 
-.sign-up-button, .sign-in-button{
-  margin-left: 6px;
-  padding: 5px 10px;
-  /* background-color: #00bcd4; */
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  min-width: 80px;
+.sign-up-button,
+.sign-in-button {
+    margin-left: 6px;
+    padding: 5px 10px;
+    /* background-color: #00bcd4; */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    min-width: 80px;
 }
 
-.sign-up-button:hover, .sign-in-button:hover {
-  background-color: #0097a7;
-  border-radius: 12px;
+.sign-up-button:hover,
+.sign-in-button:hover {
+    background-color: #0097a7;
+    border-radius: 12px;
 }
+
 text-design {
-  text-decoration: none;
-  color:#00bcd4;
+    text-decoration: none;
+    color: #00bcd4;
 }
+
+
 /* Media queries pentru ecrane mai mici */
+
 @media screen and (max-width: 768px) {
-  .nav-links ul {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .nav-links li {
-    margin-left: 0;
-    text-align: center;
-    padding: 10px 0;
-  }
-
-  .sign-up-button, .sign-in-button {
-    margin-left: 0;
-    width: 100%;
-    text-align: center;
-  }
+    .nav-links ul {
+        flex-direction: column;
+        width: 100%;
+    }
+    .nav-links li {
+        margin-left: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .sign-up-button,
+    .sign-in-button {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 600px) {
-  .menu-icon {
-    display: block;
-    cursor: pointer;
-    font-size: 1.8rem;
-    color: white;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: #020202;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    z-index: 999;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links ul {
-    flex-direction: column;
-    width: 100%;
-    
-  }
-
-  .nav-links li {
-    margin-left: 0;
-    text-align: center;
-    padding: 10px 0;
-   
-  }
-
-  .nav-links ul li{
-    border-bottom: none;
-  }
-
-  .sign-up-button, .sign-in-button {
-    margin-left: 0;
-    width: 100%;
-    text-align: center;
-  }
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: white;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #020202;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 999;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links ul {
+        flex-direction: column;
+        width: 100%;
+    }
+    .nav-links li {
+        margin-left: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .nav-links ul li {
+        border-bottom: none;
+    }
+    .sign-up-button,
+    .sign-in-button {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
 }
 
+.user-name-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    /* Afișează deasupra textului */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.user-name-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

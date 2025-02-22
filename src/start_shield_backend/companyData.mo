@@ -1,4 +1,3 @@
-import Array "mo:base/Array";
 import Principal "mo:base/Principal";
 import Iter "mo:base/Iter";
 import TrieMap "mo:base/TrieMap";

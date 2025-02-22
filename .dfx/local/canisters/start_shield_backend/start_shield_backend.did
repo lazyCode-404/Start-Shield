@@ -64,6 +64,7 @@ service : {
   createUser: (principal, User) -> (text);
   deleteUser: (principal) -> (text);
   getAllUsers: () -> (vec User) query;
+  getCallerPrincipal: () -> (principal);
   getCompanyForUser: (principal) -> (opt Company);
   getUser: (principal) -> (Result_1) query;
   getUserAccessLevel: (principal) -> (Result) query;
