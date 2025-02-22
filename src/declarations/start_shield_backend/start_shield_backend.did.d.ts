@@ -56,6 +56,7 @@ export interface _SERVICE {
   'createUser' : ActorMethod<[Principal, User], string>,
   'deleteUser' : ActorMethod<[Principal], string>,
   'getAllUsers' : ActorMethod<[], Array<User>>,
+  'getCallerPrincipal' : ActorMethod<[], Principal>,
   'getCompanyForUser' : ActorMethod<[Principal], [] | [Company]>,
   'getUser' : ActorMethod<[Principal], Result_1>,
   'getUserAccessLevel' : ActorMethod<[Principal], Result>,

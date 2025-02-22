@@ -15,11 +15,6 @@ const NavBar = () => {
     setIsOpen(!isOpen);
   };
 
-  // const handleLogout = () => {
-  //   // Funcția de logout
-  //   window.location.reload();
-  // };
-
   return (
     <nav className="navbar">
       <Container>
@@ -132,6 +127,16 @@ const NavBar = () => {
                   </li>
                 </>
               ) : (
+                <>
+                {/* <li className="nav-item">
+                <div
+                  className="user-name-tooltip"
+                  title={`Email: ${userInfo.email || "N/A"}`}
+                  style={{ color: 'white', marginRight: '10px', display: 'inline-block' }}
+                >
+                  {userInfo.name || "Loading..."}
+                </div>
+              </li> */}
                 <li>
                   {/* Dacă utilizatorul este autentificat */}
                   <button
@@ -144,6 +149,7 @@ const NavBar = () => {
                     <FaSignOutAlt /> Logout
                   </button>
                 </li>
+                </>
               )}
             </ul>
           </Col>
