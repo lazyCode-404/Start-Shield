@@ -1,90 +1,97 @@
-import React, { useState } from "react";
-import { loadStripe } from "../../../../../node_modules/@stripe/stripe-js";
-import { Elements, CardElement, useStripe, useElements } from "../../../../../node_modules/@stripe/react-stripe-js";
-import axios from "axios";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const stripePromise = loadStripe("your-publishable-key-here");
+const SecurePaymentsPage = () => {
+    return (
+        <div className="container mt-4">
+            {/* Header Section */}
+            <div className="card shadow-lg p-4 border-0">
+                <div className="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                    <h1 className="h4 text-primary">Sistem de Plăți Securizat ICP</h1>
+                    <button className="btn btn-outline-primary btn-lg">
+                        <i className="bi bi-person-circle me-2"></i>Conectare cu Internet Identity
+                    </button>
+                </div>
 
-const PaymentForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [name, setName] = useState(""); // State pentru numele titularului cardului
+                {/* Welcome Message */}
+                <div className="alert alert-info text-center" id="greeting">
+                    <strong>Bun venit!</strong> Gestionați plățile în siguranță.
+                </div>
 
-  const handlePayment = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) {
-      return;
-    }
+                {/* Balance Section */}
+                <div className="mb-4 text-center">
+                    <h2 className="h5">Sold: <span className="fw-bold text-success">100000</span> ICP</h2>
+                </div>
 
-    setLoading(true);
+                {/* Deposit Section */}
+                <div className="mb-4 p-3 border rounded bg-light shadow-sm">
+                    <h2 className="h5 mb-3">Depozit</h2>
+                    <button className="btn btn-success btn-lg w-100">Depune 100 unități</button>
+                    <div className="mt-3 text-center" id="deposit-status"></div>
+                </div>
 
-    try {
-      // Creează un payment intent
-      const { data: clientSecret } = await axios.post("http://localhost:8000/api/create-payment-intent", {
-        amount: 5000, // Suma în cenți (ex: $50.00)
-        currency: "usd",
-      });
+                {/* Payment Section */}
+                <div className="mb-4 p-3 border rounded bg-light shadow-sm">
+                    <h2 className="h5 mb-3">Trimite Plată</h2>
+                    <form>
+                        <input
+                            type="text"
+                            className="form-control mb-3"
+                            placeholder="ID Destinatar"
+                            required
+                        />
+                        <input
+                            type="number"
+                            className="form-control mb-3"
+                            placeholder="Sumă"
+                            min="1"
+                            required
+                        />
+                        <button className="btn btn-primary btn-lg w-100" type="submit">Trimite</button>
+                    </form>
+                    <div className="mt-3 text-center" id="payment-status"></div>
+                </div>
 
-      // Confirma plata
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: name, // Trimite numele titularului cardului
-          },
-        },
-      });
+                {/* Recent Transactions Section */}
+                <div className="mb-4 p-3 border rounded bg-light shadow-sm">
+                    <h2 className="h5 mb-3">Tranzacții Recente</h2>
+                    <table className="table table-hover table-striped">
+                        <thead className="table-primary" style={{ backgroundColor: "#007bff", color: "#ffffff" }}>
+                            <tr>
+                                <th style={{ color: "#ffcc00" }}>ID</th>
+                                <th style={{ color: "#ffcc00" }}>De la</th>
+                                <th style={{ color: "#ffcc00" }}>Către</th>
+                                <th style={{ color: "#ffcc00" }}>Sumă</th>
+                                <th style={{ color: "#ffcc00" }}>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* Tranzacțiile vor fi afișate aici */}
+                            <tr style={{ backgroundColor: "#f8f9fa" }}>
+                                <td>1</td>
+                                <td>Ion</td>
+                                <td>Maria</td>
+                                <td>100 ICP</td>
+                                <td style={{ color: "green" }}>Succes</td>
+                            </tr>
+                            <tr style={{ backgroundColor: "#e9ecef" }}>
+                                <td>2</td>
+                                <td>Maria</td>
+                                <td>Ion</td>
+                                <td>50 ICP</td>
+                                <td style={{ color: "red" }}>Eșuat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-      if (result.error) {
-        setMessage(`Payment failed: ${result.error.message}`);
-      } else {
-        setMessage("Payment successful!");
-        // Salvează tranzacția în backend-ul Motoko
-        await axios.post("http://localhost:8000/api/save-transaction", {
-          transactionId: result.paymentIntent.id,
-          amount: result.paymentIntent.amount,
-          status: result.paymentIntent.status,
-        });
-      }
-    } catch (error) {
-      console.error("Error during payment:", error);
-      setMessage("An error occurred during payment.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div>
-      <h2>Pay with Debit Card</h2>
-      <form onSubmit={handlePayment}>
-        <div>
-          <label htmlFor="name">Cardholder's Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+            {/* Footer Section */}
+            <footer className="text-center mt-5">
+                <p>&copy; 2025 Sistem de Plăți Securizat ICP. Toate drepturile rezervate.</p>
+            </footer>
         </div>
-        <CardElement />
-        <button type="submit" disabled={!stripe || loading}>
-          {loading ? "Processing..." : "Pay Now"}
-        </button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
-  );
+    );
 };
 
-const PaymentPage = () => (
-  <Elements stripe={stripePromise}>
-    <PaymentForm />
-  </Elements>
-);
-
-export default PaymentPage;
+export default SecurePaymentsPage;

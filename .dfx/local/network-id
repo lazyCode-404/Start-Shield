@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
   "created": "2025-04-14 17:52:58.757913342 +00:00:00",
   "settings_digest": "64b1fc69845d5fc9fd01ca1c876cbefa06bd3d19a7f4f66c6c4818146aca5904"
+=======
+  "created": "2025-04-15 11:39:42.683154806 +00:00:00",
+  "settings_digest": "fd9c7a8b97908ffc8ab8f5c1f173494961c6305143e3cbcbdd200dcd60b7b6ef"
+>>>>>>> refs/remotes/origin/main
 }

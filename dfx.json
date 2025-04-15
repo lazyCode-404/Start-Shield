@@ -14,11 +14,7 @@
         },
         "start_shield_backend": {
             "main": "src/start_shield_backend/main.mo",
-            "type": "motoko",
-            "dependencies": [
-                "companyData",
-                "Payment"
-            ]
+            "type": "motoko"
         },
         "start_shield_frontend": {
             "dependencies": [
@@ -30,6 +26,7 @@
             ],
             "build": "npm run build --workspace=start_shield_frontend",
             "workspace": "start_shield_frontend"
+<<<<<<< HEAD
         },
         "companyData": {
             "type": "motoko",
@@ -44,6 +41,8 @@
         "admin_canister": {
             "main": "src/start_shield_backend/addUserByAdminCanister.mo",
             "type": "motoko"
+=======
+>>>>>>> refs/remotes/origin/main
         }
     },
     "defaults": {

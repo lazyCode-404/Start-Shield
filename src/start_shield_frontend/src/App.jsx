@@ -85,7 +85,7 @@ function AppContent({ userInfo, setUserInfo }) {
 
               {/* Redirecționează către dashboard-uri doar dacă utilizatorul e autentificat */}
               {userInfo && userInfo.role === 'SUPER_ADMIN' && (
-                <Route path="/s_a-dashboard" element={<SuperAdminDashboard1 />} />
+                <Route path="/s-a-dashboard" element={<SuperAdminDashboard1 />} />
               )}
               {userInfo && userInfo.role === 'Admin' && (
                 <Route path="/a-dashboard" element={<AdminDashboard1 />} />

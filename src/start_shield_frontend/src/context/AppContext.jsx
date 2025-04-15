@@ -3,6 +3,7 @@ import { AuthClient } from "@dfinity/auth-client";
 import { canisterId as iiCanId } from "../../../declarations/internet_identity";
 import { Actor, HttpAgent } from "@dfinity/agent";
 import { canisterId, idlFactory } from "../../../declarations/start_shield_backend";
+import axios from "axios";
 
 const network = process.env.DFX_NETWORK || "local";
 const localhost = "http://localhost:4943";
@@ -70,10 +71,10 @@ export const useAuthClient = (options = defaultOptions) => {
       host: network === "local" ? localhost : host,
       identity: _identity,
     });
-
-    if (network === "local") {
-      await agent.fetchRootKey();
-    }
+    agent.fetchRootKey().catch(err => console.warn("Eroare la fetchRootKey:", err));
+    // if (network === "local") {
+    //   await agent.fetchRootKey();
+    // }
 
     const _backendActor = Actor.createActor(idlFactory, {
       agent,
@@ -125,3 +126,20 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+export const AppContext = createContext();
+
+export const AppProvider = ({ children }) => {
+    const [backendMessage, setBackendMessage] = useState("");
+
+    useEffect(() => {
+        axios.get("http://localhost:4943/api/health-check")
+            .then(response => setBackendMessage(response.data.message))
+            .catch(() => setBackendMessage("Eroare de conectare la backend!"));
+    }, []);
+
+    return (
+        <AppContext.Provider value={{ backendMessage }}>
+            {children}
+        </AppContext.Provider>
+    );
+};

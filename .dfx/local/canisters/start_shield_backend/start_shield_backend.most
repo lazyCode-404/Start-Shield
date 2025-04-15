@@ -1,15 +1,79 @@
 // Version: 1.0.0
+type AcceptanceStatus = {#accepted; #declined};
 type AccessLevel = {#ADMIN; #GUEST; #SUPER_ADMIN; #USER};
+type Address =
+  {
+    city : Text;
+    country : Text;
+    number : Text;
+    postalCode : Text;
+    state : Text;
+    street : Text
+  };
+type AdminStatus = {#Approved; #NotRequested; #Pending; #Rejected};
+type Company =
+  {
+    additionalInfo : Text;
+    address : Address;
+    annualRevenue : Nat;
+    commission : Nat;
+    companyName : Text;
+    discount : Nat;
+    email : Text;
+    employees : Nat;
+    endDate : Text;
+    industryType : Text;
+    insuranceMonths : Nat;
+    insuranceType : Text;
+    insuredValue : Nat;
+    over18 : AcceptanceStatus;
+    paymentOption : Text;
+    phone : Text;
+    policyValue : Nat;
+    premium : AcceptanceStatus;
+    registrationNumber : Text;
+    rewardPercentage : Nat;
+    startDate : Text;
+    termsAgreed : AcceptanceStatus;
+    tokensEarned : Nat
+  };
+type EditableUser =
+  {
+    accessLevel : AccessLevel;
+    adminStatus : AdminStatus;
+    age : Nat;
+    email : Text;
+    id : Nat;
+    name : Text;
+    phone : ?Text;
+    photo : ?[Nat8];
+    photoId : ?Text;
+    principal : Principal;
+    timestamp : Int;
+    userAddress : ?UserAddress
+  };
 type User =
   {
     accessLevel : AccessLevel;
+    adminStatus : AdminStatus;
     age : Nat;
     email : Text;
     name : Text;
     timestamp : Int
   };
+type UserAddress =
+  {
+    city : ?Text;
+    country : ?Text;
+    number : ?Text;
+    postalCode : ?Text;
+    state : ?Text;
+    street : ?Text
+  };
 actor {
   stable var approvedAdmins : [(Principal, User)];
+  stable var companyStorage : [(Principal, Company)];
+  stable var nextPaymentId : Nat;
   stable var pendingAdmins : [(Principal, User)];
-  stable var usersEntries : [(Principal, User)]
+  stable var usersEntries : [(Principal, EditableUser)]
 };

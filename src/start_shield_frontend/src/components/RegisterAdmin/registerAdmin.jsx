@@ -1,75 +1,98 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../../context/AppContext';
+import CC from '../CheckConnectivity/connectivityCheck.jsx';
+import './registerAdmin.css'; // Importăm fișierul CSS
+import moment from 'moment'; // Importăm moment.js pentru formatarea datei
 
-const SuperAdminPanel = ({ backendActor }) => {
+const SuperAdminPanel = () => {
+  const { backendActor } = useAuth();
   const [pendingAdmins, setPendingAdmins] = useState([]);
-  const [message, setMessage] = useState("");
-
-  // Fetch pending admin requests
-  const fetchPendingAdmins = async () => {
-    try {
-      if (!backendActor) {
-        setMessage("Backend actor nu este inițializat!");
-        return;
-      }
-
-      const response = await backendActor.getPendingAdmins(); // Apelează funcția din backend
-      setPendingAdmins(response || []); // Stochează cererile primite
-    } catch (error) {
-      console.error("Eroare la preluarea cererilor de admin:", error);
-      setMessage("Eroare la preluarea cererilor.");
-    }
-  };
-
-  // Approve or reject admin requests
-  const handleApproval = async (principal, approved) => {
-    try {
-      if (!backendActor) {
-        setMessage("Backend actor nu este inițializat!");
-        return;
-      }
-
-      const result = await backendActor.handleAdminApproval(principal, approved); // Aprobă sau respinge cererea
-      setMessage(result || "Operațiune reușită.");
-      fetchPendingAdmins(); // Reîncarcă lista cererilor
-    } catch (error) {
-      console.error("Eroare la actualizarea statutului adminului:", error);
-      setMessage("Eroare la actualizarea statutului.");
-    }
-  };
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchPendingAdmins(); // Preia cererile în momentul montării componentei
-  }, []);
+    console.log("backendActor:", backendActor);
+    if (backendActor) {
+      fetchPendingAdmins();
+    } else {
+      console.error("backendActor is not available!");
+      setMessage("Backend actor is not available. Please check your setup.");
+    }
+  }, [backendActor]);
+
+  const fetchPendingAdmins = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      if (!backendActor) {
+        setMessage("Eroare: Backend actor nu este inițializat!");
+        return;
+      }
+
+      const admins = await backendActor.getPendingAdmins();
+      console.log("Admini în așteptare:", admins);
+      setPendingAdmins(admins);
+    } catch (error) {
+      console.error("Eroare la preluarea cererilor:", error);
+      setMessage(`Eroare: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [backendActor]);
+
+  const handleApproval = async (principal, approve) => {
+    try {
+      if (!backendActor) {
+        setMessage("Eroare: Backend actor nu este inițializat!");
+        return;
+      }
+      const status = approve ? { Approved: null } : { Rejected: null };
+      const response = await backendActor.handleAdminApproval(principal, status);
+
+      if ('ok' in response) {
+        setMessage(`Admin ${approve ? 'aprobat' : 'respins'} cu succes!`);
+        fetchPendingAdmins();
+      } else {
+        setMessage(`Eroare: ${response.err}`);
+      }
+    } catch (error) {
+      console.error("Eroare la aprobare/respingere:", error);
+      setMessage(`Eroare: ${error.message}`);
+    }
+  };
 
   return (
-    <div>
-      <h2>Super Admin - Gestionare Cereri</h2>
-
-      {message && <p>{message}</p>}
-
-      <h3>Cereri de Aprobare Admin</h3>
-      {pendingAdmins.length > 0 ? (
-        <ul>
-          {pendingAdmins.map((admin) => (
-            <li key={admin.principal}>
-              <strong>{admin.name}</strong> ({admin.email})
-              <div>
-                <button
-                  onClick={() => handleApproval(admin.principal, true)}
-                >
-                  Aprobă
-                </button>
-                <button
-                  onClick={() => handleApproval(admin.principal, false)}
-                >
-                  Respinge
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+    <div className="super-admin-panel"> {/* Aplicăm clasa container principal */}
+      <CC />
+      {isLoading ? (
+        <div>Se încarcă cererile...</div>
       ) : (
-        <p>Nu există cereri de aprobare în așteptare.</p>
+        <>
+          {message && <div className="message">{message}</div>}
+          <h2 className="panel-title">Cereri Admin în Așteptare</h2> {/* Aplicăm clasa pentru titlu */}
+          {pendingAdmins.length > 0 ? (
+            <ul className="admin-list"> {/* Aplicăm clasa pentru listă */}
+              {pendingAdmins.map(([principal, user]) => (
+                <li key={principal.toText()} className="admin-item"> {/* Aplicăm clasa pentru item */}
+                  <div className="admin-info">
+                    <p><strong>Nume:</strong> {user.name}</p>
+                    <p><strong>Email:</strong> {user.email}</p>
+                    <p><strong>Principal:</strong> {principal.toText()}</p>
+                    <p><strong>Aplicat la:</strong> {moment(Number(user.timestamp)).format('DD-MM-YYYY HH:mm')}</p>
+                  </div>
+                  <div className="admin-actions">
+                    <button className="approve-button" onClick={() => handleApproval(principal, true)}>Aprobă</button>
+                    <button className="reject-button" onClick={() => handleApproval(principal, false)}>Respinge</button>
+                  </div>
+                  {user.adminStatus && Object.keys(user.adminStatus)[0] === 'Rejected' && (
+                    <div className="rejection-message">Cererea a fost respinsă.</div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Nu există cereri de admin în așteptare.</p>
+          )}
+        </>
       )}
     </div>
   );

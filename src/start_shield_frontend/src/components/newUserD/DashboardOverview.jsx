@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./DashboardOverview.css";
+import CC from '../CheckConnectivity/connectivityCheck.jsx';
 
 // Importa datele din data.json
 import data from "../../../data.json";
@@ -41,6 +42,7 @@ const DashboardOverview = () => {
 
   return (
     <div className="dashboard-container">
+       <CC/>
       <h2>Welcome, {userInfo?.name || "Guest"}!</h2>
 
       <div className="widgets-container">
