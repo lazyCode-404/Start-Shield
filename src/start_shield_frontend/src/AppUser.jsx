@@ -9,7 +9,7 @@ import TokenManagement from './components/newUserD/TokenManagement.jsx'
 import TrainingEvents from './components/newUserD/TrainingEvents.jsx';
 import Support from './components/newUserD/Support.jsx';
 import UserSettings from './components/newUserD/UserSettings.jsx';
-import PaymentPage from './components/PaymentPage/paymentPage.jsx';
+// import PaymentPage from './components/PaymentPage/paymentPage.jsx';
 
 function AppUser() {
     const [activeSection, setActiveSection] = useState('dashboard');

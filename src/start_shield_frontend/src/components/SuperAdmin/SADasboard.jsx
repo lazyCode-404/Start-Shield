@@ -2,7 +2,10 @@ import React from 'react';
 import './Sidebar.css';
 import { FaTachometerAlt, FaUsers, FaFileContract, FaCoins, FaChartLine, FaCog, FaCalendarAlt } from 'react-icons/fa';
 
-const AdminDashboard1 = ({ setActiveSection }) => {
+const SuperAdminDashboard1 = ({ setActiveSection }) => {
+  // if (!setActiveSection || typeof setActiveSection !== 'function') {
+  //   console.error("Error: setActiveSection is not defined or not a function.");
+  // }
     return (
       <aside className="sidebar">
         <ul className="sidebar-menu">
@@ -46,6 +49,10 @@ const AdminDashboard1 = ({ setActiveSection }) => {
             <FaChartLine className="icon" />
             <span>Admin Approve</span>
           </li>
+          <li onClick={() => setActiveSection('paymentPage')}>
+            <FaChartLine className="icon" />
+            <span>Payment Page</span>
+          </li>
           <li onClick={() => setActiveSection('settings')}>
             <FaCog className="icon" />
             <span>Admin Settings</span>
@@ -55,5 +62,5 @@ const AdminDashboard1 = ({ setActiveSection }) => {
     );
 };
 
-export default AdminDashboard1;
+export default SuperAdminDashboard1;
 

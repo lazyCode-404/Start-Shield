@@ -1,44 +1,68 @@
 .user-management {
     padding: 20px;
-  }
-  
-  table {
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-  }
-  
-  th, td {
+}
+
+th,
+td {
     padding: 10px;
     border: 1px solid #ccc;
     text-align: left;
-  }
-  
-  th {
+}
+
+th {
     cursor: pointer;
-  }
-  
-  button {
+}
+
+button {
     margin: 6 5px;
     padding: 5px 10px;
     cursor: pointer;
-  }
-  .edit-button {
+}
+
+.edit-button {
     background-color: #4CAF50;
     color: white;
     margin: 4px;
-  }
-  
-  .view-profile-button {
+}
+
+.view-profile-button {
     background-color: #2196F3;
     color: white;
     margin: 4px;
-  }
-  
-  .deactivate-button {
+}
+
+.deactivate-button {
     background-color: #f44336;
     color: white;
     margin: 4px;
-  }
-  
-  
+}
+
+.view-all-profiles {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.view-all-profiles p {
+    font-size: 12px;
+    color: gray;
+    margin: 0;
+}
+
+.view-all-profiles-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.view-all-profiles-button:hover {
+    background-color: #0056b3;
+}

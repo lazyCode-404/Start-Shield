@@ -17,10 +17,3 @@ if (rootElement !== null) {
 } else {
   console.error("Failed to find the root element");
 }
-
-
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-// );

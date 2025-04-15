@@ -1,141 +1,212 @@
 h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+    font-size: 1.5em;
+    margin-bottom: 10px;
 }
 
 input {
-  margin: 5px 10px;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 100%;
-  background-color: aliceblue;
+    margin: 5px 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    background-color: aliceblue;
 }
 
 button {
-  margin: 5px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 button:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
 }
 
 .radio-button {
-  background-color: antiquewhite;
-  height: 80px;
-  margin: 20px 10px;
+    background-color: antiquewhite;
+    height: 80px;
+    margin: 20px 10px;
 }
-.radio-button:hover {
-  background-color: #007bff;
-}
-.input-fild {
-  margin-top: 30px;
-  margin-right: 30px;
 
+.radio-button:hover {
+    background-color: #007bff;
 }
+
+.input-fild {
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
 .input-fild input {
-  margin-top: 10px;
-  /* width: 400px; */
+    margin-top: 10px;
+    /* width: 400px; */
 }
+
 .input-fild textarea {
-  background-color: #ccc;
+    background-color: #ccc;
 }
 
 .info-icon {
-  margin-left: 5px;
-  cursor: pointer;
-  color: blue;
-  font-weight: bold;
+    margin-left: 5px;
+    cursor: pointer;
+    color: blue;
+    font-weight: bold;
 }
 
 .input-wrapper {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 input {
-  padding-right: 30px; /* Adjust the padding as needed */
+    padding-right: 30px;
+    /* Adjust the padding as needed */
 }
 
 .info-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px; /* Adjust the positioning as needed */
-  transform: translateY(-50%);
-  cursor: pointer;
-  background-color: #d4d4d4;
-  color: #000;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-weight: bold;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    /* Adjust the positioning as needed */
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: #d4d4d4;
+    color: #000;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-weight: bold;
 }
 
 .info-text {
-  visibility: hidden;
-  width: 200px;
-  background-color: #f9f9f9;
-  color: #333;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%; /* Position the tooltip above the text */
-  right: 50%;
-  margin-right: -100px;
-  opacity: 0;
-  transition: opacity 0.3s;
+    visibility: hidden;
+    width: 200px;
+    background-color: #f9f9f9;
+    color: #333;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    /* Position the tooltip above the text */
+    right: 50%;
+    margin-right: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .info-icon:hover .info-text {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
 
 .info-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  right: 50%;
-  margin-right: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #f9f9f9 transparent transparent transparent;
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 50%;
+    margin-right: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #f9f9f9 transparent transparent transparent;
 }
- 
+
 .checkBoxes-fild {
-  background-color: aliceblue;
+    background-color: aliceblue;
 }
 
-
-
-/* .image-preview img {
-  border: 2px solid #ccc;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 5px;
+.user-info-container {
+    position: relative;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
 
-.summary-table {
-  margin-top: 20px;
+.user-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 250px;
 }
 
-.summary-table table {
-  width: 100%;
-  border-collapse: collapse;
+.user-tooltip p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #333;
 }
 
-.summary-table table, .summary-table th, .summary-table td {
-  border: 1px solid #ddd;
+.user-info {
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
-.summary-table th, .summary-table td {
-  padding: 8px;
-  text-align: left;
-} */
+.user-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.input-fild {
+    display: block !important;
+    opacity: 1 !important;
+    transition: all 0.3s ease;
+}
+
+.user-info {
+    position: relative;
+    padding: 10px;
+    background: #f0f0f0;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.user-tooltip {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.user-info:hover .user-tooltip {
+    display: block;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}

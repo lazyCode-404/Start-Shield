@@ -1,3 +1,69 @@
+type UserResponse = 
+ record {
+   accessLevel: AccessLevel;
+   adminStatus: AdminStatus;
+   age: nat;
+   email: text;
+   name: text;
+   phone: opt text;
+   photo: opt vec nat8;
+   photoId: opt text;
+   "principal": principal;
+   timestamp: int;
+   userAddress: opt UserAddress;
+ };
+type UserId = principal;
+type UserAddress = 
+ record {
+   city: opt text;
+   country: opt text;
+   number: opt text;
+   postalCode: opt text;
+   state: opt text;
+   street: opt text;
+ };
+type User = 
+ record {
+   accessLevel: AccessLevel;
+   adminStatus: AdminStatus;
+   age: nat;
+   email: text;
+   name: text;
+   timestamp: int;
+ };
+type Time = int;
+type Result_2 = 
+ variant {
+   err: text;
+   ok: PaymentId;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type PaymentStatus = 
+ variant {
+   completed;
+   failed;
+   pending;
+   refunded;
+ };
+type PaymentId = nat;
+type Payment = 
+ record {
+   amount: Amount;
+   from: UserId;
+   id: PaymentId;
+   status: PaymentStatus;
+   timestamp: Time;
+   to: UserId;
+ };
 type Company = 
  record {
    additionalInfo: text;
@@ -13,16 +79,24 @@ type Company =
    insuranceMonths: nat;
    insuranceType: text;
    insuredValue: nat;
-   over18: bool;
+   over18: AcceptanceStatus;
    paymentOption: text;
    phone: text;
    policyValue: nat;
-   premium: bool;
+   premium: AcceptanceStatus;
    registrationNumber: text;
    rewardPercentage: nat;
    startDate: text;
-   termsAgreed: bool;
+   termsAgreed: AcceptanceStatus;
    tokensEarned: nat;
+ };
+type Amount = nat;
+type AdminStatus = 
+ variant {
+   Approved;
+   NotRequested;
+   Pending;
+   Rejected;
  };
 type Address = 
  record {
@@ -33,7 +107,44 @@ type Address =
    state: text;
    street: text;
  };
+type AccessLevel = 
+ variant {
+   ADMIN;
+   GUEST;
+   SUPER_ADMIN;
+   USER;
+ };
+type AcceptanceStatus = 
+ variant {
+   accepted;
+   declined;
+ };
 service : {
   addCompany: (principal, Company) -> (bool);
+  addUser: (principal, User) -> (text);
+  completePayment: (PaymentId) -> (Result);
+  createPayment: (UserId, Amount) -> (Result_2);
+  createUser: (principal, User) -> (text);
+  deposit: () -> ();
+  getAdminStatus: (principal) -> (AdminStatus) query;
+  getAllUsers: () -> (vec UserResponse) query;
+  getBalance: () -> (Amount) query;
+  getCallerPrincipal: () -> (principal);
   getCompany: (principal) -> (opt Company) query;
+  getCompanyForUser: (principal) -> (opt Company) query;
+  getPayment: (PaymentId) -> (opt Payment) query;
+  getPendingAdmins: () -> (vec record {
+                                 principal;
+                                 User;
+                               }) query;
+  getUserAccessLevel: (principal) -> (Result_1) query;
+  getUserById: (principal) -> (opt UserResponse) query;
+  getUserByPrincipal: (principal) -> (opt User);
+  handleAdminApproval: (principal, AdminStatus) -> (Result_1);
+  healthCheck: () -> (text) query;
+  refundPayment: (PaymentId) -> (Result);
+  requestAdminAccess: () -> (text);
+  secureAdminOperation: () -> (text);
+  updateUser: (principal, text, text, opt Address, opt text, opt blob,
+   opt text) -> (bool);
 }

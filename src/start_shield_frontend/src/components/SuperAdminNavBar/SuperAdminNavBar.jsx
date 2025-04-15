@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useMemo } from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 import './SuperAdminNavbar.css';
 import logo from '../../../public/assets/images/start-shield-black-logo.jpg';
@@ -7,19 +7,88 @@ import Hero from "../Hero";
 import imag_hero from "../../src/assets/images/hero4.png";
 import { useAuth } from "../../context/AppContext";
 
+
 function SuperAdminNavbar({ adminName }) {
   const navigate = useNavigate();
   const { backendActor, login, logout, isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    if (backendActor && isAuthenticated) {
-      console.log("Authenticated and backend ready.");
+  const [userDetails, setUserDetails] = useState({ name: "", email: "" });
+  const [principalText, setPrincipalText] = useState(""); // Stochează principalul utilizatorului
+  const [isFetchingPrincipal, setIsFetchingPrincipal] = useState(false); // Previne apelurile multiple
+  const [isLoading, setIsLoading] = useState(true); // Stare pentru încărcare
+  // Memorizează backendActor pentru a evita schimbările frecvente
+  const stableBackendActor = useMemo(() => backendActor, [backendActor]);
+  // Funcție pentru a obține principalul utilizatorului din backend
+  const fetchUserDetails = async () => {
+    if (!stableBackendActor) {
+      console.warn("Backend actor is not initialized.");
+      return;
     }
-  }, [backendActor, isAuthenticated]);
-
-  const handleHomeClick = () => {
-    navigate('/');
+    if (!isAuthenticated) {
+      console.warn("User is not authenticated.");
+      return;
+    }
+    if (isFetchingPrincipal) {
+      console.log("Already fetching principal. Skipping...");
+      return;
+    }
+    setIsFetchingPrincipal(true);
+    setIsLoading(true); // Începe încărcarea
+    try {
+      // Obține principalul utilizatorului
+      const principal = await stableBackendActor.getCallerPrincipal();
+      const principalString = principal.toText(); // Convertim principalul în text lizibil
+      console.log("Caller principal from backend:", principalString);
+      setPrincipalText(principalString); // Stocăm principalul în stare
+      // Obține detaliile utilizatorului pe baza principalului
+      const user = await stableBackendActor.getUserByPrincipal(principal);
+      console.log("Fetched user details from backend:", user);
+      if (user && user.length > 0) { // Verifică dacă array-ul conține elemente
+        setUserDetails({ name: user[0].name || "Unknown", email: user[0].email || "N/A" });
+        console.log("User details updated:", { name: user[0].name || "Unknown", email: user[0].email || "N/A" }); // Verifică dacă valorile sunt corecte
+      } else {
+        console.warn("No user details found for the given principal.");
+        setUserDetails({ name: "Unknown", email: "N/A" }); // Setează valori implicite
+      }
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      setUserDetails({ name: "Unknown", email: "N/A" }); // Setează valori implicite în caz de eroare
+    } finally {
+      setIsFetchingPrincipal(false);
+      setIsLoading(false); // Oprește încărcarea
+    }
   };
+  // Efect pentru a apela fetchUserDetails
+  useEffect(() => {
+    let isMounted = true; // Previne actualizările după demontare
+    if (stableBackendActor && isAuthenticated && !userDetails.name) {
+      (async () => {
+        try {
+          await fetchUserDetails();
+        } catch (error) {
+          console.error("Error in fetchUserDetails effect:", error);
+        }
+      })();
+    }
+    return () => {
+      isMounted = false; // Cleanup pentru a preveni actualizările după demontare
+    };
+  }, [stableBackendActor, isAuthenticated]);
+  // Navighează la pagina de start
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
+  // Funcție de logout
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
 
   return (
     <>
@@ -59,6 +128,16 @@ function SuperAdminNavbar({ adminName }) {
                 User Dashboard
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                to="/checkPriceInsurance"
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+              >
+                Buy Now
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="navbar-center">
@@ -69,7 +148,23 @@ function SuperAdminNavbar({ adminName }) {
           />
           <FaSearch className="search-icon" />
         </div>
-        <div className="navbar-right">
+        <div className="navbar-right" style={{ color: "white" }}>
+          {isAuthenticated && (
+            <>
+              {isLoading ? (
+                <div>Loading user details...</div>
+              ) : (
+                <>
+                  <div
+                    className="user-name-tooltip"
+                    title={`Email: ${userDetails.email || "N/A"}`}
+                  >
+                    {userDetails.name || "Unknown"}
+                  </div>
+                </>
+              )}
+            </>
+          )}
           <div className="profile-dropdown">
             <FaUserCircle className="profile-icon" />
             <div className="dropdown-menu">
@@ -112,6 +207,21 @@ function SuperAdminNavbar({ adminName }) {
           <h1 className="hero-text">
             Hello and Welcome back Super Admin, {adminName}!
           </h1>
+          {isAuthenticated && (
+            <>
+              {userDetails.name && (
+                <>
+                  <div className="user-name-tooltip">
+                    {userDetails.name || "Loading..."}
+                    <span className="tooltip-text">{userDetails.email || "N/A"}</span>
+                  </div>
+                  <div className="principal-display">
+                    <p>Principal: {principalText || "Loading..."}</p>
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </section>
       </Hero>
     </>

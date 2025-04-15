@@ -14,11 +14,7 @@
         },
         "start_shield_backend": {
             "main": "src/start_shield_backend/main.mo",
-            "type": "motoko",
-            "dependencies": [
-                "companyData",
-                "Payment"
-            ]
+            "type": "motoko"
         },
         "start_shield_frontend": {
             "dependencies": [
@@ -30,16 +26,6 @@
             ],
             "build": "npm run build --workspace=start_shield_frontend",
             "workspace": "start_shield_frontend"
-        },
-        "companyData": {
-            "type": "motoko",
-            "main": "src/start_shield_backend/companyData.mo",
-            "candid": "src/declarations/companyData/companyData.did"
-        },
-        "Payment": {
-            "type": "motoko",
-            "main": "src/start_shield_backend/Payment.mo",
-            "candid": "src/declarations/Payment/Payment.did"
         }
     },
     "defaults": {

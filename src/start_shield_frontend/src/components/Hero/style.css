@@ -4,30 +4,15 @@
     background-position: center;
     /* position: relative; */
     background-color: rgb(159, 92, 223);
-    z-index: 1; /* Ensure it doesn't cover other elements */
+    z-index: 1;
+    /* Ensure it doesn't cover other elements */
     /* margin-top: 70px; */
 }
 
 .navbar {
-    z-index: 2; /* Ensure navbar stays on top */
-}
-
-/* .hero::after {
-    content: "";
-    display: block;
-    opacity: .4;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: black;
-}  */
-
-/* .hero * {
-    position: relative;
     z-index: 2;
-}  */
+    /* Ensure navbar stays on top */
+}
 
 .hero h1,
 .hero h2 {

@@ -2,31 +2,39 @@ import React, { useState } from 'react';
 import ErrorBoundary from './components/NewAD/ErrorBoundary.jsx';
 import SuperAdminNavbar from './components/SuperAdminNavBar/SuperAdminNavBar.jsx';
 import Footer from './components/Footer/index.jsx';
-import AdminDashboard2 from './components/SuperAdmin/SADasboard.jsx';
-import DashboardPage from './components/NewAD/DashboardPage.jsx';
-import UserManagement from './components/NewAD/UserManagement.jsx';
-import PolicyManagement from './components/NewAD/POlicyManagement.jsx';
-import TokenManagement from './components/NewAD/TokenManagement.jsx';
-import InsuranceList from './components/InsuranceList/InsuranceList.jsx';
-import TrainingEvtsManag from './components/NewAD/TrainingEvtsManag.jsx';
-import ReportsAnalytics from './components/NewAD/ReportsAnalytics.jsx';
-import AdminSettings from './components/NewAD/AdminSettings.jsx';
-import SupportHelp from './components/NewAD/SupportHelp.jsx';
+import SuperAdminDashboard1 from './components/SuperAdmin/SADasboard.jsx';
+import DashboardPage from './components/SuperAdmin/DashboardPage.jsx';
+import UserManagement from './components/SuperAdmin/UserManagement.jsx';
+import PolicyManagement from './components/SuperAdmin/POlicyManagement.jsx';
+import TokenManagement from './components/SuperAdmin/TokenManagement.jsx';
+import TrainingEvtsManag from './components/SuperAdmin/TrainingEvtsManag.jsx';
+import ReportsAnalytics from './components/SuperAdmin/ReportsAnalytics.jsx';
+import AdminSettings from './components/SuperAdmin/AdminSettings.jsx';
+import SupportHelp from './components/SuperAdmin/SupportHelp.jsx';
 import AdminDashboard from './components/SuperAdmin/AdminDashboard.jsx';
-import AdminApprovalRegister from './components/RegisterAdmin/registerAdmin.jsx'
-
+import AdminApprovalRegister from './components/RegisterAdmin/registerAdmin.jsx';
+import EditUser from './components/SuperAdmin/EditUser.jsx';
+import UserProfile from './components/SuperAdmin/UserProfile.jsx';
+import PendingApproval from './components/SuperAdmin/PendingApproval.jsx';
+import SecurePaymentsPage from './components/PaymentPage/paymentPage.jsx';
 
 function AppSuperAdmin() {
   const [activeSection, setActiveSection] = useState('dashboard');
+  const [activeSubSection, setActiveSubSection] = useState(null);
 
   const renderSectionContent = () => {
     switch (activeSection) {
       case 'dashboard':
         return <DashboardPage />;
       case 'userManagement':
-        return <ErrorBoundary>
-          <UserManagement />
-        </ErrorBoundary>;
+        return (
+          <ErrorBoundary>
+            {activeSubSection === 'edit-user' && <EditUser />}
+            {activeSubSection === 'user-profile' && <UserProfile />}
+            {activeSubSection === 'pending-approval' && <PendingApproval />}
+            {!activeSubSection && <UserManagement setActiveSubSection={setActiveSubSection} />}
+          </ErrorBoundary>
+        );
       case 'policyManagement':
         return <PolicyManagement />;
       case 'tokenManagement':
@@ -43,15 +51,18 @@ function AppSuperAdmin() {
         return <AdminDashboard />;
       case 'adminApprove':
         return <AdminApprovalRegister />;
+        case 'paymentPage':
+          return <SecurePaymentsPage />;
       default:
         return null;
     }
   };
+
   return (
     <div>
       <SuperAdminNavbar />
       <div className="admin-container">
-        <AdminDashboard2 setActiveSection={setActiveSection} />
+        <SuperAdminDashboard1 setActiveSection={setActiveSection} />
         <div className="section-content">
           {renderSectionContent()}
         </div>
@@ -62,5 +73,4 @@ function AppSuperAdmin() {
 }
 
 export default AppSuperAdmin;
-
 
