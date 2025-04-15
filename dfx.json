@@ -40,6 +40,10 @@
             "type": "motoko",
             "main": "src/start_shield_backend/Payment.mo",
             "candid": "src/declarations/Payment/Payment.did"
+        },
+        "admin_canister": {
+            "main": "src/start_shield_backend/addUserByAdminCanister.mo",
+            "type": "motoko"
         }
     },
     "defaults": {

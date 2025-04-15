@@ -29,7 +29,7 @@ const Homepage = () => {
         </section>
       </Hero>
       {/* <Container xxl={12} className="homepage"> */}
-      <section  className='main-section'>
+      <section className='main-section'>
         {/* Features */}
         <Row xl={12} className='first-row'>
           <Col sm={2} className='first-col'>
@@ -171,7 +171,7 @@ const Homepage = () => {
                   <p>As an early investor, you gain access to:</p>
                   <p><strong>Exclusive Early-Bird Incentives.</strong></p>
                   <p>
-                  Shares in,  <span class="startShieldSTSH">StartShield-STSH.</span>. 
+                    Shares in,  <span class="startShieldSTSH">StartShield-STSH.</span>.
                   </p>
                   <p><strong>Tokens</strong> with <strong>High Growth Potential</strong>.</p>
                 </Col>
@@ -185,11 +185,11 @@ const Homepage = () => {
                 <Col>
                   <h2 className='titl-section'>Crowdfunding Campaign</h2>
                   <p>
-                  Support the <span class="startShieldSTSH">StartShield-STSH.</span>  mission by contributing to our crowdfunding campaign. 
+                    Support the <span class="startShieldSTSH">StartShield-STSH.</span>  mission by contributing to our crowdfunding campaign.
                   </p>
                   <p>Your small contribution can create a big impact.</p>
                 </Col>
-              
+
               </Row>
             </section>
             <section className="testimonials setSection">
@@ -197,14 +197,14 @@ const Homepage = () => {
                 <Col>
                   <h2 className='titl-section'>Testimonials</h2>
                   <p>
-                   <span class="startShieldSTSH">StartShield-STSH.</span>  has truly revolutionized how we manage risks on our farm. It's transparent, easy to use, and affordable!"
+                    <span class="startShieldSTSH">StartShield-STSH.</span>  has truly revolutionized how we manage risks on our farm. It's transparent, easy to use, and affordable!"
                   </p>
                   <p>— Nancy Mubanga, Smallholder Farmer, Zambia.</p>
                   <p>The blockchain integration is a game-changer. This is the future of insurance in Africa.</p>
                   <p>— Enock Chuma, Entrepreneur, South Africa
-                  .</p>
+                    .</p>
                 </Col>
-              
+
               </Row>
             </section>
 
@@ -226,7 +226,7 @@ const Homepage = () => {
             <a href="#">
               <img
                 className="logo"
-                src="/assets/images/start-shield-black-logo.jpg"
+                src="/assets/STSH-a9f7bf12.jpg"
                 alt="StartShield Logo"
               />
             </a>
@@ -240,18 +240,18 @@ const Homepage = () => {
          </Col> */}
 
         </Row>
-        </section>
+      </section>
       {/* </Container> */}
     </div>
   );
 };
-<a href="#">
+{/* <a href="#">
   <img
     className="logo"
     src="/assets/images/start-shield-black-logo.jpg"
     alt="StartShield Logo"
   />
-</a>
+</a> */}
 
 export default Homepage;
 

@@ -41,12 +41,17 @@ function Footer() {
             <div className="contact-container">
               <div className="contact-item">
                 <h3> Phone </h3>
-                //tel added
                 <ul>
-                  <li><a href="tel:+260955859611">Call <span className="highlight">Zambia</span>: +260 955 859 611</a></li>
-                  <li><a href="tel:+260766124160">or +260 766 124 160</a></li>
-                  <li><a href="tel:+211123456789">Call <span className="highlight">Lusaka</span>: +211 123 456 789</a></li>
+                  <li>
+                    <a href="tel:+260955859611">Call <span className="highlight">Zambia</span>: +260 955 859 611</a>
+                    <span> or </span>
+                    <a href="tel:+260766124160">+260 766 124 160</a>
+                  </li>
+                  <li>
+                    <a href="tel:+211123456789">Call <span className="highlight">Lusaka</span>: +211 123 456 789</a>
+                  </li>
                 </ul>
+
               </div>
               <div className="contact-item">
                 <h3>Email</h3>

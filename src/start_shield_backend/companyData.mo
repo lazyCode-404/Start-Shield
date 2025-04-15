@@ -42,7 +42,7 @@ actor CompanyData {
 
   var companyData = TrieMap.TrieMap<Principal, Company>(Principal.equal, Principal.hash);
   stable var companyStorage: [(Principal, Company)] = [];
-  var subscribers = HashMap.HashMap<Principal, Bool>(0, Principal.equal, Principal.hash);
+  var _subscribers = HashMap.HashMap<Principal, Bool>(0, Principal.equal, Principal.hash);
 
 
   system func preupgrade() {

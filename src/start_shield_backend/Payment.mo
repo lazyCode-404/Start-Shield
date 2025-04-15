@@ -1,5 +1,5 @@
 import Principal "mo:base/Principal";
-import HashMap "mo:base/HashMap";
+import _HashMap "mo:base/HashMap";
 import Array "mo:base/Array";
 
 actor Payment {

@@ -23,7 +23,8 @@ const NavBar = () => {
             <a href="#">
               <img
                 className="logo"
-                src="/assets/images/start-shield-black-logo.jpg"
+                // src="/assets/images/start-shield-black-logo.jpg"
+                src="/assets/STSH-a9f7bf12.jpg"
                 alt="StartShield Logo"
               />
             </a>
