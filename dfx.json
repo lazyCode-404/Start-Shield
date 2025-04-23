@@ -19,6 +19,7 @@
         "start_shield_frontend": {
             "dependencies": [
                 "start_shield_backend"
+
             ],
             "type": "assets",
             "source": [
@@ -26,7 +27,6 @@
             ],
             "build": "npm run build --workspace=start_shield_frontend",
             "workspace": "start_shield_frontend"
-<<<<<<< HEAD
         },
         "companyData": {
             "type": "motoko",
@@ -41,8 +41,22 @@
         "admin_canister": {
             "main": "src/start_shield_backend/addUserByAdminCanister.mo",
             "type": "motoko"
-=======
->>>>>>> refs/remotes/origin/main
+        },
+
+        "nfc_actor": {
+            "main": "src/start_shield_backend/nfc.mo",
+            "type": "motoko",
+            "candid": "src/declarations/nfcactor/nfc_actor.did"
+        },
+        "policy_actor": {
+            "main": "src/start_shield_backend/policy.mo",
+            "type": "motoko",
+            "candid": "src/declarations/policy_actor/policy_actor.did"
+        },
+        "pricing_actor": {
+            "main": "src/start_shield_backend/pricing.mo",
+            "type": "motoko",
+            "candid": "src/declarations/pricing_actor/pricing_actor.did"
         }
     },
     "defaults": {
@@ -52,5 +66,11 @@
         }
     },
     "output_env_file": ".env",
-    "version": 1
+    "version": 1,
+    "networks": {
+        "ic": {
+            "providers": ["https://ic0.app"],
+            "type": "ephemeral"
+        }
+    }
 }

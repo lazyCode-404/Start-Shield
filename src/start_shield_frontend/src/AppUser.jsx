@@ -9,7 +9,9 @@ import TokenManagement from './components/newUserD/TokenManagement.jsx'
 import TrainingEvents from './components/newUserD/TrainingEvents.jsx';
 import Support from './components/newUserD/Support.jsx';
 import UserSettings from './components/newUserD/UserSettings.jsx';
-// import PaymentPage from './components/PaymentPage/paymentPage.jsx';
+import SecurePaymentsPage from './components/PaymentPage/paymentPage.jsx';
+import CheckPriceInsurance from './components/CheckPriceInsurance/index.jsx';
+import PaymentPage from './components/PaymentPage/paymentPage.jsx';
 
 function AppUser() {
     const [activeSection, setActiveSection] = useState('dashboard');
@@ -18,18 +20,22 @@ function AppUser() {
         switch (activeSection) {
             case 'dashboard':
                 return <DashboardOverview />;
-             case 'myPolicies':
+            case 'myPolicies':
                 return <MyPolicies />
-             case 'tokenManagement':
+            case 'paymentPage':
+                return <PaymentPage />;
+            case 'checkPriceInsurance':
+                return <CheckPriceInsurance />;
+            case 'tokenManagement':
                 return <TokenManagement />;
             case 'trainingEvents':
                 return <TrainingEvents />;
             case 'support':
                 return <Support />;
-             case 'userSettings':
+            case 'userSettings':
                 return <UserSettings />;
             case 'paymentPage':
-                return <PaymentPage />;
+                return <SecurePaymentsPage />;
             default:
                 return null;
         }

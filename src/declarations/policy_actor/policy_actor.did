@@ -1,0 +1,68 @@
+type UserId = principal;
+type Time = int;
+type RiskProfile = 
+ record {
+   lastUpdated: Time;
+   riskFactors: vec RiskFactor;
+   riskScore: float64;
+   userId: UserId;
+ };
+type RiskFactor = 
+ record {
+   name: text;
+   value: float64;
+   weight: float64;
+ };
+type Result_5 = 
+ variant {
+   err: text;
+   ok: nat;
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: vec RiskFactor;
+ };
+type Result_3 = 
+ variant {
+   err: text;
+   ok: PricingParameters;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: RiskProfile;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: float64;
+ };
+type PricingParameters = 
+ record {
+   basePrice: float64;
+   discountRate: float64;
+   maxDiscount: float64;
+   riskMultiplier: float64;
+ };
+type PolicyType = 
+ variant {
+   basic;
+   premium;
+   standard;
+ };
+service : {
+  calculatePremium: (PolicyType, nat) -> (Result_5);
+  fetchExternalRiskData: (UserId) -> (Result_4);
+  getAverageRiskScore: () -> (float64) query;
+  getPricingParameters: (PolicyType) -> (Result_3) query;
+  getUserRiskProfile: (UserId) -> (Result_2) query;
+  simulateAIRiskAssessment: (UserId, opt text) -> (float64);
+  updatePricingParameters: (PolicyType, PricingParameters) -> (Result_1);
+  updateUserRiskFactors: (vec RiskFactor) -> (Result);
+}

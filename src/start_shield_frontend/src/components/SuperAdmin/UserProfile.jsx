@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AppContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Principal } from '@dfinity/principal';
+import './UserProfile.css'; // Import CSS for styling
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, setActiveSubSection }) => {
     const { backendActor } = useAuth();
-    const navigate = useNavigate();
     const { principal } = useParams(); // Get the principal from the route params
     const [userData, setUserData] = useState(user || null);
     const [loading, setLoading] = useState(!user); // If user is passed as prop, no need to load
@@ -49,7 +49,7 @@ const UserProfile = ({ user }) => {
     }, [backendActor, principal, user]);
 
     const handleBack = () => {
-        navigate(-1);
+        setActiveSubSection(null); // Revine la secțiunea principală UserManagement
     };
 
     if (loading) {
@@ -121,6 +121,31 @@ const UserProfile = ({ user }) => {
             ) : (
                 <p>No user details available.</p>
             )}
+            <div className="user-profile">
+                <h2>{user.name}'s Profile</h2>
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>Access Level:</strong> {user.accessLevel ? Object.keys(user.accessLevel)[0] : 'N/A'}</p>
+                <p><strong>Status:</strong> {user.status ? Object.keys(user.status)[0] : 'N/A'}</p>
+                <p><strong>Principal ID:</strong> {user.principal.toString()}</p>
+                {user.photo && user.photo.length > 0 && (
+                    <img
+                        src={`data:image/jpeg;base64,${btoa(
+                            String.fromCharCode(...new Uint8Array(user.photo[0]))
+                        )}`}
+                        alt={`${user.name} Photo 1`}
+                        className="user-photo"
+                    />
+                )}
+                {user.photo2 && user.photo2.length > 0 && (
+                    <img
+                        src={`data:image/jpeg;base64,${btoa(
+                            String.fromCharCode(...new Uint8Array(user.photo2[0]))
+                        )}`}
+                        alt={`${user.name} Photo 2`}
+                        className="user-photo"
+                    />
+                )}
+            </div>
             <button onClick={handleBack} className="return-button">
                 Go Back
             </button>

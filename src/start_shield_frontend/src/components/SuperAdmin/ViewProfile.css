@@ -1,0 +1,92 @@
+.user-card.pending-user {
+    background-color: yellow;
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.expanded-image {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.filter-button.active {
+    background-color: #0056b3;
+    color: white;
+    border-color: #0056b3;
+}
+
+.pending-row {
+    background-color: #fff3cd;
+    /* Galben deschis */
+}
+
+.rejected-row {
+    background-color: #f8d7da;
+    /* Roșu deschis */
+}
+
+.user-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+}
+
+.return-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.return-button:hover {
+    background-color: #0056b3;
+}

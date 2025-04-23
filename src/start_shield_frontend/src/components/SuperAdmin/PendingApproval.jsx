@@ -1,53 +1,66 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Principal } from '@dfinity/principal';
 import { useAuth } from '../../context/AppContext';
+import './PendingApproval.css';
 
-const PendingApproval = () => {
+const PendingApproval = ({ user, setActiveSubSection }) => {
   const { backendActor } = useAuth();
   const navigate = useNavigate();
-  const { userId } = useParams(); // Extrage userId din URL
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [blockReason, setBlockReason] = useState(""); // Motivul blocării
 
   useEffect(() => {
-    const fetchUser = async () => {
-      if (!backendActor) {
-        console.error("Backend actor is not available");
-        setError("Backend actor is not available.");
-        setLoading(false);
-        return;
+    if (!user) {
+      setError("User data is missing. Please check the input.");
+    }
+  }, [user]);
+
+  const handleApproval = async (approve) => {
+    if (!backendActor || !user || !user.principal) {
+      setError("Backend actor or User data is not available.");
+      return;
+    }
+
+    try {
+      const principal = Principal.fromText(user.principal.toString());
+      const status = approve ? { Approved: null } : { Rejected: null };
+      const result = await backendActor.handleAdminApproval(principal, status);
+
+      if (result.ok) {
+        setSuccessMessage(`User has been ${approve ? 'approved' : 'rejected'}.`);
+      } else {
+        setError(`Failed to ${approve ? 'approve' : 'reject'} user.`);
       }
+    } catch (error) {
+      console.error(`Error ${approve ? 'approving' : 'rejecting'} user:`, error);
+      setError(`Error ${approve ? 'approving' : 'rejecting'} user: ${error.message || String(error)}`);
+    }
+  };
 
-      if (!userId) {
-        console.error("User ID is missing");
-        setError("User ID is missing. Please check the input.");
-        setLoading(false);
-        return;
+  const handleRestoreAccount = async () => {
+    if (!backendActor || !user || !user.principal) {
+      setError("Backend actor or User data is not available.");
+      return;
+    }
+
+    try {
+      const principal = Principal.fromText(user.principal.toString());
+      const result = await backendActor.restoreAccount(principal);
+
+      if (result.ok) {
+        setSuccessMessage("User account has been restored.");
+      } else {
+        setError("Failed to restore user account.");
       }
+    } catch (error) {
+      console.error("Error restoring user account:", error);
+      setError(`Error restoring user account: ${error.message || String(error)}`);
+    }
+  };
 
-      try {
-        const principal = Principal.fromText(userId); // Convertim userID în Principal
-        const userData = await backendActor.getUserById(principal);
-
-        if (!userData || (Array.isArray(userData) && userData.length === 0)) {
-          setError("User not found in the system");
-        } else {
-          setUser(Array.isArray(userData) ? userData[0] : userData);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setError(`Error fetching user: ${error.message || String(error)}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, [backendActor, userId]);
-
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -57,10 +70,17 @@ const PendingApproval = () => {
         <div>
           <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
-          <p>Principal ID: {Principal.fromText(user.principal).toString()}</p>
+          <p>Principal ID: {user.principal.toString()}</p>
         </div>
       )}
-      <button onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+      <div className="actions">
+  <div className="action-buttons">
+    <button className="btn btn-success" onClick={() => handleApproval(true)}>Approve</button>
+    <button className="btn btn-danger" onClick={() => handleApproval(false)}>Reject</button>
+    <button className="btn btn-secondary" onClick={() => setActiveSubSection(null)}>Back</button>
+  </div>
+</div>
     </div>
   );
 };

@@ -1,0 +1,50 @@
+type UserId = principal;
+type Timestamp = int;
+type Result_2 = 
+ variant {
+   err: text;
+   ok: Claim;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: ClaimId;
+ };
+type PolicyId = nat;
+type ClaimStatus = 
+ variant {
+   approved;
+   paid;
+   pending;
+   rejected;
+   verifying;
+ };
+type ClaimId = nat;
+type Claim = 
+ record {
+   amount: Amount;
+   claimant: UserId;
+   description: text;
+   evidenceUrls: vec text;
+   id: ClaimId;
+   policyId: PolicyId;
+   status: ClaimStatus;
+   submittedAt: Timestamp;
+   verificationData: opt text;
+ };
+type Amount = nat;
+service : {
+  getClaim: (ClaimId) -> (Result_2) query;
+  getClaimStatistics: () -> (nat, nat, nat, nat, nat) query;
+  getUserClaims: () -> (vec Claim) query;
+  markClaimAsPaid: (ClaimId) -> (Result_1);
+  processClaim: (ClaimId, bool, opt text) -> (Result_1);
+  startVerification: (ClaimId) -> (Result_1);
+  submitClaim: (PolicyId, Amount, text, vec text) -> (Result);
+  testMethod: () -> (text) query;
+}

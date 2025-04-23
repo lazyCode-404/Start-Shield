@@ -1,38 +1,32 @@
 {
-<<<<<<< HEAD
   "Payment": {
-    "local": "uxrrr-q7777-77774-qaaaq-cai"
-  },
-  "__Candid_UI": {
-    "local": "ufxgi-4p777-77774-qaadq-cai"
-  },
-  "admin_canister": {
-    "local": "u6s2n-gx777-77774-qaaba-cai"
-  },
-  "companyData": {
-    "local": "uzt4z-lp777-77774-qaabq-cai"
-  },
-  "internet_identity": {
-    "local": "umunu-kh777-77774-qaaca-cai"
-  },
-  "start_shield_backend": {
-    "local": "ulvla-h7777-77774-qaacq-cai"
-=======
-  "__Candid_UI": {
-    "local": "br5f7-7uaaa-aaaaa-qaaca-cai"
->>>>>>> refs/remotes/origin/main
-  },
-  "internet_identity": {
     "local": "bkyz2-fmaaa-aaaaa-qaaaq-cai"
   },
-  "start_shield_backend": {
+  "__Candid_UI": {
+    "local": "a3shf-5eaaa-aaaaa-qaafa-cai"
+  },
+  "admin_canister": {
     "local": "bd3sg-teaaa-aaaaa-qaaba-cai"
   },
-  "start_shield_frontend": {
-<<<<<<< HEAD
-    "local": "ucwa4-rx777-77774-qaada-cai"
-=======
+  "companyData": {
     "local": "be2us-64aaa-aaaaa-qaabq-cai"
->>>>>>> refs/remotes/origin/main
+  },
+  "internet_identity": {
+    "local": "br5f7-7uaaa-aaaaa-qaaca-cai"
+  },
+  "nfc_actor": {
+    "local": "bw4dl-smaaa-aaaaa-qaacq-cai"
+  },
+  "policy_actor": {
+    "local": "b77ix-eeaaa-aaaaa-qaada-cai"
+  },
+  "pricing_actor": {
+    "local": "by6od-j4aaa-aaaaa-qaadq-cai"
+  },
+  "start_shield_backend": {
+    "local": "avqkn-guaaa-aaaaa-qaaea-cai"
+  },
+  "start_shield_frontend": {
+    "local": "asrmz-lmaaa-aaaaa-qaaeq-cai"
   }
 }

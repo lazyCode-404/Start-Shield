@@ -7,6 +7,7 @@ import PendingApproval from "./PendingApproval.jsx";
 import UserProfile from "./UserProfile.jsx";
 import "./UserManagement.css";
 import moment from "moment";
+import PendingUsersView from "./PendingUsersView.jsx";
 
 const UserManagement = () => {
     const { backendActor } = useAuth();
@@ -102,8 +103,10 @@ const UserManagement = () => {
                 <UserProfile user={selectedUser} setActiveSubSection={setActiveSubSection} />
             ) : activeSubSection === "pendingApproval" && selectedUser ? (
                 <PendingApproval user={selectedUser} setActiveSubSection={setActiveSubSection} />
+            ) : activeSubSection === "pendingUsers" ? (
+                <PendingUsersView setActiveSubSection={setActiveSubSection} />
             ) : activeSubSection === "viewProfiles" ? (
-                <ViewProfile />
+                <ViewProfile setActiveSubSection={setActiveSubSection} />
             ) : (
                 <>
                     {isLoading ? (
@@ -119,11 +122,17 @@ const UserManagement = () => {
                                         View All Profiles
                                     </button>
                                 </div>
+                                <div className="view-pending-users">
+                                    <p>Press here to see Pending Users</p>
+                                    <button onClick={() => setActiveSubSection("pendingUsers")} className="view-pending-users-button">
+                                        View Pending Users
+                                    </button>
+                                </div>
                             </div>
                             <table>
                                 <thead>
                                     <tr>
-                                        {["principal", "name", "email", "age", "role", "status", "adminStatus", "lastActivity"].map((column) => (
+                                        {["principal", "name", "email", "age", "role", "adminStatus", "lastActivity"].map((column) => (
                                             <th key={column} onClick={() => handleSort(column)}>
                                                 {column.charAt(0).toUpperCase() + column.slice(1)}
                                             </th>
@@ -133,29 +142,62 @@ const UserManagement = () => {
                                 </thead>
                                 <tbody>
                                     {users.length > 0 ? (
-                                        users.map((user) => (
-                                            <tr key={user.principal ? user.principal.toText() : user.name}>
-                                                <td>{user.principal ? user.principal.toText() : "N/A"}</td>
-                                                <td>{user.name}</td>
-                                                <td>{user.email || "N/A"}</td>
-                                                <td>{user.age || "N/A"}</td>
-                                                <td>{user.accessLevel ? user.accessLevel.toString() : "N/A"}</td>
-                                                <td>{user.status ? user.status.toString() : "N/A"}</td>
-                                                <td>{user.adminStatus ? user.adminStatus.toString() : "N/A"}</td>
-                                                <td>{user.timestamp ? moment(Number(user.timestamp)).format("DD-MM-YYYY HH:mm") : "N/A"}</td>
-                                                <td>
-                                                    {user.principal ? (
-                                                        <>
-                                                            <button className="edit-button" onClick={() => handleActionClick(user, "Edit")}>Edit</button>
-                                                            <button className="view-profile-button" onClick={() => handleActionClick(user, "User Profile")}>View Profile</button>
-                                                            <button className="pending-button" onClick={() => handleActionClick(user, "Pending")}>Pending</button>
-                                                        </>
-                                                    ) : (
-                                                        <span>Principal not available</span>
-                                                    )}
-                                                </td>
-                                            </tr>
-                                        ))
+                                        users.map((user) => {
+                                            const adminStatus = user.adminStatus ? Object.keys(user.adminStatus)[0] : "N/A";
+                                            const role = user.accessLevel ? Object.keys(user.accessLevel)[0] : "N/A";
+                                            const age = user.age ? user.age.toString() : "N/A";
+                                            const rowClass =
+                                                adminStatus === "Pending"
+                                                    ? "pending-row"
+                                                    : adminStatus === "Rejected"
+                                                    ? "rejected-row"
+                                                    : "";
+
+                                            return (
+                                                <tr
+                                                    key={user.principal ? user.principal.toText() : user.name}
+                                                    className={rowClass}
+                                                >
+                                                    <td>{user.principal ? user.principal.toText() : "N/A"}</td>
+                                                    <td>{user.name || "N/A"}</td>
+                                                    <td>{user.email || "N/A"}</td>
+                                                    <td>{age}</td>
+                                                    <td>{role}</td>
+                                                    <td>{adminStatus}</td>
+                                                    <td>
+                                                        {user.timestamp
+                                                            ? moment(Number(user.timestamp)).format("DD-MM-YYYY HH:mm")
+                                                            : "N/A"}
+                                                    </td>
+                                                    <td>
+                                                        {user.principal ? (
+                                                            <>
+                                                                <button
+                                                                    className="edit-button"
+                                                                    onClick={() => handleActionClick(user, "Edit")}
+                                                                >
+                                                                    Edit
+                                                                </button>
+                                                                <button
+                                                                    className="view-profile-button"
+                                                                    onClick={() => handleActionClick(user, "User Profile")}
+                                                                >
+                                                                    View Profile
+                                                                </button>
+                                                                <button
+                                                                    className="pending-button"
+                                                                    onClick={() => handleActionClick(user, "Pending")}
+                                                                >
+                                                                    Pending
+                                                                </button>
+                                                            </>
+                                                        ) : (
+                                                            <span>Principal not available</span>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
                                     ) : (
                                         <tr>
                                             <td colSpan="9">Nu există utilizatori disponibili.</td>

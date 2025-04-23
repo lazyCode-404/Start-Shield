@@ -1,0 +1,93 @@
+/* General styles */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+
+/* Navbar */
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: white !important;
+}
+
+.navbar-brand:hover {
+    color: #f0f0f0 !important;
+}
+
+.btn-outline-light {
+    color: white;
+    border-color: white;
+}
+
+.btn-outline-light:hover {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+
+/* Sidebar */
+
+.list-group-item {
+    border: none;
+    padding: 15px;
+    transition: background-color 0.3s;
+}
+
+.list-group-item:hover,
+.list-group-item.active {
+    background-color: #e9ecef;
+}
+
+.list-group-item.active {
+    color: #007bff;
+}
+
+
+/* Cards */
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #343a40;
+}
+
+
+/* Dashboard content */
+
+.container-fluid {
+    padding: 20px;
+}
+
+
+/* Loading spinner */
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+
+/* Adjustments for Offcanvas */
+
+.offcanvas-header .btn-close {
+    color: #000;
+}
+
+.offcanvas-body .list-group-item {
+    border-radius: 0;
+    border-bottom: 1px solid #dee2e6;
+}

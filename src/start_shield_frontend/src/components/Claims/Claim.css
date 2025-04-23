@@ -1,0 +1,33 @@
+/* App Bar */
+
+.navbar-brand {
+    font-weight: bold;
+    color: white !important;
+}
+
+.navbar-brand:hover {
+    color: #f0f0f0 !important;
+}
+
+.nav-link {
+    color: white !important;
+    margin-right: 10px;
+}
+
+.nav-link:hover {
+    color: #f0f0f0 !important;
+}
+
+
+/* Footer */
+
+.custom-footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+.custom-footer p {
+    color: #6c757d;
+    margin-bottom: 0;
+}

@@ -5,7 +5,8 @@ import React, {
 import {
     Container,
     Button,
-    Row
+    Row,
+    Table
 } from 'react-bootstrap';
 import './style.css';
 import axios from 'axios';
@@ -15,7 +16,7 @@ import {
 import {
     uploadToIPFS
 } from "../../utils/ipfs";
-// import PaymentPage from './../PaymentPage/paymentPage';
+import { useNavigate } from "react-router-dom"; // Pentru navigare către PaymentPage
 
 const InsuranceForm = () => {
     const [hasAccount, setHasAccount] = useState(null);
@@ -71,7 +72,8 @@ const InsuranceForm = () => {
     const [principal, setPrincipal] = useState(null);
     const [isHovering, setIsHovering] = useState(false);
     const [showPayment, setShowPayment] = useState(false);
-
+    const [selectedPaymentOption, setSelectedPaymentOption] = useState(null); // Opțiunea selectată
+    const navigate = useNavigate(); // Hook pentru navigare
 
     const annualDiscount = 10;
     const monthlyCommission = 5;
@@ -218,7 +220,7 @@ const InsuranceForm = () => {
                     insuranceMonths: BigInt(Math.floor(Number(formData.insuranceMonths) || 0)),
                     termsAgreed: formData.termsAgreed === "accepted" ? { accepted: null } : { declined: null },
                     over18: formData.over18 === "accepted" ? { accepted: null } : { declined: null },
-                    discount: BigInt(annualDiscount),
+                    // discount: BigInt(annualDiscount),
                     commission: BigInt(monthlyCommission),
                     tokensEarned: BigInt(Math.floor(Number(formData.tokensEarned) || 0)),
                     rewardPercentage: BigInt(formData.rewardPercentage),
@@ -406,6 +408,26 @@ const InsuranceForm = () => {
             <p>Email: {userInfo.email}</p>
         </div>
     );
+
+    const handlePaymentSelection = (option) => {
+        setSelectedPaymentOption(option);
+    };
+
+    const handlePay = () => {
+        if (!selectedPaymentOption) {
+            alert("Please select a payment option.");
+            return;
+        }
+        // Navigăm către pagina PaymentPage cu informațiile poliței
+        navigate("/paymentPage", { 
+            state: { 
+                paymentOption: selectedPaymentOption, 
+                policyValue: formData.policyValue, 
+                policyOwner: principal, 
+                policyDetails: formData // Transmitem toate detaliile poliței
+            } 
+        });
+    };
 
     return (
         <div>
@@ -680,9 +702,52 @@ const InsuranceForm = () => {
                         </>
                     )
                 }
+                <Container>
+                    <h3>Insurance Payment Options</h3>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Payment Option</th>
+                                <th>Value</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Complete Payment</td>
+                                <td>{(formData.policyValue - (annualDiscount / 100) * formData.policyValue).toFixed(2)} ICP</td>
+                                <td>
+                                    <input
+                                        type="radio"
+                                        name="paymentOption"
+                                        value="complete"
+                                        onChange={() => handlePaymentSelection("complete")}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Monthly Payment</td>
+                                <td>{(parseFloat(formData.policyValue) + (monthlyCommission / 100) * formData.policyValue).toFixed(2)} ICP</td>
+                                <td>
+                                    <input
+                                        type="radio"
+                                        name="paymentOption"
+                                        value="monthly"
+                                        onChange={() => handlePaymentSelection("monthly")}
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Button onClick={handlePay} disabled={!selectedPaymentOption}>
+                        Pay
+                    </Button>
+                </Container>
             </Container>
         </div>
     );
 };
 
 export default InsuranceForm;
+
+

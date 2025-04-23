@@ -36,7 +36,7 @@ const EditUser = ({ user, setActiveSubSection }) => {
     const userId = getUserId();
     
     const handleBack = () => {
-        navigate(-1);
+        setActiveSubSection(null); // Revine la secțiunea principală UserManagement
     };
 
     // Populate form with user data
@@ -197,8 +197,17 @@ const EditUser = ({ user, setActiveSubSection }) => {
                 />
             </div>
             <div>
-                <label>Upload Photo</label>
-                <input type="file" onChange={handlePhotoChange} />
+                <label>Upload Photo 1</label>
+                <input type="file" onChange={(e) => handlePhotoChange(e, setPhoto)} />
+                {photo && (
+                    <img
+                        src={`data:image/jpeg;base64,${btoa(
+                            String.fromCharCode(...new Uint8Array(photo))
+                        )}`}
+                        alt="User Photo 1"
+                        style={{ width: '50px', height: '50px', objectFit: 'cover', marginTop: '10px' }}
+                    />
+                )}
             </div>
             <div>
                 <label>Photo ID</label>

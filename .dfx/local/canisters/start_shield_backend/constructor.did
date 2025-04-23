@@ -122,6 +122,7 @@ type AcceptanceStatus =
 service : {
   addCompany: (principal, Company) -> (bool);
   addUser: (principal, User) -> (text);
+  checkAccessLevel: (principal, AccessLevel) -> (bool) query;
   completePayment: (PaymentId) -> (Result);
   createPayment: (UserId, Amount) -> (Result_2);
   createUser: (principal, User) -> (text);

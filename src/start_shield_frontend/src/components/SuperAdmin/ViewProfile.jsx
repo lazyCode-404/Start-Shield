@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AppContext';
-import { useNavigate } from 'react-router-dom';
 import CC from '../CheckConnectivity/connectivityCheck.jsx';
 import { Principal } from '@dfinity/principal';
+import './ViewProfile.css';
 
-
-const AllUsersView = () => {
+const AllUsersView = ({ setActiveSubSection }) => {
     const { backendActor } = useAuth();
-    const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [filter, setFilter] = useState('all'); // 'all', 'active', 'inactive'
+    const [filter, setFilter] = useState('all'); // 'all', 'active', 'inactive', 'pending', 'rejected'
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [expandedImage, setExpandedImage] = useState(null); // Pentru imaginea mărită
 
     useEffect(() => {
         const fetchAllUsers = async () => {
@@ -25,11 +25,11 @@ const AllUsersView = () => {
             try {
                 console.log("Fetching all users");
                 const allUsers = await backendActor.getAllUsers();
-                
+
                 if (!allUsers || !Array.isArray(allUsers)) {
                     throw new Error("Invalid user data received");
                 }
-                
+
                 console.log("Users data received:", allUsers);
                 setUsers(allUsers);
             } catch (error) {
@@ -48,54 +48,53 @@ const AllUsersView = () => {
         return Object.keys(variantObj)[0] || 'Unknown';
     };
 
-    const formatBigInt = (value) => {
-        if (typeof value === 'bigint') {
-            return Number(value).toLocaleString();
-        }
-        return value?.toString() || 'N/A';
+    const filteredUsers = () => {
+        if (filter === 'all') return users;
+
+        return users.filter(user => {
+            const status = user.status ? getVariantValue(user.status) : null;
+            const adminStatus = user.adminStatus ? getVariantValue(user.adminStatus) : null;
+
+            if (filter === 'active') return status === 'ACTIVE';
+            if (filter === 'inactive') return status === 'INACTIVE';
+            if (filter === 'pending') return adminStatus === 'Pending';
+            if (filter === 'rejected') return adminStatus === 'Rejected';
+
+            return false;
+        });
     };
 
-    const getOptionalValue = (optionalArray, defaultValue = 'N/A') => {
-        if (Array.isArray(optionalArray) && optionalArray.length > 0) {
-            return optionalArray[0];
-        }
-        return defaultValue;
-    };
-
-    const getImageUrl = (photoArray) => {
-        if (!Array.isArray(photoArray) || photoArray.length === 0 || !photoArray[0]) {
-            return null;
+    const handleAddToPending = async (user) => {
+        if (!backendActor || !user || !user.principal) {
+            setError("Backend actor or user data is not available.");
+            return;
         }
 
         try {
-            const bytes = new Uint8Array(photoArray[0]);
-            const blob = new Blob([bytes], { type: 'image/jpeg' });
-            return URL.createObjectURL(blob);
+            const principal = Principal.fromText(user.principal.toString());
+            const result = await backendActor.handleAdminApproval(principal, { Pending: null });
+
+            if (result.ok) {
+                setSuccessMessage(`User ${user.name} successfully added to pending.`);
+            } else {
+                setError(result.err || `Failed to add user ${user.name} to pending.`);
+            }
         } catch (error) {
-            console.error("Error creating image URL:", error);
-            return null;
+            console.error("Error adding user to pending:", error);
+            setError(`Error adding user to pending: ${error.message || String(error)}`);
         }
     };
 
-    const handleViewDetails = (user) => {
-        if (user && user.principal) {
-            navigate(`/userManagement/profile/${user.principal.toString()}`);
-        }
+    const handleImageClick = (image) => {
+        setExpandedImage(image); // Setează imaginea mărită
     };
 
-    const handleEditUser = (user) => {
-        if (user && user.principal) {
-            navigate(`/userManagement/edit/${user.principal.toString()}`);
-        }
+    const handleCloseImage = () => {
+        setExpandedImage(null); // Închide imaginea mărită
     };
 
-    const filteredUsers = () => {
-        if (filter === 'all') return users;
-        
-        return users.filter(user => {
-            const status = user.status ? getVariantValue(user.status) : null;
-            return filter === 'active' ? status === 'ACTIVE' : status === 'INACTIVE';
-        });
+    const handleBack = () => {
+        setActiveSubSection(null); // Revine la secțiunea principală UserManagement
     };
 
     if (loading) {
@@ -116,7 +115,7 @@ const AllUsersView = () => {
                 <div className="error-message">
                     <p>{error}</p>
                 </div>
-                <button onClick={() => navigate('/userManagement')} className="return-button">
+                <button onClick={handleBack} className="return-button">
                     Return to User Management
                 </button>
             </div>
@@ -127,71 +126,113 @@ const AllUsersView = () => {
         <div className="all-users-container">
             <CC />
             <h2>All Users</h2>
-            
+
             <div className="filter-controls">
-                <button 
-                    className={filter === 'all' ? 'active' : ''} 
+                <button
+                    className={`filter-button ${filter === 'all' ? 'active' : ''}`}
                     onClick={() => setFilter('all')}
                 >
                     All Users
                 </button>
-                <button 
-                    className={filter === 'active' ? 'active' : ''} 
+                <button
+                    className={`filter-button ${filter === 'active' ? 'active' : ''}`}
                     onClick={() => setFilter('active')}
                 >
                     Active Users
                 </button>
-                <button 
-                    className={filter === 'inactive' ? 'active' : ''} 
+                <button
+                    className={`filter-button ${filter === 'inactive' ? 'active' : ''}`}
                     onClick={() => setFilter('inactive')}
                 >
                     Inactive Users
                 </button>
+                <button
+                    className={`filter-button ${filter === 'pending' ? 'active' : ''}`}
+                    onClick={() => setFilter('pending')}
+                >
+                    Pending Users
+                </button>
+                <button
+                    className={`filter-button ${filter === 'rejected' ? 'active' : ''}`}
+                    onClick={() => setFilter('rejected')}
+                >
+                    Rejected Users
+                </button>
             </div>
-            
+
             <div className="users-grid">
                 {filteredUsers().length > 0 ? (
-                    filteredUsers().map((user) => (
-                        <div key={user.principal.toString()} className="user-card">
-                            <div className="user-header">
-                                {user.photo && user.photo.length > 0 ? (
-                                    <img 
-                                        src={getImageUrl(user.photo)} 
-                                        alt={user.name} 
-                                        className="user-avatar"
-                                    />
-                                ) : (
-                                    <div className="user-avatar-placeholder">
-                                        {user.name.charAt(0).toUpperCase()}
-                                    </div>
-                                )}
-                                <h3>{user.name}</h3>
+                    filteredUsers().map((user) => {
+                        const adminStatus = user.adminStatus ? getVariantValue(user.adminStatus) : null;
+                        const rowClass =
+                            adminStatus === 'Pending'
+                                ? 'pending-row'
+                                : adminStatus === 'Rejected'
+                                ? 'rejected-row'
+                                : '';
+
+                        return (
+                            <div key={user.principal.toString()} className={`user-card ${rowClass}`}>
+                                <div className="user-header">
+                                    <h3>{user.name}</h3>
+                                </div>
+                                <div className="user-details">
+                                    <p><strong>Email:</strong> {user.email}</p>
+                                    <p><strong>Access Level:</strong> {getVariantValue(user.accessLevel)}</p>
+                                    <p><strong>Status:</strong> {user.status ? getVariantValue(user.status) : 'N/A'}</p>
+                                    <p>Principal ID: {user.principal.toString()}</p>
+                                    {user.photo && user.photo.length > 0 && (
+                                        <img
+                                            src={`data:image/jpeg;base64,${btoa(
+                                                String.fromCharCode(...new Uint8Array(user.photo[0]))
+                                            )}`}
+                                            alt={`${user.name} Photo 1`}
+                                            className="user-photo"
+                                            onClick={() => handleImageClick(
+                                                `data:image/jpeg;base64,${btoa(
+                                                    String.fromCharCode(...new Uint8Array(user.photo[0]))
+                                                )}`
+                                            )}
+                                        />
+                                    )}
+                                    {user.photo2 && user.photo2.length > 0 && (
+                                        <img
+                                            src={`data:image/jpeg;base64,${btoa(
+                                                String.fromCharCode(...new Uint8Array(user.photo2[0]))
+                                            )}`}
+                                            alt={`${user.name} Photo 2`}
+                                            className="user-photo"
+                                            onClick={() => handleImageClick(
+                                                `data:image/jpeg;base64,${btoa(
+                                                    String.fromCharCode(...new Uint8Array(user.photo2[0]))
+                                                )}`
+                                            )}
+                                        />
+                                    )}
+                                </div>
+                                <button onClick={() => handleAddToPending(user)}>Add to Pending</button>
                             </div>
-                            
-                            <div className="user-details">
-                                <p><strong>Email:</strong> {user.email}</p>
-                                <p><strong>Access Level:</strong> {getVariantValue(user.accessLevel)}</p>
-                                <p><strong>Admin Status:</strong> {getVariantValue(user.adminStatus)}</p>
-                                <p><strong>Status:</strong> {user.status ? getVariantValue(user.status) : 'N/A'}</p>
-                            </div>
-                            
-                            <div className="user-actions">
-                                <button onClick={() => handleViewDetails(user)}>View Details</button>
-                                <button onClick={() => handleEditUser(user)}>Edit</button>
-                            </div>
-                        </div>
-                    ))
+                        );
+                    })
                 ) : (
                     <div className="no-users-message">
                         <p>No users found with the selected filter.</p>
                     </div>
                 )}
             </div>
-            
+
+            {expandedImage && (
+                <div className="image-modal" onClick={handleCloseImage}>
+                    <img src={expandedImage} alt="Expanded view" className="expanded-image" />
+                </div>
+            )}
+
             <div className="action-buttons">
-                <button onClick={() => navigate('/userManagement')} className="return-button">
+                <button onClick={handleBack} className="return-button">
                     Return to User Management
                 </button>
+                {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+                {error && <p style={{ color: 'red' }}>{error}</p>}
             </div>
         </div>
     );

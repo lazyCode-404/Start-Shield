@@ -99,6 +99,7 @@ export interface UserResponse {
 export interface _SERVICE {
   'addCompany' : ActorMethod<[Principal, Company], boolean>,
   'addUser' : ActorMethod<[Principal, User], string>,
+  'checkAccessLevel' : ActorMethod<[Principal, AccessLevel], boolean>,
   'completePayment' : ActorMethod<[PaymentId], Result>,
   'createPayment' : ActorMethod<[UserId, Amount], Result_2>,
   'createUser' : ActorMethod<[Principal, User], string>,

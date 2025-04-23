@@ -101,6 +101,11 @@ export const idlFactory = ({ IDL }) => {
   return IDL.Service({
     'addCompany' : IDL.Func([IDL.Principal, Company], [IDL.Bool], []),
     'addUser' : IDL.Func([IDL.Principal, User], [IDL.Text], []),
+    'checkAccessLevel' : IDL.Func(
+        [IDL.Principal, AccessLevel],
+        [IDL.Bool],
+        ['query'],
+      ),
     'completePayment' : IDL.Func([PaymentId], [Result], []),
     'createPayment' : IDL.Func([UserId, Amount], [Result_2], []),
     'createUser' : IDL.Func([IDL.Principal, User], [IDL.Text], []),

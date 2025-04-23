@@ -130,12 +130,12 @@ function SuperAdminNavbar({ adminName }) {
             </li>
             <li className="nav-item">
               <NavLink
-                to="/checkPriceInsurance"
+                to="/new-dashboard"
                 className={({ isActive }) =>
                   isActive ? 'nav-link active' : 'nav-link'
                 }
               >
-                Buy Now
+                Dashboard
               </NavLink>
             </li>
           </ul>

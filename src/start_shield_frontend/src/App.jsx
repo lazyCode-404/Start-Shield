@@ -27,6 +27,7 @@ import AppSuperAdmin from './AppSuperAdmin.jsx'
 import AppAdmin from './AppAdmin.jsx'; // Import the new AppAdmin component
 import AppUser from './AppUser.jsx';
 import Alb from './components/InsuranceSolutions/Albcolor.jsx';
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -82,6 +83,7 @@ function AppContent({ userInfo, setUserInfo }) {
               <Route path="/claims" element={<Claims />} />
               <Route path="/get-quote" element={<GetQuote />} />
               <Route path="/alb" element={<Alb />} />
+              <Route path="/new-dashboard" element={<Dashboard />} />
 
               {/* Redirecționează către dashboard-uri doar dacă utilizatorul e autentificat */}
               {userInfo && userInfo.role === 'SUPER_ADMIN' && (

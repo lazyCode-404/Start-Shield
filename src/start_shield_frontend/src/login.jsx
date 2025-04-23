@@ -16,6 +16,7 @@ function Login() {
   const navigate = useNavigate();
   const [userChecked, setUserChecked] = useState(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [notification, setNotification] = useState("");
 
   useEffect(() => {
     console.log("Auth state:", { isAuthenticated, identity });
@@ -51,40 +52,55 @@ function Login() {
   }, [isAuthenticated, identity, backendActor]);
 
   const checkUser = async () => {
-    try {
-      setLoading(true);
-      const principal = await identity.getPrincipal();
-      console.log("Checking user for principal:", principal);
-      const user = await backendActor.getUserByPrincipal(principal);
-      console.log("User found:", user);
-      if (user && user.length > 0) {
-        const role = Object.keys(user[0].accessLevel || {})[0];
-        if (role === "SUPER_ADMIN") {
-          setIsSuperAdmin(true);
-          navigate("/s-a-dashboard");
-        } else if (role === "ADMIN") {
-          if (user[0].adminStatus && Object.keys(user[0].adminStatus)[0] === "Approved") {
-            navigate("/a-dashboard");
-          } else {
-            alert("Admin-ul este în așteptare de aprobare. Așteptați confirmarea Super Adminului.");
-            logout(); // Deconectează automat pentru a preveni accesul neautorizat
-          }
-        } else if (role === "USER") {
-          navigate("/u-dashboard");
-        } else if (role === "GUEST") {
-          navigate("/");
-        }
-      } else {
-        console.log("User does not exist. Redirecting to signup.");
-        navigate("/createAccountSignIn");
+  try {
+    setLoading(true);
+    const principal = await identity.getPrincipal();
+    console.log("Checking user for principal:", principal);
+    const user = await backendActor.getUserByPrincipal(principal);
+    console.log("User found:", user);
+
+    if (user && user.length > 0) {
+      const role = Object.keys(user[0].accessLevel || {})[0];
+      const clientStatus = Object.keys(user[0].clientStatus || {})[0];
+
+      if (clientStatus === "Blocked") {
+        alert(`Contul dvs. a fost blocat. Motiv: ${user[0].blockReason || "Nespecificat"}`);
+        logout(); // Deconectează utilizatorul
+        return;
       }
-    } catch (error) {
-      console.error("Error checking user:", error);
-    } finally {
-      setLoading(false);
-      setUserChecked(true);
+
+      if (clientStatus === "Pending") {
+        alert("Contul dvs. este în așteptare pentru aprobare. Așteptați confirmarea unui administrator.");
+        logout(); // Deconectează utilizatorul
+        return;
+      }
+
+      if (role === "SUPER_ADMIN") {
+        setIsSuperAdmin(true);
+        navigate("/s-a-dashboard");
+      } else if (role === "ADMIN") {
+        if (user[0].adminStatus && Object.keys(user[0].adminStatus)[0] === "Approved") {
+          navigate("/a-dashboard");
+        } else {
+          alert("Admin-ul este în așteptare de aprobare. Așteptați confirmarea Super Adminului.");
+          logout(); // Deconectează utilizatorul
+        }
+      } else if (role === "USER") {
+        navigate("/u-dashboard");
+      } else if (role === "GUEST") {
+        navigate("/");
+      }
+    } else {
+      console.log("User does not exist. Redirecting to signup.");
+      navigate("/createAccountSignIn");
     }
-  };
+  } catch (error) {
+    console.error("Error checking user:", error);
+  } finally {
+    setLoading(false);
+    setUserChecked(true);
+  }
+};
 
   if (loading || (isAuthenticated && !userChecked)) {
     return <div className="text-center">Loading...</div>;
@@ -173,6 +189,7 @@ function Login() {
           <div>
              <CC/>
             <h1 className="mb-4">Welcome to the User App!</h1>
+            {notification && <div className="alert alert-warning">{notification}</div>}
             {/* Add User Form */}
             <div className="card p-4 mb-4">
               <h2>Add a User</h2>

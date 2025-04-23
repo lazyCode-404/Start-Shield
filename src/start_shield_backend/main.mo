@@ -308,6 +308,17 @@ public query func getAdminStatus(principal : Principal) : async AdminStatus {
   };
 };
 
+// public shared(msg) func handleAdminApproval(principal : Principal, status : AdminStatus) : async Result.Result<Text, Text> {
+//   assert(isSuperAdmin(msg.caller));
+//   switch (users.get(principal)) {
+//     case (?user) {
+//       let updatedUser = { user with adminStatus = status };
+//       users.put(principal, updatedUser);
+//       return #ok("Cererea a fost procesată cu succes!");
+//     };
+//     case null { return #err("Utilizatorul nu există."); };
+//   };
+// };
 public shared(msg) func handleAdminApproval(principal : Principal, status : AdminStatus) : async Result.Result<Text, Text> {
   assert(isSuperAdmin(msg.caller));
   switch (users.get(principal)) {
@@ -389,44 +400,6 @@ public query func getUserById(userId: Principal) : async ?UserResponse {
       };
   };
 };
-
-// public query func getUserById(userId: Principal) : async ?UserResponse {
-//   switch (users.get(userId)) {
-//       case (?user) {
-//           // Fallback pentru adresă
-//           let userAddress = switch (user.userAddress) {
-//               case (null) {
-//                   ?{
-//                       country = null;
-//                       state = null;
-//                       city = null;
-//                       street = null;
-//                       number = null;
-//                       postalCode = null;
-//                   }
-//               };
-//               case (?addr) { ?addr };
-//           };
-
-//           return ?{
-//               principal = userId;
-//               name = user.name;
-//               email = user.email;
-//               age = user.age;
-//               accessLevel = user.accessLevel;
-//               timestamp = user.timestamp;
-//               adminStatus = user.adminStatus;
-//               userAddress = userAddress; // Adresă procesată
-//               phone = user.phone;
-//               photo = user.photo;
-//               photoId = user.photoId;
-//           };
-//       };
-//       case (null) {
-//           return null;
-//       };
-//   };
-// };
 
 public query func getAllUsers() : async [UserResponse] {
   let usersArray : [(Principal, EditableUser)] = Iter.toArray(users.entries());
@@ -631,10 +604,21 @@ public query func getAllUsers() : async [UserResponse] {
      };
    };
  };
+ private var userAccessLevels = HashMap.HashMap<Principal, AccessLevel>(0, Principal.equal, Principal.hash);
 
+ public query func checkAccessLevel(user: Principal, requiredLevel: AccessLevel) : async Bool {
+  let userAccessLevel = Option.get(userAccessLevels.get(user), #USER);
+  switch (userAccessLevel, requiredLevel) {
+      case (#SUPER_ADMIN, _) { true };
+      case (#ADMIN, #USER) { true };
+      case (#USER, #USER) { true };
+      case _ { false };
+  }
+};
 
 
   Debug.print(debug_show(usersEntries));
   Debug.print(debug_show(companyStorage));
 };
+
 

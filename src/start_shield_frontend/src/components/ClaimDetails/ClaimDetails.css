@@ -1,0 +1,63 @@
+/* Stiluri generale */
+
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Titlu */
+
+.custom-title {
+    color: #1976d2;
+    font-weight: bold;
+}
+
+
+/* Carduri */
+
+.custom-card {
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card .card-title {
+    color: #1976d2;
+}
+
+.custom-card .card-text {
+    color: #555;
+}
+
+
+/* Butoane */
+
+.custom-btn {
+    background-color: #1976d2;
+    border: none;
+    border-radius: 4px;
+}
+
+.custom-btn:hover {
+    background-color: #1565c0;
+}
+
+
+/* Formular */
+
+.custom-form label {
+    color: #333;
+}
+
+.custom-form input {
+    border-radius: 4px;
+}
+
+
+/* Footer */
+
+.custom-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
