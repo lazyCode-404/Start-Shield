@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../context/AppContext";
 import CC from "../CheckConnectivity/connectivityCheck.jsx";
-import EditUser from "./EditUser.jsx";
+import EditUser from "../EditUser/EditUser.jsx";
 import ViewProfile from "./ViewProfile.jsx";
 import PendingApproval from "./PendingApproval.jsx";
-import UserProfile from "./UserProfile.jsx";
+import UserProfile from "../UserProfile/UserProfile.jsx";
 import "./UserManagement.css";
 import moment from "moment";
 import PendingUsersView from "./PendingUsersView.jsx";

@@ -1,32 +1,32 @@
 {
   "Payment": {
-    "local": "bkyz2-fmaaa-aaaaa-qaaaq-cai"
+    "local": "uxrrr-q7777-77774-qaaaq-cai"
   },
   "__Candid_UI": {
-    "local": "a3shf-5eaaa-aaaaa-qaafa-cai"
+    "local": "vg3po-ix777-77774-qaafa-cai"
   },
   "admin_canister": {
-    "local": "bd3sg-teaaa-aaaaa-qaaba-cai"
+    "local": "u6s2n-gx777-77774-qaaba-cai"
   },
   "companyData": {
-    "local": "be2us-64aaa-aaaaa-qaabq-cai"
+    "local": "uzt4z-lp777-77774-qaabq-cai"
   },
   "internet_identity": {
-    "local": "br5f7-7uaaa-aaaaa-qaaca-cai"
+    "local": "umunu-kh777-77774-qaaca-cai"
   },
   "nfc_actor": {
-    "local": "bw4dl-smaaa-aaaaa-qaacq-cai"
+    "local": "ulvla-h7777-77774-qaacq-cai"
   },
   "policy_actor": {
-    "local": "b77ix-eeaaa-aaaaa-qaada-cai"
+    "local": "ucwa4-rx777-77774-qaada-cai"
   },
   "pricing_actor": {
-    "local": "by6od-j4aaa-aaaaa-qaadq-cai"
+    "local": "ufxgi-4p777-77774-qaadq-cai"
   },
   "start_shield_backend": {
-    "local": "avqkn-guaaa-aaaaa-qaaea-cai"
+    "local": "vizcg-th777-77774-qaaea-cai"
   },
   "start_shield_frontend": {
-    "local": "asrmz-lmaaa-aaaaa-qaaeq-cai"
+    "local": "vpyes-67777-77774-qaaeq-cai"
   }
 }

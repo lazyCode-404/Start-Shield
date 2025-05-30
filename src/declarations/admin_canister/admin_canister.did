@@ -1,6 +1,6 @@
 type AddUserByAdminCanister = 
  service {
-   addUser: (principal) -> (text);
+   addUser: (newUser: principal) -> (text);
    listUsers: () -> (vec principal);
  };
-service : (principal) -> AddUserByAdminCanister
+service : (adminPrincipal: principal) -> AddUserByAdminCanister

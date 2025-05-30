@@ -1,7 +1,7 @@
 // Version: 1.0.0
-type AcceptanceStatus = {#accepted; #declined};
-type AccessLevel = {#ADMIN; #GUEST; #SUPER_ADMIN; #USER};
-type Address =
+type AcceptanceStatus__1065156975 = {#accepted; #declined};
+type AccessLevel__834699735 = {#ADMIN; #GUEST; #SUPER_ADMIN; #USER};
+type Address__713963038 =
   {
     city : Text;
     country : Text;
@@ -10,11 +10,11 @@ type Address =
     state : Text;
     street : Text
   };
-type AdminStatus = {#Approved; #NotRequested; #Pending; #Rejected};
-type Company =
+type AdminStatus__500708246 = {#Approved; #NotRequested; #Pending; #Rejected};
+type Company__1025234355 =
   {
     additionalInfo : Text;
-    address : Address;
+    address : Address__713963038;
     annualRevenue : Nat;
     commission : Nat;
     companyName : Text;
@@ -26,21 +26,22 @@ type Company =
     insuranceMonths : Nat;
     insuranceType : Text;
     insuredValue : Nat;
-    over18 : AcceptanceStatus;
+    over18 : AcceptanceStatus__1065156975;
     paymentOption : Text;
     phone : Text;
     policyValue : Nat;
-    premium : AcceptanceStatus;
+    premium : AcceptanceStatus__1065156975;
     registrationNumber : Text;
     rewardPercentage : Nat;
     startDate : Text;
-    termsAgreed : AcceptanceStatus;
+    taxId : Text;
+    termsAgreed : AcceptanceStatus__1065156975;
     tokensEarned : Nat
   };
-type EditableUser =
+type EditableUser__608556493 =
   {
-    accessLevel : AccessLevel;
-    adminStatus : AdminStatus;
+    accessLevel : AccessLevel__834699735;
+    adminStatus : AdminStatus__500708246;
     age : Nat;
     email : Text;
     id : Nat;
@@ -50,18 +51,9 @@ type EditableUser =
     photoId : ?Text;
     principal : Principal;
     timestamp : Int;
-    userAddress : ?UserAddress
+    userAddress : ?UserAddress__680451503
   };
-type User =
-  {
-    accessLevel : AccessLevel;
-    adminStatus : AdminStatus;
-    age : Nat;
-    email : Text;
-    name : Text;
-    timestamp : Int
-  };
-type UserAddress =
+type UserAddress__680451503 =
   {
     city : ?Text;
     country : ?Text;
@@ -70,10 +62,19 @@ type UserAddress =
     state : ?Text;
     street : ?Text
   };
+type User__991996184 =
+  {
+    accessLevel : AccessLevel__834699735;
+    adminStatus : AdminStatus__500708246;
+    age : Nat;
+    email : Text;
+    name : Text;
+    timestamp : Int
+  };
 actor {
-  stable var approvedAdmins : [(Principal, User)];
-  stable var companyStorage : [(Principal, Company)];
+  stable var approvedAdmins : [(Principal, User__991996184)];
+  stable var companyStorage : [(Principal, Company__1025234355)];
   stable var nextPaymentId : Nat;
-  stable var pendingAdmins : [(Principal, User)];
-  stable var usersEntries : [(Principal, EditableUser)]
+  stable var pendingAdmins : [(Principal, User__991996184)];
+  stable var usersEntries : [(Principal, EditableUser__608556493)]
 };

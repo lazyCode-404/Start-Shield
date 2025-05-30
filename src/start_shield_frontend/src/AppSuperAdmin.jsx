@@ -13,8 +13,8 @@ import AdminSettings from './components/SuperAdmin/AdminSettings.jsx';
 import SupportHelp from './components/SuperAdmin/SupportHelp.jsx';
 import AdminDashboard from './components/SuperAdmin/AdminDashboard.jsx';
 import AdminApprovalRegister from './components/RegisterAdmin/registerAdmin.jsx';
-import EditUser from './components/SuperAdmin/EditUser.jsx';
-import UserProfile from './components/SuperAdmin/UserProfile.jsx';
+import EditUser from './components/EditUser/EditUser.jsx';
+import UserProfile from './components/UserProfile/UserProfile.jsx';
 import PendingApproval from './components/SuperAdmin/PendingApproval.jsx';
 import SecurePaymentsPage from './components/PaymentPage/paymentPage.jsx';
 

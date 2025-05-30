@@ -36,12 +36,13 @@ type Metadata =
    policyId: PolicyId;
  };
 service : {
-  getNFT: (TokenId) -> (Result_2) query;
-  getNFTByPolicy: (PolicyId) -> (Result_2) query;
+  getNFT: (tokenId: TokenId) -> (Result_2) query;
+  getNFTByPolicy: (policyId: PolicyId) -> (Result_2) query;
   getUserNFTs: () -> (vec NFT) query;
-  mintPolicyNFT: (PolicyId, text, text, opt text, vec record {
-                                                        text;
-                                                        text;
-                                                      }) -> (Result_1);
-  transferNFT: (TokenId, principal) -> (Result);
+  mintPolicyNFT: (policyId: PolicyId, name: text, description: text, image:
+   opt text, attributes: vec record {
+                               text;
+                               text;
+                             }) -> (Result_1);
+  transferNFT: (tokenId: TokenId, to: principal) -> (Result);
 }

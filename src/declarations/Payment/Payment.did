@@ -8,6 +8,6 @@ type Transaction =
  };
 service : {
   getAllTransactions: () -> (vec Transaction) query;
-  getTransactionsByUser: (principal) -> (vec Transaction) query;
-  saveTransaction: (Transaction) -> (bool);
+  getTransactionsByUser: (user: principal) -> (vec Transaction) query;
+  saveTransaction: (transaction: Transaction) -> (bool);
 }

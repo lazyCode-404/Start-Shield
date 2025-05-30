@@ -57,12 +57,13 @@ type PolicyType =
    standard;
  };
 service : {
-  calculatePremium: (PolicyType, nat) -> (Result_5);
-  fetchExternalRiskData: (UserId) -> (Result_4);
+  calculatePremium: (policyType: PolicyType, coverage: nat) -> (Result_5);
+  fetchExternalRiskData: (_userId: UserId) -> (Result_4);
   getAverageRiskScore: () -> (float64) query;
-  getPricingParameters: (PolicyType) -> (Result_3) query;
-  getUserRiskProfile: (UserId) -> (Result_2) query;
-  simulateAIRiskAssessment: (UserId, opt text) -> (float64);
-  updatePricingParameters: (PolicyType, PricingParameters) -> (Result_1);
-  updateUserRiskFactors: (vec RiskFactor) -> (Result);
+  getPricingParameters: (policyType: PolicyType) -> (Result_3) query;
+  getUserRiskProfile: (userId: UserId) -> (Result_2) query;
+  simulateAIRiskAssessment: (_userId: UserId, _data: opt text) -> (float64);
+  updatePricingParameters: (policyType: PolicyType, params:
+   PricingParameters) -> (Result_1);
+  updateUserRiskFactors: (riskFactors: vec RiskFactor) -> (Result);
 }

@@ -13,6 +13,7 @@ export const idlFactory = ({ IDL }) => {
   });
   const Company = IDL.Record({
     'additionalInfo' : IDL.Text,
+    'taxId' : IDL.Text,
     'insuranceType' : IDL.Text,
     'endDate' : IDL.Text,
     'employees' : IDL.Nat,

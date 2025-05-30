@@ -23,6 +23,7 @@ export type AdminStatus = { 'Approved' : null } |
 export type Amount = bigint;
 export interface Company {
   'additionalInfo' : string,
+  'taxId' : string,
   'insuranceType' : string,
   'endDate' : string,
   'employees' : bigint,

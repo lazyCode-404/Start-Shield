@@ -87,6 +87,7 @@ type Company =
    registrationNumber: text;
    rewardPercentage: nat;
    startDate: text;
+   taxId: text;
    termsAgreed: AcceptanceStatus;
    tokensEarned: nat;
  };
@@ -120,32 +121,35 @@ type AcceptanceStatus =
    declined;
  };
 service : {
-  addCompany: (principal, Company) -> (bool);
-  addUser: (principal, User) -> (text);
-  checkAccessLevel: (principal, AccessLevel) -> (bool) query;
-  completePayment: (PaymentId) -> (Result);
-  createPayment: (UserId, Amount) -> (Result_2);
-  createUser: (principal, User) -> (text);
+  addCompany: ("principal": principal, company: Company) -> (bool);
+  addUser: ("principal": principal, user: User) -> (text);
+  checkAccessLevel: (user: principal, requiredLevel: AccessLevel) ->
+   (bool) query;
+  completePayment: (paymentId: PaymentId) -> (Result);
+  createPayment: (to: UserId, amount: Amount) -> (Result_2);
+  createUser: (caller: principal, args: User) -> (text);
   deposit: () -> ();
-  getAdminStatus: (principal) -> (AdminStatus) query;
+  getAdminStatus: ("principal": principal) -> (AdminStatus) query;
   getAllUsers: () -> (vec UserResponse) query;
   getBalance: () -> (Amount) query;
   getCallerPrincipal: () -> (principal);
-  getCompany: (principal) -> (opt Company) query;
-  getCompanyForUser: (principal) -> (opt Company) query;
-  getPayment: (PaymentId) -> (opt Payment) query;
+  getCompany: ("principal": principal) -> (opt Company) query;
+  getCompanyForUser: (caller: principal) -> (opt Company) query;
+  getPayment: (paymentId: PaymentId) -> (opt Payment) query;
   getPendingAdmins: () -> (vec record {
                                  principal;
                                  User;
                                }) query;
-  getUserAccessLevel: (principal) -> (Result_1) query;
-  getUserById: (principal) -> (opt UserResponse) query;
-  getUserByPrincipal: (principal) -> (opt User);
-  handleAdminApproval: (principal, AdminStatus) -> (Result_1);
+  getUserAccessLevel: (caller: principal) -> (Result_1) query;
+  getUserById: (userId: principal) -> (opt UserResponse) query;
+  getUserByPrincipal: (caller: principal) -> (opt User);
+  handleAdminApproval: ("principal": principal, status: AdminStatus) ->
+   (Result_1);
   healthCheck: () -> (text) query;
-  refundPayment: (PaymentId) -> (Result);
+  refundPayment: (paymentId: PaymentId) -> (Result);
   requestAdminAccess: () -> (text);
   secureAdminOperation: () -> (text);
-  updateUser: (principal, text, text, opt Address, opt text, opt blob,
-   opt text) -> (bool);
+  updateUser: (userId: principal, name: text, email: text, userAddress:
+   opt Address, phone: opt text, photo: opt blob, photoId: opt text) ->
+   (bool);
 }
